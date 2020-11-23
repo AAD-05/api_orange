@@ -1,0 +1,9 @@
+*.pyc
+/myvenv
+/test
+/Microservices
+/Microservice_commande
+app.py
+Dockerfile
+ScriptBDD.txt
+/migrations
