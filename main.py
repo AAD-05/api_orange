@@ -297,20 +297,22 @@ def telephones():
 #     return 'succes'
 
 
- @app.route('/ajouterAvis', methods=['POST'])
+@app.route('/ajouterAvis', methods=['POST'])
+
 def addAvis():
+
 
     donnee = request.get_json()
     avis=donnee['nlp']['entities']['number']['raw']
     id_inter=1
     id_util = 1
 
-    b = Avis(note=avis,date,id_interaction=id_inter,id_utilisateur=id_util)
+    b = Avis(note=avis,id_interaction=id_inter,id_utilisateur=id_util)
 
     db.session.add(b)
     db.session.commit()
 
-     return 'succes'
+    return 'succes'
 
 # @app.route('/ajouterClient', methods=['POST'])
 # def addClient():
