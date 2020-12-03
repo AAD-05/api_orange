@@ -297,28 +297,20 @@ def telephones():
 #     return 'succes'
 
 
-# @app.route('/ajouterAvis', methods=['POST'])
-# def addAvis():
-    
-    
-#     donnee = request.get_json()
+ @app.route('/ajouterAvis', methods=['POST'])
+def addAvis():
 
-#     avis=donnee['avis']
-#     id_client=donnee['id_client']
-    
-#     niveau=0
-#     n=Bot.query.order_by(desc(Bot.id)).first()
-#     if n != None:
-#         niveau=n.id+1
+    donnee = request.get_json()
+    avis=donnee['nlp']['entities']['number']['raw']
+    id_inter=1
+    id_util = 1
 
+    b = Avis(note=avis,date,id_interaction=id_inter,id_utilisateur=id_util)
 
-#     b = Bot(id=niveau,notation=avis,Client_id=id_client)
+    db.session.add(b)
+    db.session.commit()
 
-
-#     db.session.add(b)
-#     db.session.commit()
-
-#     return 'succes'
+     return 'succes'
 
 # @app.route('/ajouterClient', methods=['POST'])
 # def addClient():
