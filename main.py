@@ -303,7 +303,7 @@ def addAvis():
 
 
     donnee = request.get_json()
-    avis=donnee['nlp']['entities']['number']['raw']
+    avis=donnee['nlp']['entities']['number'][0]['raw']
     id_inter=1
     id_util = 1
 
