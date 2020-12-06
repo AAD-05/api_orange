@@ -420,7 +420,7 @@ def index():
 
 
 
-#db.create_all()
-Rdv.create()
+db.create_all()
+
 if __name__ == '__main__':
     app.run(debug=False)
