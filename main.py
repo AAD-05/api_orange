@@ -168,6 +168,7 @@ class Rdv(db.Model):
     besoin_client = db.Column(db.Text)
     date=db.Column(db.DateTime)
 
+
     def __repr__(self):
         return '<rdv: {}>'.format(self.code)
 
@@ -327,7 +328,7 @@ def TakeRV():
    ALL_RV=Rdv.query.all()
    donnee=[] 
    for rv in ALL_RV:
-       do={"value" :"", "title": str(rv.id)}
+       do={"value" :str(rv.id), "title": str(rv.date)}
        donnee.append(do)
 
    return jsonify(
