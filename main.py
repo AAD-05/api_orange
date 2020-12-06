@@ -198,24 +198,25 @@ def telephones():
     table_telephones = []
     for p in List:
         json_com={
-            'type': 'text',
-            'content': 'The price of'
+          "title": p.modele,
+          "subtitle": p.modele,
+          "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.presse-citron.net%2Fbon-plan-iphone-12-promo-choc-black-friday%2F&psig=AOvVaw0-gnvWKj3opytreW-hOzLa&ust=1607355913756000&source=images&cd=vfe&ved=0CAkQjhxqFwoTCJiHi8TZue0CFQAAAAAdAAAAABAJ",
+          "buttons": [
+            {
+              "value": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.presse-citron.net%2Fbon-plan-iphone-12-promo-choc-black-friday%2F&psig=AOvVaw0-gnvWKj3opytreW-hOzLa&ust=1607355913756000&source=images&cd=vfe&ved=0CAkQjhxqFwoTCJiHi8TZue0CFQAAAAAdAAAAABAJ",
+              "title": "lien",
+              "type": "web_url"
+            }
+          ]
         }
         table_telephones.append(json_com)
-    #response = jsonify({"Produits" : table_produit})
-    # response = jsonify({
-    #     "messages": [
-    #         {
-    #         "type": "quickReplies",
-    #         "content": {
-    #             "title": "Bonjour 😀\nJe suis JamBot! Comment puis-je vous aider?"
-    #             }
-    #             }
-    #     ]
-    # })
+        
     return jsonify(
     status=200,
-    replies=table_telephones
+    replies=[{
+      'type': 'carousel',
+      'content': table_telephones
+    }]
   )
 
 # @app.route('/allbots', methods=['GET'])
