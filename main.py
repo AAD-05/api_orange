@@ -165,7 +165,6 @@ class Rdv(db.Model):
     id_interaction=db.Column(db.Integer)
     besoin_client = db.Column(db.Text)
     date=db.Column(db.DateTime)
-    etat=db.Column(db.Text)
 
     def __repr__(self):
         return '<rdv: {}>'.format(self.code)
