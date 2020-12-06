@@ -63,6 +63,7 @@ class Utilisateur(db.Model):
     def __repr__(self):
         return '<utilisateur: {}>'.format(self.code)
 
+  
 
 
 class Interaction(db.Model):
