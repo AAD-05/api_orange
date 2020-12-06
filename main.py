@@ -357,7 +357,7 @@ def addRV():
     db.session.add(b)
     db.session.commit()
 
-    return "success"
+    return 'success'
 
 # @app.route('/ajouterClient', methods=['POST'])
 # def addClient():
