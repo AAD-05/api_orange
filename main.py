@@ -325,7 +325,7 @@ def TakeRV():
    ALL_RV=Rdv.query.all()
    donnee=[] 
    for rv in ALL_RV:
-       do={"value" :"", "title": rv.id}
+       do={"value" :"", "title": ""+rv.id}
        donnee.append(do)
 
    return jsonify(
@@ -333,7 +333,7 @@ def TakeRV():
     replies=[{
       "type": "quickReplies",
       "content": {
-        "title": "",
+        "title": "liste des rendez vous disponibles",
         "buttons": donnee
       }
     
