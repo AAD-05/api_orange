@@ -325,7 +325,7 @@ def TakeRV():
    ALL_RV=Rdv.query.all()
    donnee=[] 
    for rv in ALL_RV:
-       do={"value" :"", "title": ""+rv.id}
+       do={"value" :"", "title": str(rv.id)}
        donnee.append(do)
 
    return jsonify(
