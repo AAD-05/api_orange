@@ -316,6 +316,19 @@ def addAvis():
 
     return 'succes'
 
+
+@app.route('/listeRV', methods=['POST'])
+
+def addRV():
+
+   return jsonify(
+    status=200,
+    replies=[{
+      'type': 'text',
+      'content': 'hello boy'
+    }]
+  )
+
 # @app.route('/ajouterClient', methods=['POST'])
 # def addClient():
      
