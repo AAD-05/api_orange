@@ -324,8 +324,19 @@ def addRV():
    return jsonify(
     status=200,
     replies=[{
-      'type': 'text',
-      'content': 'hello boy'
+      "type": "quickReplies",
+      "content": {
+        "title": "",
+        "buttons": [
+          {
+            "value": "",
+            "title": "lolo"
+          }
+        ]
+      },
+      "markdown": false,
+      "delay": null
+    
     }]
   )
 
