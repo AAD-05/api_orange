@@ -340,18 +340,16 @@ def TakeRV():
 
 
 
-@app.route('/addCommercial', methods=['POST'])
+@app.route('/addCommercial', methods=['GET'])
 
 def addRV():
 
     donnee = request.get_json()
-    
     id=donnee['id']
     id_commercial =donnee['id_commercial']
     id_interaction=donnee['id_interaction']
     besoin_client =donnee['besoin_client']
     date=db.Column(db.DateTime)
-   
     b = Rdv(id=id, id_commercial=id_commercial, id_interaction=id_interaction, besoin_client= besoin_client, date=date)
 
     db.session.add(b)
