@@ -319,7 +319,7 @@ def addAvis():
 
 @app.route('/listeRV', methods=['POST'])
 
-def addRV():
+def TakeRV():
 
    return jsonify(
     status=200,
