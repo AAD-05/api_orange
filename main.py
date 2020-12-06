@@ -320,6 +320,13 @@ def addAvis():
 @app.route('/listeRV', methods=['POST'])
 
 def TakeRV():
+   
+
+   ALL_RV=Rdv.query.all()
+   donnee=[] 
+   for rv in ALL_RV:
+       do={"value" :"", "title": rv.id}
+       donnee.append(do)
 
    return jsonify(
     status=200,
@@ -327,12 +334,7 @@ def TakeRV():
       "type": "quickReplies",
       "content": {
         "title": "",
-        "buttons": [
-          {
-            "value": "",
-            "title": "lolo"
-          }
-        ]
+        "buttons": donnee
       }
     
     }]
@@ -350,7 +352,7 @@ def addRV():
     id_interaction=donnee['id_interaction']
     besoin_client =donnee['besoin_client']
     date=datetime.now()
-    b = Rdv(id=id, id_commercial=id_commercial, id_interaction=id_interaction, besoin_client= besoin_client)
+    b = Rdv(id=id, id_commercial=id_commercial, id_interaction=id_interaction, besoin_client= besoin_client , date=date)
 
     db.session.add(b)
     db.session.commit()
