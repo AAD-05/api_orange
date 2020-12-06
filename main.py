@@ -358,6 +358,19 @@ def addRV():
     db.session.commit()
 
     return 'success'
+@app.route('/addCommercial', methods=['POST'])
+
+def addCommercial():
+
+    donnee = request.get_json()
+    id=donnee['id']
+    nom=donnee['nom']
+    b = Commercial(id=id,nom=nom)
+
+    db.session.add(b)
+    db.session.commit()
+
+    return 'success'
 
 # @app.route('/ajouterClient', methods=['POST'])
 # def addClient():
