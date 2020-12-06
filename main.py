@@ -333,9 +333,7 @@ def addRV():
             "title": "lolo"
           }
         ]
-      },
-      "markdown": false,
-      "delay": null
+      }
     
     }]
   )
