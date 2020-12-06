@@ -352,12 +352,12 @@ def addRV():
     besoin_client =donnee['besoin_client']
     date=db.Column(db.DateTime)
    
-    b = Bot(id=id, id_commercial=id_commercial, id_interaction=id_interaction, besoin_client= besoin_client, date=date)
+    b = Rdv(id=id, id_commercial=id_commercial, id_interaction=id_interaction, besoin_client= besoin_client, date=date)
 
     db.session.add(b)
     db.session.commit()
 
-    return response.json
+    return "success"
 
 # @app.route('/ajouterClient', methods=['POST'])
 # def addClient():
