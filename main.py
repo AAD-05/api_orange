@@ -199,11 +199,11 @@ def telephones():
     for p in List:
         json_com={
           "title": p.modele,
-          "subtitle": p.modele,
-          "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.presse-citron.net%2Fbon-plan-iphone-12-promo-choc-black-friday%2F&psig=AOvVaw0-gnvWKj3opytreW-hOzLa&ust=1607355913756000&source=images&cd=vfe&ved=0CAkQjhxqFwoTCJiHi8TZue0CFQAAAAAdAAAAABAJ",
+          "subtitle": p.prix,
+          "imageUrl": "https://boutiquepro.orange.fr/catalog/product/static/8/9988/9988_250x460_1_0.jpg",
           "buttons": [
             {
-              "value": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.presse-citron.net%2Fbon-plan-iphone-12-promo-choc-black-friday%2F&psig=AOvVaw0-gnvWKj3opytreW-hOzLa&ust=1607355913756000&source=images&cd=vfe&ved=0CAkQjhxqFwoTCJiHi8TZue0CFQAAAAAdAAAAABAJ",
+              "value": "https://boutiquepro.orange.fr/telephone-mobile-apple-iphone-12-noir-128go.html",
               "title": "lien",
               "type": "web_url"
             }
