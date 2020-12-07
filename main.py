@@ -203,7 +203,7 @@ def telephones():
           "imageUrl": "https://boutiquepro.orange.fr/catalog/product/static/8/9988/9988_250x460_1_0.jpg",
           "buttons": [
             {
-              "value": "https://boutiquepro.orange.fr/telephone-mobile-apple-iphone-12-noir-128go.html",
+              "value": "",
               "title": "lien",
               "type": "web_url"
             }
@@ -303,7 +303,6 @@ def telephones():
 
 
 @app.route('/ajouterAvis', methods=['POST'])
-
 def addAvis():
 
 
@@ -323,7 +322,6 @@ def addAvis():
 
 
 @app.route('/listeRV', methods=['POST'])
-
 def TakeRV():
    
 
@@ -348,7 +346,6 @@ def TakeRV():
 
 
 @app.route('/addCommercial', methods=['POST'])
-
 def addRV():
 
     donnee = request.get_json()
@@ -363,8 +360,8 @@ def addRV():
     db.session.commit()
 
     return 'success'
-@app.route('/addCommercial', methods=['POST'])
 
+@app.route('/addCommercial', methods=['POST'])
 def addCommercial():
 
     donnee = request.get_json()
