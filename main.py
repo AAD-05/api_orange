@@ -345,7 +345,7 @@ def TakeRV():
 
 
 
-@app.route('/addCommercial', methods=['POST'])
+@app.route('/addrdv', methods=['POST'])
 def addRV():
 
     donnee = request.get_json()
