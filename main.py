@@ -198,18 +198,19 @@ def telephones():
     List=Telephone.query.all()
     table_telephones = []
     for p in List:
-        json_com={
-          "title": p.modele,
-          "subtitle": p.prix,
-          "imageUrl": "https://boutiquepro.orange.fr/catalog/product/static/8/9988/9988_250x460_1_0.jpg",
-          "buttons": [
-            {
-              "value": "",
-              "title": "lien",
-              "type": "web_url"
+        if(p.stock > 0):
+            json_com={
+            "title": p.modele,
+            "subtitle": p.prix,
+            "imageUrl": "https://boutiquepro.orange.fr/catalog/product/static/8/9988/9988_250x460_1_0.jpg",
+            "buttons": [
+                {
+                "value": "https://www.apple.com/fr/shop/buy-iphone/iphone-12",
+                "title": "lien",
+                "type": "web_url"
+                }
+            ]
             }
-          ]
-        }
         table_telephones.append(json_com)
         
     return jsonify(
