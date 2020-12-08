@@ -346,7 +346,7 @@ def TakeRV():
 
 
 
-@app.route('/addCommercial', methods=['POST'])
+@app.route('/addrdv', methods=['POST'])
 def addRV():
 
     donnee = request.get_json()
@@ -354,8 +354,9 @@ def addRV():
     id_commercial =donnee['id_commercial']
     id_interaction=donnee['id_interaction']
     besoin_client =donnee['besoin_client']
+    disponibilite =donnee['disponibilite']
     date=datetime.now()
-    b = Rdv(id=id, id_commercial=id_commercial, id_interaction=id_interaction, besoin_client= besoin_client , date=date)
+    b = Rdv(id=id, id_commercial=id_commercial, id_interaction=id_interaction, besoin_client= besoin_client , date=date,disponibilite=disponibilite)
 
     db.session.add(b)
     db.session.commit()
