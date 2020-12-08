@@ -32,6 +32,7 @@ class Telephone(db.Model):
     modele=db.Column(db.String(60))
     description=db.Column(db.Text)
     prix= db.Column(db.Float)
+    stock= db.Column(db.Integer)
 
 
     def __repr__(self):
