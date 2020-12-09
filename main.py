@@ -350,7 +350,7 @@ def showRV():
   )
 
 
-@app.route('/listeRV', methods=['POST'])
+@app.route('/takeRdv', methods=['POST'])
 def takeRV():
 
     donnee = request.get_json()
