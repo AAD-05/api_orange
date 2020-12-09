@@ -354,7 +354,7 @@ def showRV():
 def takeRV():
 
     donnee = request.get_json()
-    rdv=donnee['nlp']['source']
+    rdv=int(donnee['nlp']['source'])
     Rdv.query.filter_by(id=rdv).update({Rdv.disponibilite: 'indisponible' })
     db.session.commit()
     return "succes"
