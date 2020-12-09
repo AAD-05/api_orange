@@ -350,6 +350,23 @@ def showRV():
   )
 
 
+
+ @app.route('/allrdv', methods=['GET'])
+ def getAllRdv():    
+     List=Rdv.query.all()
+     table_rdv = []
+     for c in List:
+        json_com={
+            'id': c.id,
+            'disponibilite': c.disponibilite,
+            }
+        table_client.append(json_com)
+    response = jsonify({"Rdv" : table_client})
+
+    return response.json
+
+
+
 @app.route('/takeRdv', methods=['POST'])
 def takeRV():
 
