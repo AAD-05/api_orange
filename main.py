@@ -315,7 +315,7 @@ def addAvis():
     donnee = request.get_json()
     print("donnees",donnee)
     #avis=donnee['nlp']['entities']['number'][0]['raw']
-    avis=donnee['nlp']['source']
+    avis=donnee['conversation']['memory']['rating']['scalar']
     id_inter=1
     id_util = 1
 
