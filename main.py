@@ -336,7 +336,7 @@ def TakeRV():
    ALL_RV=Rdv.query.filter_by(disponibilite='disponible').all()
    donnee=[] 
    for rv in ALL_RV:
-       do={"value" :str(rv.id), "title": str(rv.date)}
+       do={"value" :str(rv.date), "title": str(rv.date)}
        donnee.append(do)
 
    return jsonify(
