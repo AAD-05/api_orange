@@ -351,8 +351,8 @@ def showRV():
 
 
 
- @app.route('/allrdv', methods=['GET'])
- def getAllRdv():    
+@app.route('/allrdv', methods=['GET'])
+def getAllRdv():    
      List=Rdv.query.all()
      table_rdv = []
      for c in List:
