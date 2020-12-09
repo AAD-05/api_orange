@@ -370,6 +370,18 @@ def addRV():
 
     return 'success'
 
+
+@app.route('/supAllRdv', methods=['POST'])
+def supRV():
+
+    c=Rdv.query.all()
+    for i in c:
+        db.session.delete(i)
+    db.session.commit()
+
+    return 'success'
+
+
 @app.route('/addCommercial', methods=['POST'])
 def addCommercial():
 
