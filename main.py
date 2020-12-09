@@ -333,7 +333,7 @@ def addAvis():
 def TakeRV():
    
 
-   ALL_RV=Rdv.query.all()
+   ALL_RV=Rdv.query.filter_by(disponibilite='disponible').all()
    donnee=[] 
    for rv in ALL_RV:
        do={"value" :str(rv.id), "title": str(rv.date)}
