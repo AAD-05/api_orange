@@ -328,7 +328,7 @@ def addAvis():
 
 
 @app.route('/listeRV', methods=['POST'])
-def TakeRV():
+def showRV():
    
 
    ALL_RV=Rdv.query.filter_by(disponibilite='disponible').all()
@@ -348,6 +348,16 @@ def TakeRV():
     
     }]
   )
+
+
+@app.route('/listeRV', methods=['POST'])
+def takeRV():
+
+    donnee = request.get_json()
+    rdv=donnee['nlp']['source']
+    Rdv.query.filter_by(id=rdv).update({Rdv.disponibilite: 'indisponible' })
+    db.session.commit()
+    return "succes"
 
 
 
