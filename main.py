@@ -361,9 +361,9 @@ def getAllRdv():
             'disponibilite': c.disponibilite,
             }
         table_client.append(json_com)
-    response = jsonify({"Rdv" : table_rdv})
+     response = jsonify({"Rdv" : table_rdv})
 
-    return response.json
+     return response.json
 
 
 
