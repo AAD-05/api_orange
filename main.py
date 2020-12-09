@@ -194,10 +194,14 @@ def bonjour():
 
 @app.route('/telephones', methods=['POST'])
 def telephones():
-    
-    List=Telephone.query.all()
+    donnee = request.get_json()
+    prix_max = donnee['conversation']['memory']['money_max']['amount']
+
+    liste = Telephone.query.filter(Telephone.prix <= prix_max)
+    print(liste)
+    #List=Telephone.query.all()
     table_telephones = []
-    for p in List:
+    for p in liste:
         if(p.stock > 0):
             json_com={
             "title": p.modele,
