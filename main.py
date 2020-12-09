@@ -331,7 +331,7 @@ def addAvis():
 def TakeRV():
    
 
-   ALL_RV=Rdv.query.all()
+   ALL_RV=Rdv.query.filter_by(disponibilite='disponible').all()
    donnee=[] 
    for rv in ALL_RV:
        do={"value" :str(rv.id), "title": str(rv.date)}
@@ -360,13 +360,25 @@ def addRV():
     id_interaction=donnee['id_interaction']
     besoin_client =donnee['besoin_client']
     disponibilite =donnee['disponibilite']
-    date=datetime.now()
+    date=donnee['date']
     b = Rdv(id=id, id_commercial=id_commercial, id_interaction=id_interaction, besoin_client= besoin_client , date=date,disponibilite=disponibilite)
 
     db.session.add(b)
     db.session.commit()
 
     return 'success'
+
+
+@app.route('/supAllRdv', methods=['POST'])
+def supRV():
+
+    c=Rdv.query.all()
+    for i in c:
+        db.session.delete(i)
+    db.session.commit()
+
+    return 'success'
+
 
 @app.route('/addCommercial', methods=['POST'])
 def addCommercial():
