@@ -315,7 +315,7 @@ def addAvis():
     donnee = request.get_json()
     print("donnees",donnee)
     #avis=donnee['nlp']['entities']['number'][0]['raw']
-    avis=donnee['nlp']['source']
+    avis=donnee['conversation']['memory']['rating']['scalar']
     id_inter=1
     id_util = 1
 
@@ -328,7 +328,7 @@ def addAvis():
 
 
 @app.route('/listeRV', methods=['POST'])
-def TakeRV():
+def showRV():
    
 
    ALL_RV=Rdv.query.filter_by(disponibilite='disponible').all()
@@ -348,6 +348,33 @@ def TakeRV():
     
     }]
   )
+
+
+
+@app.route('/allrdv', methods=['GET'])
+def getAllRdv():    
+    List=Rdv.query.all()
+    table_rdv = []
+    for c in List:
+        json_com={
+            'id': c.id,
+            'disponibilite': c.disponibilite,
+            }
+        table_rdv.append(json_com)
+    response = jsonify({"Rdv" : table_rdv})
+
+    return response.json
+
+
+
+@app.route('/takeRdv', methods=['POST'])
+def takeRV():
+
+    donnee = request.get_json()
+    rdv=int(donnee['nlp']['source'])
+    Rdv.query.filter_by(id=rdv).update({Rdv.disponibilite: 'indisponible' })
+    db.session.commit()
+    return "succes"
 
 
 
