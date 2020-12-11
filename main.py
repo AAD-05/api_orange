@@ -197,9 +197,9 @@ def telephones():
     donnee = request.get_json()
     prix_max = donnee['conversation']['memory']['money_max']['amount']
 
-    print("\n prix_max is : \n", prix_max)
+    #print("\n prix_max is : \n", prix_max)
     liste = Telephone.query.filter(Telephone.prix <= prix_max)
-    print("Lisssssssst",liste)
+    #print("Lisssssssst",liste)
     #List=Telephone.query.all()
     table_telephones = []
     for p in liste:
@@ -210,7 +210,7 @@ def telephones():
                 "imageUrl": "https://boutiquepro.orange.fr/catalog/product/static/8/9988/9988_250x460_1_0.jpg",
                 "buttons": [
                     {
-                        "value": "",
+                        "value": "https://google.fr",
                         "title": "lien",
                         "type": "web_url"
                     }
