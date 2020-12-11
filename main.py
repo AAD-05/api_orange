@@ -210,7 +210,7 @@ def telephones():
                 "imageUrl": "https://boutiquepro.orange.fr/catalog/product/static/8/9988/9988_250x460_1_0.jpg",
                 "buttons": [
                     {
-                        "value": "https://google.fr",
+                        "value": "https://boutiquepro.orange.fr/telephone-mobile-xiaomi-mi-10t-noir-128go.html",
                         "title": "lien",
                         "type": "web_url"
                     }
