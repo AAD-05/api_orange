@@ -190,6 +190,18 @@ def bonjour():
     return 'bonjour'
 
 
+@app.route('/id_conv', methods=['POST'])
+def check_id_conv():
+    
+    donnee = request.get_json()
+    return jsonify(
+        status=200,
+        replies=[{
+        'type': 'text',
+        'content': donnee['conversation']['id']
+        }]
+    )
+
 
 
 @app.route('/telephones', methods=['POST'])
@@ -325,6 +337,9 @@ def addAvis():
     db.session.commit()
 
     return 'succes'
+
+
+
 
 
 @app.route('/listeRV', methods=['POST'])
