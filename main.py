@@ -360,7 +360,7 @@ def showRV():
         "title": "liste des rendez vous disponibles",
         "buttons": donnee
       },
-      "conversation_id":"hohoho"
+      "conversation":{"id":"hohoho"}
     
     }]
   )
