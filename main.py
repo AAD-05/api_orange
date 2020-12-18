@@ -387,7 +387,8 @@ def takeRV():
 
     donnee = request.get_json()
     rdv=int(donnee['nlp']['source'])
-    Rdv.query.filter_by(id=rdv).update({Rdv.disponibilite: 'indisponible' })
+    id = Utilisateur.query.filter_by( email= donnee['conversation']['memory']['email']).first().id
+    Rdv.query.filter_by(id=rdv).update({Rdv.disponibilite: 'indisponible', Rdv.id_interaction: id})
     db.session.commit()
     return "succes"
 
@@ -429,6 +430,20 @@ def addCommercial():
     id=donnee['id']
     nom=donnee['nom']
     b = Commercial(id=id,nom=nom)
+
+    db.session.add(b)
+    db.session.commit()
+
+    return 'success'
+@app.route('/addUser', methods=['POST'])
+def addUser():
+
+    donnee = request.get_json()
+    id=donnee['id']
+    nom=donnee['nom']
+    prenom=donnee['prenom']
+    email=donnee['email']
+    b = Utilisateur(id=id,nom=nom,prenom=prenom,email=email)
 
     db.session.add(b)
     db.session.commit()
