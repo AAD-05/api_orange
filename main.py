@@ -345,6 +345,8 @@ def addAvis():
 @app.route('/listeRV', methods=['POST'])
 def showRV():
    
+   
+   d = request.get_json()
 
    ALL_RV=Rdv.query.filter_by(disponibilite='disponible').all()
    donnee=[] 
@@ -352,7 +354,7 @@ def showRV():
        do={"value" :str(rv.id), "title": str(rv.date)}
        donnee.append(do)
     
-   id = Utilisateur.query.filter_by( email= donnee['conversation']['memory']['email']).first()
+   id = Utilisateur.query.filter_by( email= d['conversation']['memory']['email']).first()
    return jsonify(
     status=200,
     replies=[{
