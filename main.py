@@ -373,6 +373,7 @@ def getAllRdv():
     for c in List:
         json_com={
             'id': c.id,
+            'client': c.id_interaction,
             'disponibilite': c.disponibilite,
             }
         table_rdv.append(json_com)
