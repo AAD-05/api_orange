@@ -351,13 +351,14 @@ def showRV():
    for rv in ALL_RV:
        do={"value" :str(rv.id), "title": str(rv.date)}
        donnee.append(do)
-
+    
+   id = Utilisateur.query.filter_by( email= donnee['conversation']['memory']['email']).first()
    return jsonify(
     status=200,
     replies=[{
       "type": "quickReplies",
       "content": {
-        "title": "liste des rendez vous disponibles",
+        "title": "liste des rendez vous disponibles M./Mme "+id.nom,
         "buttons": donnee
       }
     
