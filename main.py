@@ -198,7 +198,7 @@ def check_id_conv():
         status=200,
         replies=[{
         'type': 'text',
-        'content': donnee['conversation']['id']
+        'content': donnee['conversation']['memory']['userName']
         }]
     )
 
@@ -359,8 +359,7 @@ def showRV():
       "content": {
         "title": "liste des rendez vous disponibles",
         "buttons": donnee
-      },
-      "conversation":{"id":"hohoho"}
+      }
     
     }]
   )
