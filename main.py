@@ -237,6 +237,38 @@ def telephones():
     }]
   )
 
+#Requete de récupération d'un téléphone par sa marque
+@app.route('/produitTelephone', methods=['POST'])
+def getTelephone():
+    donnee = request.get_json()
+    telephoneDemande = donnee['conversation']['memory']['phone']['value']
+
+    liste = Telephone.query.filter(Telephone.marque == telephoneDemande)
+    table_telephones = []
+    for p in liste:
+        if(p.stock > 0):
+            table_telephones.append({
+                "title": p.modele,
+                "subtitle": p.prix,
+                "imageUrl": "https://boutiquepro.orange.fr/catalog/product/static/8/9988/9988_250x460_1_0.jpg",
+                "buttons": [
+                    {
+                        "value": "https://boutiquepro.orange.fr/telephone-mobile-xiaomi-mi-10t-noir-128go.html",
+                        "title": "lien",
+                        "type": "web_url"
+                    }
+                ]
+            })
+        
+    return jsonify(
+    status=200,
+    replies=[{
+      'type': 'carousel',
+      'content': table_telephones
+    }]
+  )
+
+
 # @app.route('/allbots', methods=['GET'])
 # def getBots():
     
