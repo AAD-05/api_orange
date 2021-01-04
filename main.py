@@ -251,7 +251,8 @@ def getTelephone():
     donnee = request.get_json()
     telephoneDemande = donnee['conversation']['memory']['phone']['value']
 
-    liste = Telephone.query.filter(telephoneDemande in Telephone.modele)
+    #liste = Telephone.query.filter(telephoneDemande in Telephone.modele)
+    liste = Telephone.query.filter(Telephone.prix >= 0)
     table_telephones = []
     for p in liste:
         if(p.stock > 0):
