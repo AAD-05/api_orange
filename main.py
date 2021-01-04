@@ -264,7 +264,7 @@ def getTelephone():
     status=200,
     replies=[{
       'type': 'carousel',
-      'content': table_telephones
+      'content': telephoneDemande
     }]
   )
 
