@@ -243,7 +243,7 @@ def getTelephone():
     donnee = request.get_json()
     telephoneDemande = donnee['conversation']['memory']['phone']['value']
 
-    liste = Telephone.query.filter(Telephone.marque == telephoneDemande)
+    liste = Telephone.query.filter(telephoneDemande in Telephone.modele)
     table_telephones = []
     for p in liste:
         if(p.stock > 0):
@@ -264,7 +264,7 @@ def getTelephone():
     status=200,
     replies=[{
       'type': 'carousel',
-      'content': telephoneDemande
+      'content': table_telephones
     }]
   )
 
