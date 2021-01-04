@@ -360,9 +360,8 @@ def addAvis():
     print("donnees",donnee)
     #avis=donnee['nlp']['entities']['number'][0]['raw']
     avis=donnee['conversation']['memory']['rating']['scalar']
-    id_inter=1
     id_util = Utilisateur.query.filter_by( email= donnee['conversation']['memory']['email']).first()
-    b = Avis(note=avis,id_interaction=id_inter,id_utilisateur=id_util)
+    b = Avis(note=avis,id_interaction=id_util,id_utilisateur=id_util)
 
     db.session.add(b)
     db.session.commit()
