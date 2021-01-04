@@ -32,6 +32,14 @@ class Telephone(db.Model):
     modele=db.Column(db.String(60))
     description=db.Column(db.Text)
     prix= db.Column(db.Float)
+    
+    note_design=db.Column(db.Float)
+    note_ap=db.Column(db.Float)
+    note_connection=db.Column(db.Float)
+    note_batterie=db.Column(db.Float)
+    note_puissance=db.Column(db.Float)
+
+    occasion=db.Column(db.Integer)
     stock= db.Column(db.Integer)
 
 
@@ -268,6 +276,41 @@ def getTelephone():
     }]
   )
 
+
+
+
+@app.route('/telephones', methods=['POST'])
+def telephones():
+    donnee = request.get_json()
+    prix_max = donnee['conversation']['memory']['money_max']['amount']
+
+    #print("\n prix_max is : \n", prix_max)
+    liste = Telephone.query.filter(Telephone.prix <= prix_max)
+    #print("Lisssssssst",liste)
+    #List=Telephone.query.all()
+    table_telephones = []
+    for p in liste:
+        if(p.stock > 0):
+            table_telephones.append({
+                "title": p.modele,
+                "subtitle": p.prix,
+                "imageUrl": "https://boutiquepro.orange.fr/catalog/product/static/8/9988/9988_250x460_1_0.jpg",
+                "buttons": [
+                    {
+                        "value": "https://boutiquepro.orange.fr/telephone-mobile-xiaomi-mi-10t-noir-128go.html",
+                        "title": "lien",
+                        "type": "web_url"
+                    }
+                ]
+            })
+        
+    return jsonify(
+    status=200,
+    replies=[{
+      'type': 'carousel',
+      'content': table_telephones
+    }]
+  )
 
 # @app.route('/allbots', methods=['GET'])
 # def getBots():
