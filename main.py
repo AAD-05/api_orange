@@ -253,10 +253,10 @@ def getTelephone():
 
     #liste = Telephone.query.filter(telephoneDemande in Telephone.modele)
     liste = Telephone.query.filter(Telephone.prix >= 0)
-    table_telephones = []
+    telephones = []
     for p in liste:
         if(p.stock > 0):
-            table_telephones.append({
+            telephones.append({
                 "title": p.modele,
                 "subtitle": p.prix,
                 "imageUrl": "https://boutiquepro.orange.fr/catalog/product/static/8/9988/9988_250x460_1_0.jpg",
@@ -273,7 +273,7 @@ def getTelephone():
     status=200,
     replies=[{
       'type': 'carousel',
-      'content': table_telephones
+      'content': telephones
     }]
   )
 
