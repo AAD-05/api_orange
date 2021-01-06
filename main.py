@@ -255,7 +255,7 @@ def getTelephone():
     #liste = Telephone.query.filter(Telephone.prix >= 0)
     telephones = []
     for p in liste:
-        if(telephoneDemande in p.modele):
+        if(telephoneDemande.lower() in p.modele.lower()):
             telephones.append({
                 "title": p.modele,
                 "subtitle": p.prix,
