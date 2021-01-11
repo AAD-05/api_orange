@@ -318,22 +318,21 @@ def forfaits():
     donnee = request.get_json()
     #forfaitDemande = donnee['conversation']['memory']['forfait']['value']
 
-    listeForfaits = Forfait.query.filter(Forfait.description != '')
+    listeForfaits = Forfait.query.all()
     forfaits = []
     for f in listeForfaits:
-        if(f.prix > 0):
-            forfaits.append({
-                "title": f.description,
-                "subtitle": f.prix,
-                "imageUrl": "https://www.francemobiles.com/actualites/image-orange-320-000-ventes-nettes-de-forfaits-mobiles-au-3eme-trimestre-2017-2017-17648-francemobiles.jpg",
-                "buttons": [
-                    {
-                        "value": "https://boutiquepro.orange.fr/telephone-mobile-xiaomi-mi-10t-noir-128go.html",
-                        "title": "lien",
-                        "type": "web_url"
-                    }
-                ]
-            })
+        forfaits.append({
+            "title": f.description,
+            "subtitle": f.prix,
+            "imageUrl": "https://www.francemobiles.com/actualites/image-orange-320-000-ventes-nettes-de-forfaits-mobiles-au-3eme-trimestre-2017-2017-17648-francemobiles.jpg",
+            "buttons": [
+                {
+                    "value": "https://boutiquepro.orange.fr/telephone-mobile-xiaomi-mi-10t-noir-128go.html",
+                    "title": "lien",
+                    "type": "web_url"
+                }
+            ]
+        })
         
     return jsonify(
     status=200,
