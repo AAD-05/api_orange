@@ -284,7 +284,7 @@ def getForfait():
     donnee = request.get_json()
     forfaitDemande = donnee['conversation']['memory']['forfait']['value']
 
-    listeForfaits = Forfait.query.filter(Forfait.description != null)
+    listeForfaits = Forfait.query.filter(Forfait.description != '')
     forfaits = []
     for f in listeForfaits:
         if(forfaitDemande.lower() in f.description.lower()):
@@ -318,7 +318,7 @@ def forfaits():
     donnee = request.get_json()
     #forfaitDemande = donnee['conversation']['memory']['forfait']['value']
 
-    listeForfaits = Forfait.query.filter(Forfait.description != null)
+    listeForfaits = Forfait.query.filter(Forfait.description != '')
     forfaits = []
     for f in listeForfaits:
         if(f.prix > 0):
