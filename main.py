@@ -292,7 +292,7 @@ def getTelephone():
 @app.route('/getForfait', methods=['POST'])
 def getForfait():
     donnee = request.get_json()
-    forfaitDemande = donnee['conversation']['memory']['forfait']['value']
+    forfaitDemande = donnee['conversation']['memory']['forfait-variable']['value']
 
     listeForfaits = Forfait.query.filter(Forfait.prix > 0)
     forfaits = []
