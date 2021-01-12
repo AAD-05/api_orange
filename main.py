@@ -320,22 +320,6 @@ def getForfait():
   )
 
 
-#Requete de récupération d'un forfait par son nom
-@app.route('/addToCart', methods=['POST'])
-def addToCart():
-
-
-
-
-
-    return jsonify(
-    status=200,
-    replies=[{
-      'type': 'carousel',
-      'content': forfaits
-    }]
-  )
-
 
 
 
@@ -402,6 +386,17 @@ def telephones():
       'content': table_telephones
     }]
   )
+
+
+
+#Requete de récupération d'un forfait par son nom
+@app.route('/addToCart/<int:id>', methods=['POST'])
+def addToCart(id):
+ 
+    return "success"+str(id)
+  
+
+
 
 # @app.route('/allbots', methods=['GET'])
 # def getBots():
@@ -550,8 +545,8 @@ def showRV():
     
    id = Utilisateur.query.filter_by( email= d['conversation']['memory']['email']).first()
    return jsonify(
-    status=200,
-    replies=[{
+   status=200,
+   replies=[{
       "type": "quickReplies",
       "content": {
         "title": "liste des rendez vous disponibles M./Mme "+id.nom,
