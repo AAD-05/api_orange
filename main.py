@@ -41,6 +41,7 @@ class Telephone(db.Model):
 
     occasion=db.Column(db.Integer)
     stock= db.Column(db.Integer)
+    lien_photo=db.Column(db.Text)
 
 
     def __repr__(self):
@@ -51,7 +52,13 @@ class Forfait(db.Model):
     __tablename__ = 'forfait'
     id=db.Column(db.Integer, primary_key=True)
     type=db.Column(db.Integer)
+    
     description=db.Column(db.Text)
+    is_engagement=db.Column(db.Integer)
+    zone=db.Column(db.String(60))
+    Giga_4g=db.Column(db.Integer)
+    Giga_5g=db.Column(db.Integer)
+    description_complete=db.Column(db.Text)
     prix= db.Column(db.Float)
 
 
@@ -64,6 +71,10 @@ class Utilisateur(db.Model):
 
     __tablename__ = 'utilisateur'
     id=db.Column(db.Integer, primary_key=True)
+    numero_telephone=db.Column(db.String(60))
+    siret = db.Column(db.String(60))
+    telephone_actuel = db.Column(db.String(180))
+    forfait_actuel= db.Column(db.String(180))
     nom =db.Column(db.String(60))
     prenom=db.Column(db.String(60))
     email=db.Column(db.String(60))
@@ -474,6 +485,22 @@ def telephones():
 #     db.session.commit()
 
 #     return 'succes'
+
+
+@app.route('/ajouterTelephone', methods=['POST'])
+def addTelephone():
+
+
+    donnee = request.get_json()
+    print("donnees",donnee)
+    Telephone=  Telephone( marque=donnee['marque'],  description=donnee['description'], prix=donnee['prix'], note_design=donnee['note_design'] , note_ap= donnee['note_ap'], note_connection=donnee['note_connection'] ,note_batterie=donnee['note_batterie'], note_puissance=donnee['note_puissance'], occasion=donnee['occasion'],  occasion=donnee['occasion'], stock=donnee['stock'], lien_photo=donnee['lien_photo'])
+
+    db.session.add(Telephone)
+    db.session.commit()
+
+    return 'succes'
+
+
 
 
 @app.route('/ajouterAvis', methods=['POST'])
