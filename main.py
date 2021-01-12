@@ -56,8 +56,8 @@ class Forfait(db.Model):
     description=db.Column(db.Text)
     is_engagement=db.Column(db.Integer)
     zone=db.Column(db.String(60))
-    Giga_4g=db.Column(db.Integer)
-    Giga_5g=db.Column(db.Integer)
+    giga_4g=db.Column(db.Integer)
+    giga_5g=db.Column(db.Integer)
     description_complete=db.Column(db.Text)
     prix= db.Column(db.Float)
 
@@ -492,7 +492,7 @@ def addForfait():
 
     donnee = request.get_json()
     print("donnees",donnee)
-    Forfait=  Forfait( description=donnee['description'],  is_engagement=donnee['is_engagement'], Giga_4g=donnee['Giga_4g'], Giga_5g=donnee['Giga_5g'] , description_complete= donnee['description_complete'], prix=donnee['prix'] )
+    Forfait=  Forfait( description=donnee['description'],  is_engagement=donnee['is_engagement'], giga_4g=donnee['giga_4g'], giga_5g=donnee['giga_5g'] , description_complete= donnee['description_complete'], prix=donnee['prix'] )
 
     db.session.add(Forfait)
     db.session.commit()
