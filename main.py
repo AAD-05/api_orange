@@ -330,16 +330,15 @@ def addToCart():
 
 
 #Requete de récupération de tous les fofaits
-@app.route('/forfaits', methods=['POST'])
+@app.route('/forfaits', methods=['GET'])
 def getAllForfaits():
     donnee = request.get_json()
     #forfaitDemande = donnee['conversation']['memory']['forfait']['value']
 
     listeForfaits = Forfait.query.all()
     forfaits = []
-    essai = [1,2,3]
     for f in listeForfaits:
-        essai.append({
+        forfaits.append({
             "title": f.description,
             "subtitle": f.prix,
             "imageUrl": "https://www.francemobiles.com/actualites/image-orange-320-000-ventes-nettes-de-forfaits-mobiles-au-3eme-trimestre-2017-2017-17648-francemobiles.jpg",
@@ -356,7 +355,7 @@ def getAllForfaits():
     status=200,
     replies=[{
       'type': 'carousel',
-      'content': essai
+      'content': forfaits
     }]
   )
 
