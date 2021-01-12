@@ -205,7 +205,6 @@ class Rdv(db.Model):
 
 @app.route('/bonjour', methods=['GET'])
 def bonjour():
-
     return 'bonjour'
 
 
