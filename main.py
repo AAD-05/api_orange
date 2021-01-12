@@ -329,8 +329,8 @@ def addToCart():
 
 
 
-#Requete de récupération de tous les fofaits
-@app.route('/forfaits', methods=['GET'])
+#Requete de récupération de tous les forfaits
+@app.route('/forfaits', methods=['POST'])
 def getAllForfaits():
     donnee = request.get_json()
     #forfaitDemande = donnee['conversation']['memory']['forfait']['value']
