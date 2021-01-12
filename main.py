@@ -314,12 +314,13 @@ def getForfait():
 
 #Requete de récupération de tous les fofaits
 @app.route('/forfaits', methods=['POST'])
-def forfaits():
+def getAllForfaits():
     donnee = request.get_json()
     #forfaitDemande = donnee['conversation']['memory']['forfait']['value']
 
     listeForfaits = Forfait.query.all()
     forfaits = []
+    essai = [1,2,3]
     for f in listeForfaits:
         forfaits.append({
             "title": f.description,
@@ -338,7 +339,7 @@ def forfaits():
     status=200,
     replies=[{
       'type': 'carousel',
-      'content': forfaits
+      'content': essai
     }]
   )
 
