@@ -486,6 +486,31 @@ def telephones():
 
 #     return 'succes'
 
+ id=db.Column(db.Integer, primary_key=True)
+    type=db.Column(db.Integer)
+    
+    description=db.Column(db.Text)
+    is_engagement=db.Column(db.Integer)
+    zone=db.Column(db.String(60))
+    Giga_4g=db.Column(db.Integer)
+    Giga_5g=db.Column(db.Integer)
+    description_complete=db.Column(db.Text)
+    prix= db.Column(db.Float)
+
+
+@app.route('/ajouterForfait', methods=['POST'])
+def addForfait():
+
+
+    donnee = request.get_json()
+    print("donnees",donnee)
+    Forfait=  Forfait( description=donnee['description'],  is_engagement=donnee['is_engagement'], Giga_4g=donnee['Giga_4g'], Giga_5g=donnee['Giga_5g'] , description_complete= donnee['description_complete'], prix=donnee['prix'] )
+
+    db.session.add(Forfait)
+    db.session.commit()
+
+    return 'succes'
+
 
 @app.route('/ajouterTelephone', methods=['POST'])
 def addTelephone():
