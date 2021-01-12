@@ -506,7 +506,7 @@ def addTelephone():
 
     donnee = request.get_json()
     print("donnees",donnee)
-    Telephone=  Telephone( marque=donnee['marque'],  description=donnee['description'], prix=donnee['prix'], note_design=donnee['note_design'] , note_ap= donnee['note_ap'], note_connection=donnee['note_connection'] ,note_batterie=donnee['note_batterie'], note_puissance=donnee['note_puissance'], occasion=donnee['occasion'],  occasion=donnee['occasion'], stock=donnee['stock'], lien_photo=donnee['lien_photo'])
+    Telephone= Telephone( marque=donnee['marque'],  description=donnee['description'], prix=donnee['prix'], note_design=donnee['note_design'] , note_ap= donnee['note_ap'], note_connection=donnee['note_connection'] ,note_batterie=donnee['note_batterie'], note_puissance=donnee['note_puissance'], occasion=donnee['occasion'], stock=donnee['stock'], lien_photo=donnee['lien_photo'])
 
     db.session.add(Telephone)
     db.session.commit()
