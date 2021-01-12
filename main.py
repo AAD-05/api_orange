@@ -333,7 +333,7 @@ def addToCart():
 @app.route('/forfaits', methods=['POST'])
 def getAllForfaits():
 
-    listeForfaits=Telephone.query.all()
+    listeForfaits=Telephone.query.filter(Telephone.prix != 0)
     forfaits=[]
     for f in listeForfaits:
         forfaits.append({
