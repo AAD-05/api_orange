@@ -333,11 +333,11 @@ def addToCart():
 @app.route('/forfaits', methods=['POST'])
 def getAllForfaits():
 
-    listeForfaits=Forfait.query.filter(Forfait.prix != 0)
+    listeForfaits=Forfait.query.filter(Forfait.prix > 0)
     forfaits=[]
     for f in listeForfaits:
         forfaits.append({
-            "title": f.modele,
+            "title": f.description,
             "subtitle": f.prix,
             "imageUrl": "https://www.francemobiles.com/actualites/image-orange-320-000-ventes-nettes-de-forfaits-mobiles-au-3eme-trimestre-2017-2017-17648-francemobiles.jpg",
             "buttons": [
