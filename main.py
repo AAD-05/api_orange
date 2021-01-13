@@ -448,7 +448,7 @@ def getPanier(email):
         produits=Panier_produit.query.filter_by(id=panier.id).all()
         for p in produits:
             liste.append(Telephone.query.filter_by(id=p.id_produit).first())
-        print(liste)
+            print(p.id)
     produit=[]
     for p in liste:
             produit.append({
