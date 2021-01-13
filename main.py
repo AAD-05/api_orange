@@ -430,12 +430,47 @@ def addToCart(id,id_ut):
         db.session.add(panier)
         db.session.commit()
 
-
     panier_produit=Panier_produit(id=panier.id,id_produit=id,type_produit=1,nombre=1,id_interaction=0,via_bot=1)
     db.session.add(panier_produit)
     db.session.commit()
  
     return "success "+ str(id) + "  " + str(id_ut)
+
+#Requete de récupération d'un forfait par son nom
+@app.route('/panier/<string:email>', methods=['GET'])
+def getPanier(email):
+    
+    donnee = request.get_json()
+    util = Utilisateur.query.filter_by( email= donnee['conversation']['memory']['email']).first()
+    panier = Panier.query.filter_by(statut="En cours",id_utilisateur=util.id).first()
+    liste=[]
+    if panier is not None:
+        produits=Panier_produit.query.filter_by(id=panier.id).all()
+        for p in produits:
+            liste.append(Telephone.query.filter_by(id=p.id_produit).first())
+    produit=[]
+    for p in liste:
+            produit.append({
+                "title": p.modele,
+                "subtitle": p.prix,
+                "imageUrl": "https://boutiquepro.orange.fr/catalog/product/static/8/9988/9988_250x460_1_0.jpg",
+                "buttons": [
+                    {
+                        "value": "https://jambot-api.herokuapp.com/addToCart/"+str(p.id)+"/1",
+                        "title": "ajouter au panier",
+                        "type": "web_url"
+                    }
+                ]
+            })
+
+
+    return jsonify(
+    status=200,
+    replies=[{
+      'type': 'carousel',
+      'content': produit
+    }]
+  )
   
 
 #Requete de récupération d'une option par son nom
