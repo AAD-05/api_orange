@@ -392,6 +392,10 @@ def telephones():
 #Requete de récupération d'un forfait par son nom
 @app.route('/addToCart/<int:id>/<int:id_ut>', methods=['GET'])
 def addToCart(id,id_ut):
+
+    panier = Panier.query.filter(statut="En cours",id_utilisateur=id_ut)
+    if panier is None:
+        panier=Panier(id=Panier.query.all().count()+1, statut= "En cours", id_utilisateur=id_ut)
  
     return "success "+ str(id) + "  " + str(id_ut)
   
