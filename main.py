@@ -456,8 +456,8 @@ def getPanier(email):
                 "imageUrl": "https://boutiquepro.orange.fr/catalog/product/static/8/9988/9988_250x460_1_0.jpg",
                 "buttons": [
                     {
-                        "value": "https://jambot-api.herokuapp.com/addToCart/"+str(p.id)+"/1",
-                        "title": "ajouter au panier",
+                        "value": "",
+                        "title": "panier",
                         "type": "web_url"
                     }
                 ]
