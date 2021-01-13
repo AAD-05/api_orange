@@ -536,20 +536,19 @@ def showRV():
    
    
    d = request.get_json()
-
    ALL_RV=Rdv.query.filter_by(disponibilite='disponible').all()
    donnee=[] 
    for rv in ALL_RV:
        do={"value" :str(rv.id), "title": str(rv.date)}
        donnee.append(do)
     
-   #id = Utilisateur.query.filter_by( email= d['conversation']['memory']['email']).first()
+   id = Utilisateur.query.filter_by( email= d['conversation']['memory']['email']).first()
    return jsonify(
    status=200,
    replies=[{
       "type": "quickReplies",
       "content": {
-        "title": "liste des rendez vous disponibles M./Mme ",
+        "title": "liste des rendez vous disponibles M./Mme " + str(id.nom),
         "buttons": donnee
       }
     
