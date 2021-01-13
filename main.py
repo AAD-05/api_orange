@@ -292,13 +292,22 @@ def getTelephone():
                 ]
             })
         
-    return jsonify(
-    status=200,
-    replies=[{
-      'type': 'carousel',
-      'content': telephones
-    }]
-  )
+    if(len(telephones)!=0):
+        return jsonify(
+            status=200,
+            replies=[{
+                'type' : 'carousel',
+                'content' : telephones
+            }]
+        )
+    else:
+        return jsonify(
+            status=200,
+            replies=[{
+                'type': 'text',
+                'content': "Désolé "+telephoneDemande+" n'est pas dans notre catalogue"
+            }]
+        )
 
 
 #Requete de récupération d'un forfait par son nom
