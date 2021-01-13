@@ -422,7 +422,7 @@ def addToCart(id,id_ut):
 
 #Requete de récupération d'une option par son nom
 @app.route('/getOption', methods=['POST'])
-def getForfait():
+def getOption():
     donnee = request.get_json()
     optionDemandee = donnee['conversation']['memory']['option-variable']['value']
 
