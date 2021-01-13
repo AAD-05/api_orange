@@ -390,7 +390,7 @@ def telephones():
 
 
 #Requete de récupération d'un forfait par son nom
-@app.route('/addToCart/<int:id>', methods=['POST'])
+@app.route('/addToCart/<int:id>', methods=['GET'])
 def addToCart(id):
  
     return "success "+str(id)
