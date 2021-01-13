@@ -398,6 +398,11 @@ def addToCart(id,id_ut):
         panier=Panier(id=len(Panier.query.all())+1, statut= "En cours", id_utilisateur=id_ut)  
         db.session.add(panier)
         db.session.commit()
+
+
+    panier_produit=Panier_produit(id=len(Panier.query.all())+1,id_produit=id,type_produit="telephone",nombre=1,via_bot=1)
+    db.session.add(panier_produit)
+    db.session.commit()
  
     return "success "+ str(id) + "  " + str(id_ut)
   
