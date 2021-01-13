@@ -441,7 +441,7 @@ def addToCart(id,id_ut):
 def getPanier(email):
     
     donnee = request.get_json()
-    util = Utilisateur.query.filter_by( email= donnee['conversation']['memory']['email']).first()
+    util = Utilisateur.query.filter_by( email= email).first()
     panier = Panier.query.filter_by(statut="En cours",id_utilisateur=util.id).first()
     liste=[]
     if panier is not None:
@@ -462,7 +462,6 @@ def getPanier(email):
                     }
                 ]
             })
-
 
     return jsonify(
     status=200,
