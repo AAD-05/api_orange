@@ -542,13 +542,13 @@ def showRV():
        do={"value" :str(rv.id), "title": str(rv.date)}
        donnee.append(do)
     
-   id = Utilisateur.query.filter_by( email= d['conversation']['memory']['email']).first()
+   #id = Utilisateur.query.filter_by( email= d['conversation']['memory']['email']).first()
    return jsonify(
    status=200,
    replies=[{
       "type": "quickReplies",
       "content": {
-        "title": "liste des rendez vous disponibles M./Mme " + str(id.nom),
+        "title": "liste des rendez vous disponibles M./Mme "+d['conversation']['memory']['email'],
         "buttons": donnee
       }
     
