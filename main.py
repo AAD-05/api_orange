@@ -133,8 +133,8 @@ class Panier_produit(db.Model):
     __tablename__ = 'panier_produit'
     id=db.Column(db.Integer, primary_key=True)
     id_produit = db.Column(db.Integer)
-    type_produit = db.Column(db.Integer)
-    nombre=db.Column(db.String(60))
+    type_produit = db.Column(db.String(60))
+    nombre=db.Column(db.Integer)
     id_interaction=db.Column(db.Integer)
     via_bot = db.Column(db.Integer, default=0)
 
@@ -426,11 +426,11 @@ def addToCart(id,id_ut):
 
     panier = Panier.query.filter_by(statut="En cours",id_utilisateur=id_ut).first()
     if panier is None:
-        panier=Panier(id=len(Panier.query.all())+1, statut= "En cours", id_utilisateur=id_ut)  
+        panier=Panier(id=Panier.order_by(desc(Panier.id)).first().id+1, statut= "En cours", id_utilisateur=id_ut)  
         db.session.add(panier)
         db.session.commit()
 
-    panier_produit=Panier_produit(id=panier.id,id_produit=id,type_produit=1,nombre=1,id_interaction=0,via_bot=1)
+    panier_produit=Panier_produit(id=panier.id,id_produit=id,type_produit="telephone",nombre=1,id_interaction=0,via_bot=1)
     db.session.add(panier_produit)
     db.session.commit()
  
