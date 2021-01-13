@@ -437,7 +437,7 @@ def addToCart(id,id_ut):
     return "success "+ str(id) + "  " + str(id_ut)
 
 #Requete de récupération d'un forfait par son nom
-@app.route('/panier/<string:email>', methods=['GET'])
+@app.route('/panier/<string:email>', methods=['POST'])
 def getPanier(email):
     
     donnee = request.get_json()
