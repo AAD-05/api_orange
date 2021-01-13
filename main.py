@@ -372,7 +372,7 @@ def telephones():
                 "imageUrl": "https://boutiquepro.orange.fr/catalog/product/static/8/9988/9988_250x460_1_0.jpg",
                 "buttons": [
                     {
-                        "value": "https://jambot-api.herokuapp.com/addToCart/"+str(p.id),
+                        "value": "https://jambot-api.herokuapp.com/addToCart/"+str(p.id)+"/1",
                         "title": "ajouter au panier",
                         "type": "web_url"
                     }
@@ -390,10 +390,10 @@ def telephones():
 
 
 #Requete de récupération d'un forfait par son nom
-@app.route('/addToCart/<int:id>', methods=['GET'])
-def addToCart(id):
+@app.route('/addToCart/<int:id>/<int:id_ut>', methods=['GET'])
+def addToCart(id,id_ut):
  
-    return "success "+str(id)
+    return "success "+ str(id) + "  " + str(id_ut)
   
 
 
