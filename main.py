@@ -636,7 +636,12 @@ def addUser():
     nom=donnee['nom']
     prenom=donnee['prenom']
     email=donnee['email']
-    b = Utilisateur(id=id,nom=nom,prenom=prenom,email=email)
+    numero_telephone="hohooho"
+    siret = "hohooho"
+    telephone_actuel ="hohooho"
+    forfait_actuel= "hohooho"
+    
+    b = Utilisateur(id=id,nom=nom,prenom=prenom,email=email,numero_telephone=numero_telephone, siret=siret,telephone_actuel=telephone_actuel,forfait_actuel=forfait_actuel)
 
     db.session.add(b)
     db.session.commit()
