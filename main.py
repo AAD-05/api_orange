@@ -198,7 +198,7 @@ class Option(db.Model):
 
     __tablename__ = 'option'
     id=db.Column(db.Integer, primary_key=True)
-    type=db.Column(db.Integer)
+    type=db.Column(db.Text)
     
     description=db.Column(db.Text)
     description_complete=db.Column(db.Text)
