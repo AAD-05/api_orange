@@ -431,7 +431,7 @@ def addToCart(id,id_ut):
         db.session.commit()
 
 
-    panier_produit=Panier_produit(id=Panier_produit.query.order_by(Panier_produit.id.desc()).first().id+1,id_produit=id,type_produit=1,nombre=1,id_interaction=0,via_bot=1)
+    panier_produit=Panier_produit(id=panier.id,id_produit=id,type_produit=1,nombre=1,id_interaction=0,via_bot=1)
     db.session.add(panier_produit)
     db.session.commit()
  
@@ -707,7 +707,7 @@ def addRV():
 @app.route('/supAllRdv', methods=['POST'])
 def supRV():
 
-    c=Panier_produit.query.all()
+    c=Rdv.query.all()
     for i in c:
         db.session.delete(i)
     db.session.commit()
