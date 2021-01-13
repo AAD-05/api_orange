@@ -393,7 +393,7 @@ def telephones():
 @app.route('/addToCart/<int:id>', methods=['POST'])
 def addToCart(id):
  
-    return "success"+str(id)
+    return "success "+str(id)
   
 
 
@@ -543,13 +543,13 @@ def showRV():
        do={"value" :str(rv.id), "title": str(rv.date)}
        donnee.append(do)
     
-   id = Utilisateur.query.filter_by( email= d['conversation']['memory']['email']).first()
+  # id = Utilisateur.query.filter_by( email= d['conversation']['memory']['email']).first()
    return jsonify(
    status=200,
    replies=[{
       "type": "quickReplies",
       "content": {
-        "title": "liste des rendez vous disponibles M./Mme "+id.nom,
+        "title": "liste des rendez vous disponibles M./Mme ",
         "buttons": donnee
       }
     
