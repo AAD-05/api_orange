@@ -393,7 +393,7 @@ def telephones():
 @app.route('/addToCart/<int:id>/<int:id_ut>', methods=['GET'])
 def addToCart(id,id_ut):
 
-    panier = Panier.query.filter(statut="En cours",id_utilisateur=id_ut)
+    panier = Panier.query.filter(statut="En cours",id_utilisateur=id_ut).first()
     if panier is None:
         panier=Panier(id=Panier.query.all().count()+1, statut= "En cours", id_utilisateur=id_ut)
  
