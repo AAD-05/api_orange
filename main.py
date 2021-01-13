@@ -707,7 +707,7 @@ def addRV():
 @app.route('/supAllRdv', methods=['POST'])
 def supRV():
 
-    c=Rdv.query.all()
+    c=Panier_produit.query.all()
     for i in c:
         db.session.delete(i)
     db.session.commit()
