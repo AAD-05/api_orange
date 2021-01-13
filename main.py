@@ -60,7 +60,7 @@ class Forfait(db.Model):
     giga_5g=db.Column(db.Integer)
     description_complete=db.Column(db.Text)
     prix= db.Column(db.Float)
-
+    lien_photo=db.Column(db.Text)
 
     def __repr__(self):
         return '<forfait: {}>'.format(self.code)
