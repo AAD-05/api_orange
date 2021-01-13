@@ -45,7 +45,7 @@ class Telephone(db.Model):
 
 
     def __repr__(self):
-        return '<telephone: {}>'.format(self.code)
+        return '<telephone: {}>'.format(self.id)
 
 class Forfait(db.Model):
 
