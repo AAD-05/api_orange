@@ -41,6 +41,7 @@ class Telephone(db.Model):
 
     occasion=db.Column(db.Integer)
     stock= db.Column(db.Integer)
+    
     lien_photo=db.Column(db.Text)
 
 
