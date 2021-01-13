@@ -194,6 +194,19 @@ class Rdv(db.Model):
         return '<rdv: {}>'.format(self.code)
 
 
+class Option(db.Model):
+
+    __tablename__ = 'option'
+    id=db.Column(db.Integer, primary_key=True)
+    type=db.Column(db.Integer)
+    
+    description=db.Column(db.Text)
+    description_complete=db.Column(db.Text)
+    prix= db.Column(db.Float)
+
+
+    def __repr__(self):
+        return '<option: {}>'.format(self.code)
 
 
 
@@ -406,6 +419,64 @@ def addToCart(id,id_ut):
  
     return "success "+ str(id) + "  " + str(id_ut)
   
+
+#Requete de récupération d'une option par son nom
+@app.route('/getOption', methods=['POST'])
+def getForfait():
+    donnee = request.get_json()
+    optionDemandee = donnee['conversation']['memory']['option-variable']['value']
+
+    listeOptions = Option.query.filter(Option.prix > 0)
+    options = []
+    for o in listeOptions:
+        if(optionDemandee.lower() in o.description.lower()):
+            options.append({
+                "title": o.description,
+                "subtitle": o.prix,
+                "buttons": [
+                    {
+                        "value": "https://boutiquepro.orange.fr/telephone-mobile-business-everywhere-flex-sans-engagement.html",
+                        "title": "lien",
+                        "type": "web_url"
+                    }
+                ]
+            })
+        
+    return jsonify(
+    status=200,
+    replies=[{
+      'type': 'carousel',
+      'content': options
+    }]
+  )
+
+
+#Requete de récupération de toutes les options
+@app.route('/options', methods=['POST'])
+def getAllOptions():
+
+    listeOptions=Option.query.filter(Option.prix > 0)
+    options=[]
+    for o in listeOptions:
+        options.append({
+            "title": o.description,
+            "subtitle": o.prix,
+            "buttons": [
+                {
+                    "value": "https://boutiquepro.orange.fr/telephone-mobile-business-everywhere-flex-sans-engagement.html",
+                    "title": "lien",
+                    "type": "web_url"
+                }
+            ]
+        })
+        
+    return jsonify(
+    status=200,
+    replies=[{
+      'type': 'carousel',
+      'content': options
+    }]
+  )
 
 
 
