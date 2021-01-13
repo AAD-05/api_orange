@@ -482,7 +482,7 @@ def getOption():
     listeOptions = Option.query.filter(Option.prix > 0)
     options = []
     for o in listeOptions:
-        if(optionDemandee.lower() in o.description.lower()):
+        if(optionDemandee.lower() in o.type.lower()):
             options.append({
                 "title": o.description,
                 "subtitle": o.prix,
