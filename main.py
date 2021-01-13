@@ -333,13 +333,22 @@ def getForfait():
                 ]
             })
         
-    return jsonify(
-    status=200,
-    replies=[{
-      'type': 'carousel',
-      'content': forfaits
-    }]
-  )
+    if(len(forfaits)!=0):
+        return jsonify(
+            status=200,
+            replies=[{
+                'type' : 'carousel',
+                'content' : forfaits
+            }]
+        )
+    else:
+        return jsonify(
+            status=200,
+            replies=[{
+                'type': 'text',
+                'content': "Désolé "+forfaitDemande+" n'est pas dans notre catalogue"
+            }]
+        )
 
 
 
