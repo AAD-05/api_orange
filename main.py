@@ -454,7 +454,7 @@ def getPanier(email):
             produit.append({
                 "title": p.modele,
                 "subtitle": p.prix,
-                "imageUrl": "https://boutiquepro.orange.fr/catalog/product/static/8/9988/9988_250x460_1_0.jpg",
+                "imageUrl": p.lien_photo,
                 "buttons": [
                     {
                         "value": "",
