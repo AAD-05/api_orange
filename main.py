@@ -221,6 +221,10 @@ class Option(db.Model):
 def bonjour():
     return render_template('accueil.html')
 
+@app.route('/jambot', methods=['GET'])
+def jambot():
+    return render_template('jambot.html')
+
 @app.route('/Dashboard', methods=['GET'])
 def dashboard():
     data = db.session.query(func.public.total_interactions()).all()
@@ -397,8 +401,8 @@ def proposerForfait():
             if(f.giga_4g is not None and f.giga_4g >=  n_giga):
                 if(f.zone is not None and zone.lower() in f.zone.lower()):
                     forfaits.append({
-                        "title": f.description,
-                        "subtitle": f.prix,
+                        "title": f.description +" disponible en "+ f.zone,
+                        "subtitle": str(f.giga_4g) + "Go à "+str(f.prix) + " €",
                         "imageUrl": "https://www.francemobiles.com/actualites/image-orange-320-000-ventes-nettes-de-forfaits-mobiles-au-3eme-trimestre-2017-2017-17648-francemobiles.jpg",
                         "buttons": [
                             {
@@ -412,8 +416,8 @@ def proposerForfait():
             if(f.giga_5g is not None and f.giga_5g >=  n_giga):
                 if(f.zone is not None and zone.lower() in f.zone.lower()):
                     forfaits.append({
-                        "title": f.description,
-                        "subtitle": f.prix,
+                        "title": f.description +" disponible en "+ f.zone,
+                        "subtitle": str(f.giga_5g) + "Go à "+str(f.prix) + " €",
                         "imageUrl": "https://www.francemobiles.com/actualites/image-orange-320-000-ventes-nettes-de-forfaits-mobiles-au-3eme-trimestre-2017-2017-17648-francemobiles.jpg",
                         "buttons": [
                             {
