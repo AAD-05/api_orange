@@ -444,6 +444,21 @@ def addToCart(id,id_ut):
     return ""
 
 #Requete de récupération d'un forfait par son nom
+@app.route('/validerPanier/<string:email>', methods=['GET'])
+def validerPanier(email):
+
+    util = Utilisateur.query.filter_by( email= email).first()
+    Panier.query.filter_by(statut="En cours",id_utilisateur=util.id).update({Panier.statut: "Valider" })
+    return jsonify(
+    status=200,
+    replies=[{
+      'type': 'text',
+      'content': 'Votre panier à bien été validé'
+    }]
+  )
+    
+
+#Requete de récupération d'un forfait par son nom
 @app.route('/panier/<string:email>', methods=['POST'])
 def getPanier(email):
     
@@ -469,7 +484,7 @@ def getPanier(email):
                             "type": "web_url"
                         },
                         {
-                            "value": " ",
+                            "value": "https://jambot-api.herokuapp.com/validerPanier/cheikh05@live.fr",
                             "title": "Valider mon panier",
                             "type": "web_url"
                         }
