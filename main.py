@@ -331,7 +331,7 @@ def proposerTelephone():
     
     telephones = []
     for p in f_stock:
-        if(p.note_design >= n_design):
+        if(p.prix >= prix):
             if(p.note_ap >= n_appareil):
                 if(p.note_connection >= n_connection):
                     if(p.note_batterie >= n_batterie):
