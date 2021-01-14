@@ -7,7 +7,7 @@ import urllib.request
 from flask import  redirect, request, url_for, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from sqlalchemy import desc
+from sqlalchemy import desc, func
 from datetime import datetime
 import os
 import requests
@@ -223,7 +223,9 @@ def bonjour():
 
 @app.route('/Dashboard', methods=['GET'])
 def dashboard():
-    return render_template('dashboard.html')
+    data = db.session.query(func.public.total_interactions(1)).all()
+    print(data)
+    return render_template('dashboard.html', total_interactions=data)
 
 
 @app.route('/id_conv', methods=['POST'])
@@ -491,8 +493,8 @@ def getAllForfaits():
     forfaits=[]
     for f in listeForfaits:
         forfaits.append({
-            "title": f.description,
-            "subtitle": f.prix,
+            "title": f.zone,
+            "subtitle": f.giga_5g,
             "imageUrl": "https://www.francemobiles.com/actualites/image-orange-320-000-ventes-nettes-de-forfaits-mobiles-au-3eme-trimestre-2017-2017-17648-francemobiles.jpg",
             "buttons": [
                 {
