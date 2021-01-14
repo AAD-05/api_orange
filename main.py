@@ -753,7 +753,7 @@ def recupInfo(siret):
 
     return jsonify(
     status=200,
-    conversation={"memory":{"Etablissement":info.etablissement.denomination},{"localisation":info.etablissement.geo_adresse},{"effectif":info.etablissement.tranche_effectifs}}
+    conversation={"memory":{"Etablissement":info.etablissement.denomination ,"localisation":info.etablissement.geo_adresse ,"effectif":info.etablissement.tranche_effectifs}}
     )
 
 
