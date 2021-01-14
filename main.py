@@ -430,10 +430,17 @@ def addToCart(id,id_ut):
         db.session.add(panier)
         db.session.commit()
 
-    panier_produit=Panier_produit(id=panier.id,id_produit=id,type_produit="telephone",nombre=1,id_interaction=0,via_bot=1)
-    db.session.add(panier_produit)
-    db.session.commit()
- 
+    test=Panier_produit.query.filter_by(id=panier.id, id_produit=id).first()
+    
+    if(test is None):
+        panier_produit=Panier_produit(id=panier.id,id_produit=id,type_produit="telephone",nombre=1,id_interaction=0,via_bot=1)    
+        db.session.add(panier_produit)
+        db.session.commit()
+    
+    else:
+        Panier_produit.query.filter_by(id=panier.id,id_produit=id).update({Panier_produit.nombre: Panier_produit.nombre+1 })
+        db.session.commit()
+    
     return "success "+ str(id) + "  " + str(id_ut)
 
 #Requete de récupération d'un forfait par son nom
@@ -458,7 +465,7 @@ def getPanier(email):
                 "buttons": [
                     {
                         "value": "",
-                        "title": "panier",
+                        "title": "Supprimer du panier",
                         "type": "web_url"
                     }
                 ]
@@ -474,44 +481,44 @@ def getPanier(email):
 
 
 #Requete de récupération d'un forfait par son nom
-@app.route('/testpanier/<string:email>', methods=['POST'])
-def getPanierAAD(email):
+# @app.route('/testpanier/<string:email>', methods=['POST'])
+# def getPanierAAD(email):
     
-    donnee = request.get_json()
-    util = Utilisateur.query.filter_by( email= email).first()
-    panier = Panier.query.filter_by(statut="En cours",id_utilisateur=util.id).first()
-    liste=[]
-    # testAAD1=Panier_produit.query.filter_by(id=panier.id).with_entities(Panier_produit.id_produit, Panier_produit.id_interaction, Panier_produit.type_produit, Panier_produit.nombre, Panier_produit.via_bot).all()
-    # print(testAAD1)
-    # print(testAAD1[0][1])
+#     donnee = request.get_json()
+#     util = Utilisateur.query.filter_by( email= email).first()
+#     panier = Panier.query.filter_by(statut="En cours",id_utilisateur=util.id).first()
+#     liste=[]
+#     # testAAD1=Panier_produit.query.filter_by(id=panier.id).with_entities(Panier_produit.id_produit, Panier_produit.id_interaction, Panier_produit.type_produit, Panier_produit.nombre, Panier_produit.via_bot).all()
+#     # print(testAAD1)
+#     # print(testAAD1[0][1])
     
-    if panier is not None:
-        produits=Panier_produit.query.filter(Panier_produit.id == panier.id)
-        for p in produits:
-            print(str(p.id_produit)+"\n")
-            liste.append(Telephone.query.filter_by(id=p.id_produit).first())
-    produit=[]
-    for p in liste:
-            produit.append({
-                "title": p.modele,
-                "subtitle": p.prix,
-                "imageUrl": p.lien_photo,
-                "buttons": [
-                    {
-                        "value": "",
-                        "title": "panier",
-                        "type": "web_url"
-                    }
-                ]
-            })
+#     if panier is not None:
+#         produits=Panier_produit.query.filter(Panier_produit.id == panier.id)
+#         for p in produits:
+#             print(str(p.id_produit)+"\n")
+#             liste.append(Telephone.query.filter_by(id=p.id_produit).first())
+#     produit=[]
+#     for p in liste:
+#             produit.append({
+#                 "title": p.modele,
+#                 "subtitle": p.prix,
+#                 "imageUrl": p.lien_photo,
+#                 "buttons": [
+#                     {
+#                         "value": "",
+#                         "title": "panier",
+#                         "type": "web_url"
+#                     }
+#                 ]
+#             })
 
-    return jsonify(
-    status=200,
-    replies=[{
-      'type': 'carousel',
-      'content': produit
-    }]
-  )
+#     return jsonify(
+#     status=200,
+#     replies=[{
+#       'type': 'carousel',
+#       'content': produit
+#     }]
+#   )
   
 
 #Requete de récupération d'une option par son nom
