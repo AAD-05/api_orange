@@ -581,6 +581,7 @@ def getAllOptions():
 
     listeOptions=Option.query.filter(Option.prix > 0)
     options=[]
+    elements=[]
     for o in listeOptions:
         options.append({
             "title": o.description,
@@ -594,12 +595,12 @@ def getAllOptions():
                 }
             ]
         })
-        
+    elements.append(options)    
     return jsonify(
     status=200,
     replies=[{
       'type': 'list',
-      'content': options
+      'content': elements
     }]
   )
 
