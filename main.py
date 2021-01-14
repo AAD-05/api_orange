@@ -223,7 +223,7 @@ def bonjour():
 
 @app.route('/Dashboard', methods=['GET'])
 def dashboard():
-    return render_template('index.html')
+    return render_template('dashboard.html')
 
 
 @app.route('/id_conv', methods=['POST'])
