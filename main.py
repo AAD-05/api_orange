@@ -482,7 +482,8 @@ def getPanierAAD(email):
     panier = Panier.query.filter_by(statut="En cours",id_utilisateur=util.id).first()
     liste=[]
     testAAD = Panier_produit.query.filter(Panier_produit.id == panier.id)
-    print(testAAD[0], "\n", testAAD[1], "\n", testAAD[2])
+    for prod in testAAD:
+        print(prod, "\n")
     # return jsonify(bof=testAAD[2].id_produit)
     if panier is not None:
         produits=Panier_produit.query.filter(Panier_produit.id == panier.id)
@@ -494,7 +495,7 @@ def getPanierAAD(email):
             produit.append({
                 "title": p.modele,
                 "subtitle": p.prix,
-                "imageUrl": "https://boutiquepro.orange.fr/catalog/product/static/8/9988/9988_250x460_1_0.jpg",
+                "imageUrl": p.lien_photo,
                 "buttons": [
                     {
                         "value": "",
