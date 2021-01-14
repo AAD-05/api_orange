@@ -457,7 +457,7 @@ def getPanier(email):
                 "imageUrl": "https://boutiquepro.orange.fr/catalog/product/static/8/9988/9988_250x460_1_0.jpg",
                 "buttons": [
                     {
-                        "value": " ",
+                        "value": p.id_produit,
                         "title": "panier",
                         "type": "web_url"
                     }
