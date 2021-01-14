@@ -484,7 +484,7 @@ def getPanier(email):
                             "type": "web_url"
                         },
                         {
-                            "value": "https://jambot-api.herokuapp.com/validerPanier/cheikh05@live.fr",
+                            "value": "https://jambot-api.herokuapp.com/validerPanier/damendiaye@gmail.com",
                             "title": "Valider mon panier",
                             "type": "web_url"
                         }
