@@ -441,6 +441,7 @@ def addToCart(id,id_ut):
         Panier_produit.query.filter_by(id=panier.id,id_produit=id).update({Panier_produit.nombre: Panier_produit.nombre+1 })
         db.session.commit()
     
+    return ""
 
 #Requete de récupération d'un forfait par son nom
 @app.route('/panier/<string:email>', methods=['POST'])
