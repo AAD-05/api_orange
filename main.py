@@ -227,11 +227,12 @@ def jambot():
 
 @app.route('/Dashboard', methods=['GET'])
 def dashboard():
-    data = db.session.query(func.public.total_interactions()).all()
-    # data1 = db.session.query(func.public.total_interactions()).with_entities('total_interactions').all()
-    print(data[0][0])
-    # print(data1)
-    return render_template('dashboard.html', total_interactions=data[0][0])
+    total_interactions = db.session.query(func.public.total_interactions()).all()
+    total_interactions_abouties = db.session.query(func.public.total_interactions_abouties()).all()
+    ratio = total_interactions_abouties[0][0]/total_interactions[0][0]
+    CA = db.session.query(func.public.total_ca()).all()
+    # print(data[0][0])
+    return render_template('dashboard.html', CA=CA[0][0], ratio=ratio, total_interactions_abouties=total_interactions_abouties[0][0], total_interactions=total_interactions[0][0])
 
 
 @app.route('/id_conv', methods=['POST'])
