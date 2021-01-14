@@ -218,7 +218,7 @@ class Option(db.Model):
 
 @app.route('/bonjour', methods=['GET'])
 def bonjour():
-    return 'bonjour'
+    return render_template('essai.html')
 
 
 @app.route('/id_conv', methods=['POST'])
