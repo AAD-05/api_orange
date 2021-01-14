@@ -447,7 +447,7 @@ def getPanier(email):
     if panier is not None:
         produits=Panier_produit.query.filter_by(id=panier.id).all()
         for p in produits:
-            print(str(p.id)+"\n")
+            print(str(p.id_produit)+"\n")
             liste.append(Telephone.query.filter_by(id=p.id_produit).first())
             print(p.id)
     produit=[]
