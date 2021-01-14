@@ -445,15 +445,14 @@ def getPanier(email):
     panier = Panier.query.filter_by(statut="En cours",id_utilisateur=util.id).first()
     liste=[]
     if panier is not None:
-        produits=Panier_produit.query.filter(Panier_produit.id==panier.id)
+        produits=Panier_produit.query.filter_by(id=panier.id).with_entities(Panier_produit.id_produit, Panier_produit.id_interaction, Panier_produit.type_produit, Panier_produit.nombre, Panier_produit.via_bot).all()
         for p in produits:
-            print(str(p.id_produit)+"\n")
-            liste.append(Telephone.query.filter_by(id=p.id_produit).first())
+            liste.append(Telephone.query.filter_by(id=p[1]).first())
     produit=[]
     for p in liste:
             produit.append({
-                "title": p.modele,
-                "subtitle": p.prix,
+                "title": p[2],
+                "subtitle": p[3],
                 "imageUrl": "https://boutiquepro.orange.fr/catalog/product/static/8/9988/9988_250x460_1_0.jpg",
                 "buttons": [
                     {
