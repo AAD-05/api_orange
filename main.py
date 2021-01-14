@@ -752,7 +752,11 @@ def recupInfo(siret):
 
     return jsonify(
     status=200,
-    memory={'nom': 'hohoho'}
+    memory={'nom': 'hohoho'},
+    replies=[{
+      'type': 'carousel',
+      'content': 'okay AAD'
+    }]
     )
 
 
