@@ -316,7 +316,7 @@ def proposerTelephone():
     donnee = request.get_json()
 
     #domaine = donnee['conversation']['memory']['domaine']['value']
-    prix = donnee['conversation']['memory']['money-max']['amount']
+    prix = donnee['conversation']['memory']['money_max']['amount']
     nombre = donnee['conversation']['memory']['nombre']['scalar']
     #localisation = donnee['conversation']['memory']['localisation']['value']
     n_design = donnee['conversation']['memory']['note_design']['scalar']
