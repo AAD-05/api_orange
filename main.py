@@ -1,4 +1,4 @@
-from flask import Flask, request, Response, jsonify
+from flask import Flask, request, Response, jsonify,render_template
 
 from flask import  redirect, request, url_for, jsonify
 from flask_sqlalchemy import SQLAlchemy
