@@ -403,7 +403,7 @@ def telephones():
                 "imageUrl": p.lien_photo,
                 "buttons": [
                     {
-                        "value": "https://jambot-api.herokuapp.com/addToCart/"+str(p.id)+"/1",
+                        "value": "https://jambot-api.herokuapp.com/addToCart/"+str(p.id)+"/45",
                         "title": "ajouter au panier",
                         "type": "web_url"
                     }
