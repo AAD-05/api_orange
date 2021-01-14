@@ -400,7 +400,7 @@ def telephones():
             table_telephones.append({
                 "title": p.modele,
                 "subtitle": p.prix,
-                "imageUrl": "https://boutiquepro.orange.fr/catalog/product/static/8/9988/9988_250x460_1_0.jpg",
+                "imageUrl": p.lien_photo,
                 "buttons": [
                     {
                         "value": "https://jambot-api.herokuapp.com/addToCart/"+str(p.id)+"/1",
@@ -483,7 +483,7 @@ def getPanierAAD(email):
     liste=[]
     testAAD = Panier_produit.query.filter(Panier_produit.id == 1)
     print(testAAD[0], "\n", testAAD[1], "\n", testAAD[2])
-    return testAAD[2].id_produit
+    return jsonify(bof=testAAD[2].id_produit)
 #     if panier is not None:
 #         produits=Panier_produit.query.filter(Panier_produit.id==panier.id)
 #         for p in produits:
