@@ -219,7 +219,7 @@ class Option(db.Model):
 
 @app.route('/bonjour', methods=['GET'])
 def bonjour():
-    return render_template('essai.html')
+    return render_template('accueil.html')
 
 @app.route('/Dashboard', methods=['GET'])
 def dashboard():
