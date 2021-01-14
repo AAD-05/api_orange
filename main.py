@@ -221,6 +221,10 @@ class Option(db.Model):
 def bonjour():
     return render_template('essai.html')
 
+@app.route('/Dashboard', methods=['GET'])
+def bonjour():
+    return render_template('index.html')
+
 
 @app.route('/id_conv', methods=['POST'])
 def check_id_conv():
