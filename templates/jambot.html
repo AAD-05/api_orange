@@ -1,0 +1,101 @@
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Orange Pro : Forfait pro internet, mobile, fixe pour les entreprises  - Orange pro</title>
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+</head>
+<body>
+    <div class="row">
+        <div class="col-lg-12">
+            <nav class="navbar navbar-expand-lg head1 navbar-dark">
+                <button class="navbar-toggler btn-outline-dark" type="button" data-toggle="collapse" data-target="#content" aria-controls="content" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                 
+                &emsp; <a href="#" class="liens_orange">Particuliers</a> &emsp;
+                <a href="#" class="liens_orange">Professionnels</a> &emsp;
+                <a href="#" class="liens_orange">Entreprises</a>
+
+                <div class="collapse navbar-collapse" id="content">
+                    <div class="col-4"></div>
+                    <img src="{{ url_for('static', filename='./images/tap.png') }}" alt="" height="30px" width="75px">&emsp;&emsp;
+                    <img src="{{ url_for('static', filename='./images/contact.png') }}" alt="" height="30px" width="160px">&emsp;&emsp;
+                    <img src="{{ url_for('static', filename='./images/rdv.png') }}" alt="" height="30px" width="160px">&emsp;&emsp;
+                    <a href=""><img src="{{ url_for('static', filename='./images/ident.png') }}" alt="" height="30px" width="160px"></a>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <hr class="divider">
+    <div class="row">
+        <div class="col-lg-12">
+            <nav class="navbar navbar-expand-lg head1 navbar-dark">
+                <button class="navbar-toggler btn-outline-dark" type="button" data-toggle="collapse" data-target="#content2" aria-controls="content2" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                &emsp;<img src="{{ url_for('static', filename='./images/orange.jpg') }}" alt="" height="50px" width="50px">&emsp;
+                &emsp;<a href="#" class="liens_orange liens_orange2">Le Mag</a> &emsp;
+                &emsp;<a href="#" class="liens_orange liens_orange2">Boutique</a> &emsp;
+                &emsp;<a href="#" class="liens_orange liens_orange2">Espace client</a> &emsp;
+                &emsp;<a href="#" class="liens_orange liens_orange2">Assistance</a> &emsp;
+                &emsp;<a href="#" class="liens_orange liens_orange2">Solution Business</a> &emsp;
+                &emsp;<a href="#" class="extra">5G</a> &emsp;
+
+                <div class="collapse navbar-collapse" id="content2">
+                    <div class="col-6"></div>
+                    <a href="#"><img src="{{ url_for('static', filename='./images/search.png') }}" alt="" height="30px" width="30px"></a>&emsp;
+                    <a href="#"><img src="{{ url_for('static', filename='./images/message.png') }}" class="liens_orange" alt="" height="30px" width="50px"></a>&emsp;
+                    <a href="#"><img src="{{ url_for('static', filename='./images/cloud.png') }}" class="liens_orange" alt="" height="30px" width="30px"></a>&emsp;
+                    <a href="#"><img src="{{ url_for('static', filename='./images/cart.png') }}" class="liens_orange" alt="" height="30px" width="30px"></a>
+                </div>
+
+            </nav>
+        </div>
+    </div>
+    
+    <div class="jumbotron jumbotron-fluid" id="menu">
+        <div class="container-fluid">
+            <div class="row">
+                &emsp;&emsp;&emsp;&emsp;&emsp;
+                <a href="#"><img src="{{ url_for('static', filename='./images/fim.JPG') }}" class="produits" alt="" height="280px" width="200px"></a>&emsp;&emsp;
+                <a href="#"><img src="{{ url_for('static', filename='./images/mob&tab.JPG') }}" class="produits" alt="" height="280px" width="200px"></a>&emsp;&emsp;
+                <a href="#"><img src="{{ url_for('static', filename='./images/internet.JPG') }}" class="produits" alt="" height="280px" width="200px"></a>&emsp;&emsp;
+                <a href="#"><img src="{{ url_for('static', filename='./images/cloud_pro.JPG') }}" class="produits" alt="" height="280px" width="200px"></a>&emsp;&emsp;
+                <a href="#"><img src="{{ url_for('static', filename='./images/fixe_te.JPG') }}" class="produits" èalt="" height="280px" width="200px"></a>&emsp;&emsp;
+                <a href="#"><img src="{{ url_for('static', filename='./images/accessoires.JPG') }}" class="produits" alt="" height="280px" width="200px"></a>&emsp;&emsp;
+            </div>
+            
+        </div>
+      </div>
+
+
+
+
+
+    <!--Scripts-->
+
+
+    <script>
+      window.webchatMethods = {
+        // called at each user message
+        getMemory: (conversationId) => {
+          const memory = { email: ''} 
+          return { memory, merge: true }
+        }
+      }
+    </script>
+
+    
+ 
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+	
+    <script src="https://cdn.cai.tools.sap/webchat/webchat.js" channelId="74a3a7e7-7350-41b5-924c-9d171b71a134" token="1b288101ea2d4083bf0ca961dc535b26" id="cai-webchat"></script>
+
+</body>
+</html>
