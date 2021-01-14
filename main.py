@@ -221,6 +221,10 @@ class Option(db.Model):
 def bonjour():
     return render_template('essai.html')
 
+@app.route('/Dashboard', methods=['GET'])
+def dashboard():
+    return render_template('index.html')
+
 
 @app.route('/id_conv', methods=['POST'])
 def check_id_conv():
@@ -803,7 +807,7 @@ def recupInfo(siret):
 
     return jsonify(
     status=200,
-    conversation={"memory":{"Etablissement":info.etablissement.denomination},{"localisation":info.etablissement.geo_adresse},{"effectif":info.etablissement.tranche_effectifs}}
+    conversation={"memory":{"Etablissement":info.etablissement.denomination ,"localisation":info.etablissement.geo_adresse ,"effectif":info.etablissement.tranche_effectifs}}
     )
 
 
