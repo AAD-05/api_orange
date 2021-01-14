@@ -223,7 +223,7 @@ def bonjour():
 
 @app.route('/Dashboard', methods=['GET'])
 def dashboard():
-    data = db.session.query(func.public.total_interactions()).all()
+    data = db.session.query(func.public.total_interactions(1)).all()
     print(data)
     return render_template('dashboard.html', total_interactions=data)
 
