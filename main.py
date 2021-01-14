@@ -326,11 +326,11 @@ def proposerTelephone():
     n_batterie = donnee['conversation']['memory']['note_batterie']['scalar']
     n_puissance = donnee['conversation']['memory']['note_puissance']['scalar']
 
-    liste = Telephone.query.filter(Telephone.stock > nombre and Telephone.prix <= prix and Telephone.note_design >= n_design and Telephone.note_ap >= n_appareil and Telephone.note_connection >= n_connection and Telephone.note_batterie >= n_batterie and Telephone.note_puissance >= n_puissance)
-
+    #liste = Telephone.query.filter(Telephone.stock > nombre and Telephone.prix <= prix and Telephone.note_design >= n_design and Telephone.note_ap >= n_appareil and Telephone.note_connection >= n_connection and Telephone.note_batterie >= n_batterie and Telephone.note_puissance >= n_puissance)
+    f_stock = Telephone.query.filter(Telephone.stock > nombre)
     
     telephones = []
-    for p in liste:
+    for p in f_stock:
         telephones.append({
             "title": p.modele,
             "subtitle": p.prix,
