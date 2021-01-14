@@ -717,9 +717,8 @@ def addAvis():
 
     donnee = request.get_json()
     print("donnees",donnee)
-    #avis=donnee['nlp']['entities']['number'][0]['raw']
     avis=donnee['conversation']['memory']['rating']['scalar']
-    id_util = Utilisateur.query.filter_by( email= donnee['conversation']['memory']['email']).first()
+    id_util = Utilisateur.query.filter_by( numero_telephone = donnee['conversation']['memory']['numero_telephone']).first()
     b = Avis(note=avis,id_interaction=id_util,id_utilisateur=id_util)
 
     db.session.add(b)
