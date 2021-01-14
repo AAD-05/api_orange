@@ -451,26 +451,28 @@ def getPanier(email):
     util = Utilisateur.query.filter_by( email= email).first()
     panier = Panier.query.filter_by(statut="En cours",id_utilisateur=util.id).first()
     liste=[]
+    produit=[]
     if panier is not None:
         produits=Panier_produit.query.filter_by(id=panier.id).with_entities(Panier_produit.id, Panier_produit.id_produit, Panier_produit.id_interaction, Panier_produit.type_produit, Panier_produit.nombre, Panier_produit.via_bot).all()
         for p in produits:
             print(p)
             liste.append(Telephone.query.filter_by(id=p[1]).first())
-    produit=[]
-    for p in liste:
-            produit.append({
-                "title": p.modele,
-                "subtitle": p.prix,
-                "imageUrl": p.lien_photo,
-                "buttons": [
-                    {
-                        "value": "",
-                        "title": "Supprimer du panier",
-                        "type": "web_url"
-                    }
-                ]
-            })
-
+        for p in liste:
+                produit.append({
+                    "title": p.modele,
+                    "subtitle": p.prix,
+                    "imageUrl": p.lien_photo,
+                    "buttons": [
+                        {
+                            "value": "",
+                            "title": "Supprimer du panier",
+                            "type": "web_url"
+                        }
+                    ]
+                })
+    else:
+        produit.append('Vous n\' avez pas de panier en cours')
+        
     return jsonify(
     status=200,
     replies=[{
