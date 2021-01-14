@@ -460,7 +460,7 @@ def getPanier(email):
         for p in liste:
                 produit.append({
                     "title": p.modele,
-                    "subtitle": p.prix,
+                    "subtitle": str(p.prix)+" X "+str(Panier_produit.query.filter_by(id=panier.id,id_produit=p.id).first().nombre) ,
                     "imageUrl": p.lien_photo,
                     "buttons": [
                         {
