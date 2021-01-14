@@ -579,7 +579,7 @@ def getAllOptions():
     for o in listeOptions:
         options.append({
             "title": "Nom: " + o.description_complete,
-            "subtitle": 'Prix: ' + o.prix + '€',
+            "subtitle": 'Prix: ' + str(o.prix) + '€',
             "buttons": [
                 {
                     "value": "https://boutiquepro.orange.fr/telephone-mobile-business-everywhere-flex-sans-engagement.html",
