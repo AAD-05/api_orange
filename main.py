@@ -555,11 +555,12 @@ def getOption():
         if(optionDemandee.lower() in o.description.lower()):
             options.append({
                 "title": o.description,
-                "subtitle": o.prix,
+                "subtitle": "Prix : "+o.prix,
+                "description": o.description_complete,
                 "buttons": [
                     {
                         "value": "https://boutiquepro.orange.fr/telephone-mobile-business-everywhere-flex-sans-engagement.html",
-                        "title": "lien",
+                        "title": "Voir",
                         "type": "web_url"
                     }
                 ]
@@ -568,7 +569,7 @@ def getOption():
     return jsonify(
     status=200,
     replies=[{
-      'type': 'carousel',
+      'type': 'list',
       'content': options
     }]
   )
@@ -583,11 +584,12 @@ def getAllOptions():
     for o in listeOptions:
         options.append({
             "title": o.description,
-            "subtitle": o.prix,
+            "subtitle": "Prix : "+o.prix,
+            "description": o.description_complete,
             "buttons": [
                 {
                     "value": "https://boutiquepro.orange.fr/telephone-mobile-business-everywhere-flex-sans-engagement.html",
-                    "title": "lien",
+                    "title": "Voir",
                     "type": "web_url"
                 }
             ]
@@ -596,7 +598,7 @@ def getAllOptions():
     return jsonify(
     status=200,
     replies=[{
-      'type': 'carousel',
+      'type': 'list',
       'content': options
     }]
   )
