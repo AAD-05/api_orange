@@ -471,6 +471,46 @@ def getPanier(email):
       'content': produit
     }]
   )
+
+
+#Requete de récupération d'un forfait par son nom
+@app.route('/testpanier/<string:email>', methods=['POST'])
+def getPanierAAD(email):
+    
+    donnee = request.get_json()
+    util = Utilisateur.query.filter_by( email= email).first()
+    panier = Panier.query.filter_by(statut="En cours",id_utilisateur=util.id).first()
+    liste=[]
+    testAAD = Panier_produit.query.filter(Panier_produit.id = 1)
+
+    return jsonify(testAAD)
+#     if panier is not None:
+#         produits=Panier_produit.query.filter(Panier_produit.id==panier.id)
+#         for p in produits:
+#             print(str(p.id_produit)+"\n")
+#             liste.append(Telephone.query.filter_by(id=p.id_produit).first())
+#     produit=[]
+#     for p in liste:
+#             produit.append({
+#                 "title": p.modele,
+#                 "subtitle": p.prix,
+#                 "imageUrl": "https://boutiquepro.orange.fr/catalog/product/static/8/9988/9988_250x460_1_0.jpg",
+#                 "buttons": [
+#                     {
+#                         "value": "",
+#                         "title": "panier",
+#                         "type": "web_url"
+#                     }
+#                 ]
+#             })
+
+#     return jsonify(
+#     status=200,
+#     replies=[{
+#       'type': 'carousel',
+#       'content': produit
+#     }]
+#   )
   
 
 #Requete de récupération d'une option par son nom
