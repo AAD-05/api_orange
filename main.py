@@ -403,7 +403,7 @@ def telephones():
                 "imageUrl": p.lien_photo,
                 "buttons": [
                     {
-                        "value": "https://jambot-api.herokuapp.com/addToCart/"+str(p.id)+"/1",
+                        "value": "https://jambot-api.herokuapp.com/addToCart/"+str(p.id)+"/45",
                         "title": "ajouter au panier",
                         "type": "web_url"
                     }
@@ -426,7 +426,7 @@ def addToCart(id,id_ut):
 
     panier = Panier.query.filter_by(statut="En cours",id_utilisateur=id_ut).first()
     if panier is None:
-        panier=Panier(id=Panier.order_by(desc(Panier.id)).first().id+1, statut= "En cours", id_utilisateur=id_ut)  
+        panier=Panier(id=Panier.query.order_by(desc(Panier.id)).first().id+1, statut= "En cours", id_utilisateur=id_ut)  
         db.session.add(panier)
         db.session.commit()
 
