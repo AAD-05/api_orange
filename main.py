@@ -447,6 +447,7 @@ def getPanier(email):
     if panier is not None:
         produits=Panier_produit.query.filter_by(id=panier.id).all()
         for p in produits:
+            print(p.id+"\n")
             liste.append(Telephone.query.filter_by(id=p.id_produit).first())
             print(p.id)
     produit=[]
@@ -457,7 +458,7 @@ def getPanier(email):
                 "imageUrl": "https://boutiquepro.orange.fr/catalog/product/static/8/9988/9988_250x460_1_0.jpg",
                 "buttons": [
                     {
-                        "value": p.id,
+                        "value": "",
                         "title": "panier",
                         "type": "web_url"
                     }
