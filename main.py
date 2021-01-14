@@ -481,10 +481,10 @@ def getPanierAAD(email):
     util = Utilisateur.query.filter_by( email= email).first()
     panier = Panier.query.filter_by(statut="En cours",id_utilisateur=util.id).first()
     liste=[]
-    testAAD = Panier_produit.query.filter(Panier_produit.id == panier.id)
+    testAAD = Panier_produit.query.filter(Panier_produit.id == panier.id).statement.execute().fetchall()
     print(testAAD)
-    for i in range (0,len(testAAD)):
-        print(testAAD[i], "\n")
+    for i in testAAD:
+        print(prod, "\n")
     # return jsonify(bof=testAAD[2].id_produit)
     if panier is not None:
         produits=Panier_produit.query.filter(Panier_produit.id == panier.id)
