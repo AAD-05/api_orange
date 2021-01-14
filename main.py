@@ -451,8 +451,8 @@ def getPanier(email):
     produit=[]
     for p in liste:
             produit.append({
-                "title": p[2],
-                "subtitle": p[3],
+                "title": p.modele,
+                "subtitle": p.prix,
                 "imageUrl": "https://boutiquepro.orange.fr/catalog/product/static/8/9988/9988_250x460_1_0.jpg",
                 "buttons": [
                     {
