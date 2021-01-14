@@ -748,7 +748,13 @@ def getAllOptions():
 def recupInfo(siret):
     req_info = urllib.request.urlopen("https://entreprise.data.gouv.fr/api/sirene/v3/etablissements/"+str(siret)+"/").read()
     info = json.loads(req_info.decode('utf-8'))
-    return info
+    
+
+    return jsonify(
+    status=200,
+    memory=[{'nom': 'hohoho'}],
+    merge_memory=true
+    )
 
 
 
