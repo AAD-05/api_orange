@@ -63,7 +63,7 @@ class Forfait(db.Model):
     lien_photo=db.Column(db.Text)
 
     def __repr__(self):
-        return '<forfait: {}>'.format(self.code)
+        return '<forfait: {}>'.format(self.id)
 
 
 
@@ -81,7 +81,7 @@ class Utilisateur(db.Model):
 
 
     def __repr__(self):
-        return '<utilisateur: {}>'.format(self.code)
+        return '<utilisateur: {}>'.format(self.id)
 
   
 
@@ -96,7 +96,7 @@ class Interaction(db.Model):
 
 
     def __repr__(self):
-        return '<interaction: {}>'.format(self.code)
+        return '<interaction: {}>'.format(self.id)
 
 
 
@@ -110,7 +110,7 @@ class Panier(db.Model):
 
 
     def __repr__(self):
-        return '<panier: {}>'.format(self.code)
+        return '<panier: {}>'.format(self.id)
 
 
 
@@ -125,7 +125,7 @@ class Avis(db.Model):
 
 
     def __repr__(self):
-        return '<avis: {}>'.format(self.code)
+        return '<avis: {}>'.format(self.id)
 
 
 class Panier_produit(db.Model):
@@ -140,7 +140,7 @@ class Panier_produit(db.Model):
 
 
     def __repr__(self):
-        return '<panier_produit: {}>'.format(self.code)
+        return '<panier_produit: {}>'.format(self.id)
 
 
 class Etablissement(db.Model):
@@ -153,7 +153,7 @@ class Etablissement(db.Model):
 
 
     def __repr__(self):
-        return '<etablissement: {}>'.format(self.code)
+        return '<etablissement: {}>'.format(self.id)
 
 
 class Etablissement_produit(db.Model):
@@ -166,7 +166,7 @@ class Etablissement_produit(db.Model):
 
 
     def __repr__(self):
-        return '<etablissement_produit: {}>'.format(self.code)
+        return '<etablissement_produit: {}>'.format(self.id)
 
 
 
@@ -177,7 +177,7 @@ class Commercial(db.Model):
     nom =db.Column(db.String(60))
 
     def __repr__(self):
-        return '<commercial: {}>'.format(self.code)
+        return '<commercial: {}>'.format(self.id)
 
 
 class Rdv(db.Model):
@@ -191,7 +191,7 @@ class Rdv(db.Model):
     disponibilite=db.Column(db.Text)
 
     def __repr__(self):
-        return '<rdv: {}>'.format(self.code)
+        return '<rdv: {}>'.format(self.id)
 
 
 class Option(db.Model):
@@ -206,7 +206,7 @@ class Option(db.Model):
 
 
     def __repr__(self):
-        return '<option: {}>'.format(self.code)
+        return '<option: {}>'.format(self.id)
 
 
 
