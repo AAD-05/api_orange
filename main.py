@@ -7,7 +7,7 @@ import urllib.request
 from flask import  redirect, request, url_for, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from sqlalchemy import desc
+from sqlalchemy import desc, func
 from datetime import datetime
 import os
 import requests
@@ -223,7 +223,9 @@ def bonjour():
 
 @app.route('/Dashboard', methods=['GET'])
 def dashboard():
-    return render_template('dashboard.html')
+    data = db.session.query(func.public.total_interactions()).all()
+    print(data)
+    return render_template('dashboard.html', total_interactions=data)
 
 
 @app.route('/id_conv', methods=['POST'])

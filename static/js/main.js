@@ -5,6 +5,7 @@
 
   try {
     //WidgetChart 1
+    console.log({{total_interactions}})
     var ctx = document.getElementById("widgetChart1");
     if (ctx) {
       ctx.height = 130;
