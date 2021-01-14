@@ -224,9 +224,9 @@ def bonjour():
 @app.route('/Dashboard', methods=['GET'])
 def dashboard():
     data = db.session.query(func.public.total_interactions()).all()
-    data1 = db.session.query(func.public.total_interactions()).with_entities('total_interactions').all()
+    # data1 = db.session.query(func.public.total_interactions()).with_entities('total_interactions').all()
     print(data[0])
-    print(data1)
+    # print(data1)
     return render_template('dashboard.html', total_interactions=data[0])
 
 
