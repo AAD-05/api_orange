@@ -426,7 +426,7 @@ def addToCart(id,id_ut):
 
     panier = Panier.query.filter_by(statut="En cours",id_utilisateur=id_ut).first()
     if panier is None:
-        panier=Panier(id=Panier.query.order_by(desc(Panier.id)).first().id+1, statut= "En cours", id_utilisateur=id_ut)  
+        panier=Panier( statut= "En cours", id_utilisateur=id_ut)  
         db.session.add(panier)
         db.session.commit()
 
