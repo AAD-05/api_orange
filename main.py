@@ -332,11 +332,11 @@ def proposerTelephone():
     telephones = []
     for p in f_stock:
         if(p.prix >= prix):
-            if(p.note_ap >= n_appareil):
-                if(p.note_connection >= n_connection):
-                    if(p.note_batterie >= n_batterie):
-                        if(p.note_puissance >= n_puissance):
-                            if(p.note_design >= n_design):
+            if(p.note_ap is not None and p.note_ap >= n_appareil):
+                if(p.note_connection is not None and  p.note_connection >= n_connection):
+                    if(p.note_batterie is not None and  p.note_batterie >= n_batterie):
+                        if(p.note_puissance is not None and  p.note_puissance >= n_puissance):
+                            if(p.note_design is not None and  p.note_design >= n_design):
                                 telephones.append({
                                     "title": p.modele,
                                     "subtitle": p.prix,
