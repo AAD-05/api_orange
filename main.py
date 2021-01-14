@@ -481,7 +481,7 @@ def getPanierAAD(email):
     util = Utilisateur.query.filter_by( email= email).first()
     panier = Panier.query.filter_by(statut="En cours",id_utilisateur=util.id).first()
     liste=[]
-    testAAD1=Panier_produit.query.all()
+    testAAD1=Panier_produit.query.with_entities(Panier_produit.id_produit).all()
     print(testAAD1)
     # testAAD = Panier_produit.query.filter(Panier_produit.id == panier.id).statement.execute().fetchall()
     # print(testAAD)
