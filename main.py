@@ -467,7 +467,7 @@ def getPanier(email):
                             "value": " ",
                             "title": "Supprimer du panier",
                             "type": "web_url"
-                        }
+                        },
                         {
                             "value": " ",
                             "title": "Valider mon panier",
