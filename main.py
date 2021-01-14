@@ -386,7 +386,7 @@ def proposerForfait():
     n_giga = donnee['conversation']['memory']['nombre_giga']['scalar']
     zone = donnee['conversation']['memory']['zone']['value']
 
-    f_prix = Forfait.query.filter(Forfait.prix <= p)
+    f_prix = Forfait.query.filter(Forfait.prix <= prix)
     forfaits = []
     for f in f_prix:
         if(f.type_giga is not None and f.type_giga is t_giga):
