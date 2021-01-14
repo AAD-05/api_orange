@@ -449,13 +449,9 @@ def validerPanier(email):
 
     util = Utilisateur.query.filter_by( email= email).first()
     Panier.query.filter_by(statut="En cours",id_utilisateur=util.id).update({Panier.statut: "Valider" })
-    return jsonify(
-    status=200,
-    replies=[{
-      'type': 'text',
-      'content': 'Votre panier à bien été validé'
-    }]
-  )
+    db.session.commit()
+
+    return 'Panier valider avec succes'
     
 
 #Requete de récupération d'un forfait par son nom
