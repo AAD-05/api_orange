@@ -222,7 +222,7 @@ def bonjour():
     return render_template('essai.html')
 
 @app.route('/Dashboard', methods=['GET'])
-def bonjour():
+def dashboard():
     return render_template('index.html')
 
 
