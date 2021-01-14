@@ -750,17 +750,11 @@ def recupInfo(siret):
     info = json.loads(req_info.decode('utf-8'))
     
 
-    return info
 
-
-    # return jsonify(
-    # status=200,
-    # conversation={"memory":{"Etablissement":""},{"effectif":""},{"localisation":""},{"domaine":""}},
-    # replies=[{
-    #   'type': 'carousel',
-    #   'content': 'okay AAD'
-    # }]
-    # )
+    return jsonify(
+    status=200,
+    conversation={"memory":{"Etablissement":info.etablissement.denomination},{"localisation":info.etablissement.geo_adresse}},
+    )
 
 
 
