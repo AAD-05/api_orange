@@ -464,15 +464,20 @@ def getPanier(email):
                     "imageUrl": p.lien_photo,
                     "buttons": [
                         {
-                            "value": "",
+                            "value": " ",
                             "title": "Supprimer du panier",
+                            "type": "web_url"
+                        }
+                        {
+                            "value": " ",
+                            "title": "Valider mon panier",
                             "type": "web_url"
                         }
                     ]
                 })
     else:
         produit.append('Vous n\' avez pas de panier en cours')
-        
+
     return jsonify(
     status=200,
     replies=[{
