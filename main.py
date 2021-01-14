@@ -398,7 +398,7 @@ def proposerForfait():
                 if(f.zone is not None and zone.lower() in f.zone.lower()):
                     forfaits.append({
                         "title": f.description +" disponible en "+ f.zone,
-                        "subtitle": f.giga_4g + "Go à "+str(f.prix) + " €",
+                        "subtitle": str(f.giga_4g) + "Go à "+str(f.prix) + " €",
                         "imageUrl": "https://www.francemobiles.com/actualites/image-orange-320-000-ventes-nettes-de-forfaits-mobiles-au-3eme-trimestre-2017-2017-17648-francemobiles.jpg",
                         "buttons": [
                             {
@@ -413,7 +413,7 @@ def proposerForfait():
                 if(f.zone is not None and zone.lower() in f.zone.lower()):
                     forfaits.append({
                         "title": f.description +" disponible en "+ f.zone,
-                        "subtitle": f.giga_5g + "Go à "+str(f.prix) + " €",
+                        "subtitle": str(f.giga_5g) + "Go à "+str(f.prix) + " €",
                         "imageUrl": "https://www.francemobiles.com/actualites/image-orange-320-000-ventes-nettes-de-forfaits-mobiles-au-3eme-trimestre-2017-2017-17648-francemobiles.jpg",
                         "buttons": [
                             {
