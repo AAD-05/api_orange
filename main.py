@@ -555,7 +555,7 @@ def getOption():
         if(optionDemandee.lower() in o.description.lower()):
             options.append({
                 "title": o.description,
-                "subtitle": "Prix : "+o.prix,
+                "subtitle":o.prix,
                 "description": o.description_complete,
                 "buttons": [
                     {
@@ -584,7 +584,7 @@ def getAllOptions():
     for o in listeOptions:
         options.append({
             "title": o.description,
-            "subtitle": "Prix : "+o.prix,
+            "subtitle":+o.prix,
             "description": o.description_complete,
             "buttons": [
                 {
