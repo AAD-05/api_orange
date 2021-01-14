@@ -331,18 +331,23 @@ def proposerTelephone():
     
     telephones = []
     for p in f_stock:
-        telephones.append({
-            "title": p.modele,
-            "subtitle": p.prix,
-            "imageUrl": "https://boutiquepro.orange.fr/catalog/product/static/8/9988/9988_250x460_1_0.jpg",
-            "buttons": [
-                {
-                    "value": "https://boutiquepro.orange.fr/telephone-mobile-xiaomi-mi-10t-noir-128go.html?id="+str(p.id),
-                    "title": "ajouter au panier",
-                    "type": "web_url"
-                }
-            ]
-        })
+        if(p.note_design >= n_design):
+            if(p.note_ap >= n_appareil):
+                if(p.note_connection >= n_connection):
+                    if(p.note_batterie >= n_batterie):
+                        if(p.note_puissance >= n_puissance):
+                            telephones.append({
+                                "title": p.modele,
+                                "subtitle": p.prix,
+                                "imageUrl": "https://boutiquepro.orange.fr/catalog/product/static/8/9988/9988_250x460_1_0.jpg",
+                                "buttons": [
+                                    {
+                                        "value": "https://boutiquepro.orange.fr/telephone-mobile-xiaomi-mi-10t-noir-128go.html?id="+str(p.id),
+                                        "title": "ajouter au panier",
+                                        "type": "web_url"
+                                    }
+                                ]
+                            })
         
     if(len(telephones)!=0):
         return jsonify(
