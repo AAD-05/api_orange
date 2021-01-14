@@ -212,7 +212,7 @@ class Option(db.Model):
     def __repr__(self):
         return '<option: {}>'.format(self.id)
 
-
+ 
 """
     Créons une requête pour modifier le statut d'une commande 
 """    
