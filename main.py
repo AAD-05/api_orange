@@ -310,6 +310,65 @@ def getTelephone():
         )
 
 
+#Requete de récupération d'un téléphone avec les besoins du client
+@app.route('/proposerTelephone', methods=['POST'])
+def proposerTelephone():
+    donnee = request.get_json()
+
+    #domaine = donnee['conversation']['memory']['domaine']['value']
+    prix = donnee['conversation']['memory']['money-max']['amount']
+    nombre = donnee['conversation']['memory']['nombre']['scalar']
+    #localisation = donnee['conversation']['memory']['localisation']['value']
+    n_design = donnee['conversation']['memory']['note_design']['scalar']
+    n_appareil = donnee['conversation']['memory']['note_appareil']['scalar']
+    n_connection = donnee['conversation']['memory']['note_connection']['scalar']
+    n_batterie = donnee['conversation']['memory']['note_batterie']['scalar']
+    n_puissance = donnee['conversation']['memory']['note_puissance']['scalar']
+
+    liste = Telephone.query.filter(Telephone.stock > nombre 
+                                    and Telephone.prix <= prix 
+                                    and Telephone.note_design >= n_design
+                                    and Telephone.note_ap >= n_appareil
+                                    and Telephone.note_connection >= n_connection
+                                    and Telephone.note_batterie >= n_batterie
+                                    and Telephone.note_puissance >= n_puissance)
+
+    
+    telephones = []
+    for p in liste:
+        telephones.append({
+            "title": p.modele,
+            "subtitle": p.prix,
+            "imageUrl": "https://boutiquepro.orange.fr/catalog/product/static/8/9988/9988_250x460_1_0.jpg",
+            "buttons": [
+                {
+                    "value": "https://boutiquepro.orange.fr/telephone-mobile-xiaomi-mi-10t-noir-128go.html?id="+str(p.id),
+                    "title": "ajouter au panier",
+                    "type": "web_url"
+                }
+            ]
+        })
+        
+    if(len(telephones)!=0):
+        return jsonify(
+            status=200,
+            replies=[{
+                'type' : 'carousel',
+                'content' : telephones
+            }]
+        )
+    else:
+        return jsonify(
+            status=200,
+            replies=[{
+                'type': 'text',
+                'content': "Désolé aucun de nos téléphones ne correspond à votre demande"
+            }]
+        )
+
+
+
+
 #Requete de récupération d'un forfait par son nom
 @app.route('/getForfait', methods=['POST'])
 def getForfait():
