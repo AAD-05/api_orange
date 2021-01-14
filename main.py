@@ -433,7 +433,7 @@ def proposerForfait():
             status=200,
             replies=[{
                 'type': 'text',
-                'content': "Désolé aucun de nos forfaits ne correspond à votre demande"
+                'content': "Désolé aucun de nos forfaits ne correspond à votre demande"+t_giga
             }]
         )
 
