@@ -1,5 +1,9 @@
 from flask import Flask, request, Response, jsonify,render_template
 
+import json
+from json import JSONEncoder
+import urllib.request
+
 from flask import  redirect, request, url_for, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -207,9 +211,6 @@ class Option(db.Model):
 
     def __repr__(self):
         return '<option: {}>'.format(self.id)
-
-
-
 
 
 """
@@ -679,6 +680,19 @@ def getAllOptions():
 #     db.session.commit()
 
 #     return 'succes'
+
+
+
+
+
+@app.route('/recupInfo/<string:siret>', methods=['POST'])
+def recupInfo(siret):
+    req_info = urllib.request.urlopen("https://entreprise.data.gouv.fr/api/sirene/v3/etablissements/"+str(siret)+"/").read()
+    info = json.loads(req_info.decode('utf-8'))
+    return info
+
+
+
 
 
 @app.route('/ajouterForfait', methods=['POST'])
