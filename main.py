@@ -373,6 +373,56 @@ def proposerTelephone():
 
 
 
+#Requete de récupération d'un forfait par le besoin client
+@app.route('/proposerForfait', methods=['POST'])
+def proposerForfait():
+    donnee = request.get_json()
+
+    #domaine = donnee['conversation']['memory']['domaine']['value']
+    prix = donnee['conversation']['memory']['money_max']['amount']
+    nombre = donnee['conversation']['memory']['nombre']['scalar']
+    #localisation = donnee['conversation']['memory']['localisation']['value']
+    t_giga = donnee['conversation']['memory']['type_giga']['value']
+    n_giga = donnee['conversation']['memory']['nombre_giga']['scalar']
+    zone = donnee['conversation']['memory']['zone']['value']
+
+    f_prix = Forfait.query.filter(Forfait.prix <= p)
+    forfaits = []
+    for f in f_prix:
+        if(f.type_giga is not None and f.type_giga is t_giga):
+            if(f.nombre_giga is not None and f.nombre_giga >=  n_giga):
+                if(f.zone is not None and zone.lower() in f.zone.lower()):
+                    forfaits.append({
+                        "title": f.description,
+                        "subtitle": f.prix,
+                        "imageUrl": "https://www.francemobiles.com/actualites/image-orange-320-000-ventes-nettes-de-forfaits-mobiles-au-3eme-trimestre-2017-2017-17648-francemobiles.jpg",
+                        "buttons": [
+                            {
+                                "value": "https://boutiquepro.orange.fr/telephone-mobile-xiaomi-mi-10t-noir-128go.html",
+                                "title": "lien",
+                                "type": "web_url"
+                            }
+                        ]
+                    })
+        
+    if(len(forfaits)!=0):
+        return jsonify(
+            status=200,
+            replies=[{
+                'type' : 'carousel',
+                'content' : forfaits
+            }]
+        )
+    else:
+        return jsonify(
+            status=200,
+            replies=[{
+                'type': 'text',
+                'content': "Désolé aucun de nos forfaits ne correspond à votre demande"
+            }]
+        )
+
+
 
 #Requete de récupération d'un forfait par son nom
 @app.route('/getForfait', methods=['POST'])
