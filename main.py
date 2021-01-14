@@ -445,24 +445,24 @@ def getPanier(email):
     panier = Panier.query.filter_by(statut="En cours",id_utilisateur=util.id).first()
     liste=[]
     if panier is not None:
-        produits=Panier_produit.query.filter_by(id=panier.id).with_entities(Panier_produit.id_produit, Panier_produit.id_interaction, Panier_produit.type_produit, Panier_produit.nombre, Panier_produit.via_bot).all()
+        produits=Panier_produit.query.filter_by(id=panier.id).with_entities(Panier_produit.id, Panier_produit.id_produit, Panier_produit.id_interaction, Panier_produit.type_produit, Panier_produit.nombre, Panier_produit.via_bot).all()
         for p in produits:
             print(p)
-            # liste.append(Telephone.query.filter_by(id=p[1]).first())
+            liste.append(Telephone.query.filter_by(id=p[0]).first())
     produit=[]
-    # for p in liste:
-    #         produit.append({
-    #             "title": p.modele,
-    #             "subtitle": p.prix,
-    #             "imageUrl": "https://boutiquepro.orange.fr/catalog/product/static/8/9988/9988_250x460_1_0.jpg",
-    #             "buttons": [
-    #                 {
-    #                     "value": "",
-    #                     "title": "panier",
-    #                     "type": "web_url"
-    #                 }
-    #             ]
-    #         })
+    for p in liste:
+            produit.append({
+                "title": p.modele,
+                "subtitle": p.prix,
+                "imageUrl": "https://boutiquepro.orange.fr/catalog/product/static/8/9988/9988_250x460_1_0.jpg",
+                "buttons": [
+                    {
+                        "value": "",
+                        "title": "panier",
+                        "type": "web_url"
+                    }
+                ]
+            })
 
     return jsonify(
     status=200,
