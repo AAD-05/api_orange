@@ -391,22 +391,22 @@ def proposerForfait():
     f_prix = Forfait.query.filter(Forfait.prix <= prix)
     forfaits = []
     for f in f_prix:
-        if(t_giga is "4g"):
+        if(t_giga == "4g"):
             if(f.giga_4g is not None and f.giga_4g >=  n_giga):
-                #if(f.zone is not None and zone.lower() in f.zone.lower()):
-                forfaits.append({
-                    "title": f.description,
-                    "subtitle": f.prix,
-                    "imageUrl": "https://www.francemobiles.com/actualites/image-orange-320-000-ventes-nettes-de-forfaits-mobiles-au-3eme-trimestre-2017-2017-17648-francemobiles.jpg",
-                    "buttons": [
-                        {
-                            "value": "https://boutiquepro.orange.fr/telephone-mobile-xiaomi-mi-10t-noir-128go.html",
-                            "title": "lien",
-                            "type": "web_url"
-                        }
-                    ]
-                })
-        elif(t_giga is "5g"):
+                if(f.zone is not None and zone.lower() in f.zone.lower()):
+                    forfaits.append({
+                        "title": f.description,
+                        "subtitle": f.prix,
+                        "imageUrl": "https://www.francemobiles.com/actualites/image-orange-320-000-ventes-nettes-de-forfaits-mobiles-au-3eme-trimestre-2017-2017-17648-francemobiles.jpg",
+                        "buttons": [
+                            {
+                                "value": "https://boutiquepro.orange.fr/telephone-mobile-xiaomi-mi-10t-noir-128go.html",
+                                "title": "lien",
+                                "type": "web_url"
+                            }
+                        ]
+                    })
+        elif(t_giga == "5g"):
             if(f.giga_5g is not None and f.giga_5g >=  n_giga):
                 if(f.zone is not None and zone.lower() in f.zone.lower()):
                     forfaits.append({
