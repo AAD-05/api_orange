@@ -492,7 +492,7 @@ def getAllForfaits():
     for f in listeForfaits:
         forfaits.append({
             "title": f.zone,
-            "subtitle": f.giga_4g,
+            "subtitle": f.giga_5g,
             "imageUrl": "https://www.francemobiles.com/actualites/image-orange-320-000-ventes-nettes-de-forfaits-mobiles-au-3eme-trimestre-2017-2017-17648-francemobiles.jpg",
             "buttons": [
                 {
