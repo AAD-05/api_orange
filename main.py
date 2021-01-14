@@ -221,6 +221,10 @@ class Option(db.Model):
 def bonjour():
     return render_template('accueil.html')
 
+@app.route('/jambot', methods=['GET'])
+def jambot():
+    return render_template('jambot.html')
+
 @app.route('/Dashboard', methods=['GET'])
 def dashboard():
     data = db.session.query(func.public.total_interactions()).all()
