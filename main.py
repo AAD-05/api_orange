@@ -301,10 +301,10 @@ def getTelephone():
             telephones.append({
                 "title": p.modele,
                 "subtitle": p.prix,
-                "imageUrl": "https://boutiquepro.orange.fr/catalog/product/static/8/9988/9988_250x460_1_0.jpg",
+                "imageUrl": p.lien_photo,
                 "buttons": [
                     {
-                        "value": "https://boutiquepro.orange.fr/telephone-mobile-xiaomi-mi-10t-noir-128go.html?id="+str(p.id),
+                        "value": "https://jambot-api.herokuapp.com/addToCart/"+str(p.id)+"/"+str(ut.email),
                         "title": "ajouter au panier",
                         "type": "web_url"
                     }
@@ -333,7 +333,7 @@ def getTelephone():
 @app.route('/proposerTelephone', methods=['POST'])
 def proposerTelephone():
     donnee = request.get_json()
-
+    ut= Utilisateur.query.filter_by(email=donnee['conversation']['memory']['email']).first()
     #domaine = donnee['conversation']['memory']['domaine']['value']
     prix = donnee['conversation']['memory']['money_max']['amount']
     nombre = donnee['conversation']['memory']['nombre']['scalar']
@@ -358,10 +358,10 @@ def proposerTelephone():
                                 telephones.append({
                                     "title": p.modele,
                                     "subtitle": p.prix,
-                                    "imageUrl": "https://boutiquepro.orange.fr/catalog/product/static/8/9988/9988_250x460_1_0.jpg",
+                                    "imageUrl": p.lien_photo,
                                     "buttons": [
                                         {
-                                            "value": "https://boutiquepro.orange.fr/telephone-mobile-xiaomi-mi-10t-noir-128go.html?id="+str(p.id),
+                                            "value": "https://jambot-api.herokuapp.com/addToCart/"+str(p.id)+"/"+str(ut.email),
                                             "title": "ajouter au panier",
                                             "type": "web_url"
                                         }
@@ -531,7 +531,7 @@ def getAllForfaits():
 @app.route('/telephones', methods=['POST'])
 def telephones():
     donnee = request.get_json()
-    ut= Utilisateur.query.filter_by(email=['conversation']['memory']['email']).first()
+    ut= Utilisateur.query.filter_by(email=donnee['conversation']['memory']['email']).first()
     prix_max = donnee['conversation']['memory']['money_max']['amount']
 
     #print("\n prix_max is : \n", prix_max)
