@@ -223,7 +223,8 @@ def bonjour():
 
 @app.route('/jambot', methods=['GET'])
 def jambot():
-    return render_template('jambot.html')
+    email = request.args.get('email')
+    return render_template('jambot.html',email=email)
 
 @app.route('/Dashboard', methods=['GET'])
 def dashboard():
