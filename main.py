@@ -531,6 +531,7 @@ def getAllForfaits():
 @app.route('/telephones', methods=['POST'])
 def telephones():
     donnee = request.get_json()
+    ut= Utilisateur.query.filter_by(email=['conversation']['memory']['email']).first()
     prix_max = donnee['conversation']['memory']['money_max']['amount']
 
     #print("\n prix_max is : \n", prix_max)
@@ -546,7 +547,7 @@ def telephones():
                 "imageUrl": p.lien_photo,
                 "buttons": [
                     {
-                        "value": "https://jambot-api.herokuapp.com/addToCart/"+str(p.id)+"/45",
+                        "value": "https://jambot-api.herokuapp.com/addToCart/"+str(p.id)+"/"+str(ut.email),
                         "title": "ajouter au panier",
                         "type": "web_url"
                     }
@@ -564,12 +565,12 @@ def telephones():
 
 
 #Requete de récupération d'un forfait par son nom
-@app.route('/addToCart/<int:id>/<int:id_ut>', methods=['GET'])
-def addToCart(id,id_ut):
-
-    panier = Panier.query.filter_by(statut="En cours",id_utilisateur=id_ut).first()
+@app.route('/addToCart/<int:id>/<string:email>', methods=['GET'])
+def addToCart(id,email):
+    ut=Utilisateur.query.filter_by(email=email).first()
+    panier = Panier.query.filter_by(statut="En cours",id_utilisateur=ut.id).first()
     if panier is None:
-        panier=Panier( statut= "En cours", id_utilisateur=id_ut)  
+        panier=Panier( statut= "En cours", id_utilisateur=ut.id)  
         db.session.add(panier)
         db.session.commit()
 
