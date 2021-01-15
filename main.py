@@ -292,6 +292,7 @@ def check_id_conv():
 def getTelephone():
     donnee = request.get_json()
     telephoneDemande = donnee['conversation']['memory']['phone']['value']
+    ut= Utilisateur.query.filter_by(email=donnee['conversation']['memory']['email']).first()
 
     liste = Telephone.query.filter(Telephone.stock > 0)
     #liste = Telephone.query.filter(Telephone.prix >= 0)
