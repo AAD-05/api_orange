@@ -231,8 +231,11 @@ def dashboard():
     total_interactions_abouties = db.session.query(func.public.total_interactions_abouties()).all()
     ratio = round(total_interactions_abouties[0][0]/total_interactions[0][0], 3)
     CA = db.session.query(func.public.total_ca()).all()
+    doughnut_abouties = (total_interactions_abouties[0][0]/total_interactions[0][0])*100
+    doughnut_non_abouties = ((total_interactions[0][0] - total_interactions_abouties[0][0])/total_interactions[0][0])*100
+
     # print(data[0][0])
-    return render_template('dashboard.html', CA=CA[0][0], ratio=ratio, total_interactions_abouties=total_interactions_abouties[0][0], total_interactions=total_interactions[0][0])
+    return render_template('dashboard.html', CA=CA[0][0], ratio=ratio, total_interactions_abouties=total_interactions_abouties[0][0], total_interactions=total_interactions[0][0], doughnut_datas=[doughnut_abouties, doughnut_non_abouties])
 
 
 @app.route('/id_conv', methods=['POST'])
