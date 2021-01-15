@@ -223,8 +223,9 @@ def bonjour():
 
 @app.route('/jambot', methods=['GET'])
 def jambot():
-    siret = request.args.get('siret')
-    return render_template('jambot.html',siret=siret)
+
+    email = request.args.get('email')
+    return render_template('jambot.html',email=email)
 
 @app.route('/Dashboard', methods=['GET'])
 def dashboard():
