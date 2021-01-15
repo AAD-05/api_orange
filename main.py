@@ -217,7 +217,7 @@ class Option(db.Model):
     Créons une requête pour modifier le statut d'une commande 
 """    
 
-@app.route('/bonjour', methods=['GET'])
+@app.route('/accueil', methods=['GET'])
 def bonjour():
     return render_template('accueil.html')
 
