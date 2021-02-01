@@ -38,7 +38,7 @@ class Telephone(db.Model):
     note_connection=db.Column(db.Float)
     note_batterie=db.Column(db.Float)
     note_puissance=db.Column(db.Float)
-
+    point=db.Column(db.Integer)
     occasion=db.Column(db.Integer)
     stock= db.Column(db.Integer)
     
@@ -53,19 +53,18 @@ class Forfait(db.Model):
     __tablename__ = 'forfait'
     id=db.Column(db.Integer, primary_key=True)
     type=db.Column(db.Integer)
-    
     description=db.Column(db.Text)
     is_engagement=db.Column(db.Integer)
     zone=db.Column(db.String(60))
-    Giga_4g=db.Column(db.Integer)
-    Giga_5g=db.Column(db.Integer)
+    giga_4g=db.Column(db.Integer)
+    giga_5g=db.Column(db.Integer)
     description_complete=db.Column(db.Text)
+    point=db.Column(db.Integer)
     prix= db.Column(db.Float)
 
 
     def __repr__(self):
         return '<forfait: {}>'.format(self.code)
-
 
 
 class Utilisateur(db.Model):
@@ -79,6 +78,7 @@ class Utilisateur(db.Model):
     nom =db.Column(db.String(60))
     prenom=db.Column(db.String(60))
     email=db.Column(db.String(60))
+    point=db.Column(db.Integer)
 
 
     def __repr__(self):
@@ -195,6 +195,19 @@ class Rdv(db.Model):
         return '<rdv: {}>'.format(self.code)
 
 
+class Option(db.Model):
+
+    __tablename__ = 'option'
+    id=db.Column(db.Integer, primary_key=True)
+    type=db.Column(db.Text)
+    point=db.Column(db.Integer)
+    description=db.Column(db.Text)
+    description_complete=db.Column(db.Text)
+    prix= db.Column(db.Float)
+
+
+    def __repr__(self):
+        return '<option: {}>'.format(self.code)
 
 
 
@@ -206,7 +219,6 @@ class Rdv(db.Model):
 
 @app.route('/bonjour', methods=['GET'])
 def bonjour():
-
     return 'bonjour'
 
 
@@ -281,20 +293,29 @@ def getTelephone():
                 ]
             })
         
-    return jsonify(
-    status=200,
-    replies=[{
-      'type': 'carousel',
-      'content': telephones
-    }]
-  )
+    if(len(telephones)!=0):
+        return jsonify(
+            status=200,
+            replies=[{
+                'type' : 'carousel',
+                'content' : telephones
+            }]
+        )
+    else:
+        return jsonify(
+            status=200,
+            replies=[{
+                'type': 'text',
+                'content': "Désolé "+telephoneDemande+" n'est pas dans notre catalogue"
+            }]
+        )
 
 
 #Requete de récupération d'un forfait par son nom
 @app.route('/getForfait', methods=['POST'])
 def getForfait():
     donnee = request.get_json()
-    forfaitDemande = donnee['conversation']['memory']['forfait']['value']
+    forfaitDemande = donnee['conversation']['memory']['forfait-variable']['value']
 
     listeForfaits = Forfait.query.filter(Forfait.prix > 0)
     forfaits = []
@@ -313,30 +334,23 @@ def getForfait():
                 ]
             })
         
-    return jsonify(
-    status=200,
-    replies=[{
-      'type': 'carousel',
-      'content': forfaits
-    }]
-  )
+    if(len(forfaits)!=0):
+        return jsonify(
+            status=200,
+            replies=[{
+                'type' : 'carousel',
+                'content' : forfaits
+            }]
+        )
+    else:
+        return jsonify(
+            status=200,
+            replies=[{
+                'type': 'text',
+                'content': "Désolé "+forfaitDemande+" n'est pas dans notre catalogue"
+            }]
+        )
 
-
-#Requete de récupération d'un forfait par son nom
-@app.route('/addToCart', methods=['POST'])
-def addToCart():
-
-
-
-
-
-    return jsonify(
-    status=200,
-    replies=[{
-      'type': 'carousel',
-      'content': forfaits
-    }]
-  )
 
 
 
@@ -390,7 +404,7 @@ def telephones():
                 "imageUrl": "https://boutiquepro.orange.fr/catalog/product/static/8/9988/9988_250x460_1_0.jpg",
                 "buttons": [
                     {
-                        "value": "https://boutiquepro.orange.fr/telephone-mobile-xiaomi-mi-10t-noir-128go.html?id="+str(p.id),
+                        "value": "https://jambot-api.herokuapp.com/addToCart/"+str(p.id)+"/1",
                         "title": "ajouter au panier",
                         "type": "web_url"
                     }
@@ -404,6 +418,86 @@ def telephones():
       'content': table_telephones
     }]
   )
+
+
+
+#Requete de récupération d'un forfait par son nom
+@app.route('/addToCart/<int:id>/<int:id_ut>', methods=['GET'])
+def addToCart(id,id_ut):
+
+    panier = Panier.query.filter_by(statut="En cours",id_utilisateur=id_ut).first()
+    if panier is None:
+        panier=Panier(id=len(Panier.query.all())+1, statut= "En cours", id_utilisateur=id_ut)  
+        db.session.add(panier)
+        db.session.commit()
+
+
+    panier_produit=Panier_produit(id=Panier_produit.query.order_by(Panier_produit.id.desc()).first().id+1,id_produit=id,type_produit=1,nombre=1,id_interaction=0,via_bot=1)
+    db.session.add(panier_produit)
+    db.session.commit()
+ 
+    return "success "+ str(id) + "  " + str(id_ut)
+  
+
+#Requete de récupération d'une option par son nom
+@app.route('/getOption', methods=['POST'])
+def getOption():
+    donnee = request.get_json()
+    optionDemandee = donnee['conversation']['memory']['option-variable']['value']
+
+    listeOptions = Option.query.filter(Option.prix > 0)
+    options = []
+    for o in listeOptions:
+        if(optionDemandee.lower() in o.description.lower()):
+            options.append({
+                "title": o.description,
+                "subtitle": o.prix,
+                "buttons": [
+                    {
+                        "value": "https://boutiquepro.orange.fr/telephone-mobile-business-everywhere-flex-sans-engagement.html",
+                        "title": "lien",
+                        "type": "web_url"
+                    }
+                ]
+            })
+        
+    return jsonify(
+    status=200,
+    replies=[{
+      'type': 'carousel',
+      'content': options
+    }]
+  )
+
+
+#Requete de récupération de toutes les options
+@app.route('/options', methods=['POST'])
+def getAllOptions():
+
+    listeOptions=Option.query.filter(Option.prix > 0)
+    options=[]
+    for o in listeOptions:
+        options.append({
+            "title": o.description,
+            "subtitle": o.prix,
+            "buttons": [
+                {
+                    "value": "https://boutiquepro.orange.fr/telephone-mobile-business-everywhere-flex-sans-engagement.html",
+                    "title": "lien",
+                    "type": "web_url"
+                }
+            ]
+        })
+        
+    return jsonify(
+    status=200,
+    replies=[{
+      'type': 'carousel',
+      'content': options
+    }]
+  )
+
+
 
 # @app.route('/allbots', methods=['GET'])
 # def getBots():
@@ -487,17 +581,6 @@ def telephones():
 
 #     return 'succes'
 
- id=db.Column(db.Integer, primary_key=True)
-    type=db.Column(db.Integer)
-    
-    description=db.Column(db.Text)
-    is_engagement=db.Column(db.Integer)
-    zone=db.Column(db.String(60))
-    Giga_4g=db.Column(db.Integer)
-    Giga_5g=db.Column(db.Integer)
-    description_complete=db.Column(db.Text)
-    prix= db.Column(db.Float)
-
 
 @app.route('/ajouterForfait', methods=['POST'])
 def addForfait():
@@ -505,7 +588,7 @@ def addForfait():
 
     donnee = request.get_json()
     print("donnees",donnee)
-    Forfait=  Forfait( description=donnee['description'],  is_engagement=donnee['is_engagement'], Giga_4g=donnee['Giga_4g'], Giga_5g=donnee['Giga_5g'] , description_complete= donnee['description_complete'], prix=donnee['prix'] )
+    Forfait=  Forfait( description=donnee['description'],  is_engagement=donnee['is_engagement'], giga_4g=donnee['giga_4g'], giga_5g=donnee['giga_5g'] , description_complete= donnee['description_complete'], prix=donnee['prix'] )
 
     db.session.add(Forfait)
     db.session.commit()
@@ -519,7 +602,7 @@ def addTelephone():
 
     donnee = request.get_json()
     print("donnees",donnee)
-    Telephone=  Telephone( marque=donnee['marque'],  description=donnee['description'], prix=donnee['prix'], note_design=donnee['note_design'] , note_ap= donnee['note_ap'], note_connection=donnee['note_connection'] ,note_batterie=donnee['note_batterie'], note_puissance=donnee['note_puissance'], occasion=donnee['occasion'],  occasion=donnee['occasion'], stock=donnee['stock'], lien_photo=donnee['lien_photo'])
+    Telephone= Telephone( marque=donnee['marque'],  description=donnee['description'], prix=donnee['prix'], note_design=donnee['note_design'] , note_ap= donnee['note_ap'], note_connection=donnee['note_connection'] ,note_batterie=donnee['note_batterie'], note_puissance=donnee['note_puissance'], occasion=donnee['occasion'], stock=donnee['stock'], lien_photo=donnee['lien_photo'])
 
     db.session.add(Telephone)
     db.session.commit()
@@ -554,20 +637,19 @@ def showRV():
    
    
    d = request.get_json()
-
    ALL_RV=Rdv.query.filter_by(disponibilite='disponible').all()
    donnee=[] 
    for rv in ALL_RV:
        do={"value" :str(rv.id), "title": str(rv.date)}
        donnee.append(do)
     
-   id = Utilisateur.query.filter_by( email= d['conversation']['memory']['email']).first()
+   ut = Utilisateur.query.filter_by( email= d['conversation']['memory']['email']).first()
    return jsonify(
-    status=200,
-    replies=[{
+   status=200,
+   replies=[{
       "type": "quickReplies",
       "content": {
-        "title": "liste des rendez vous disponibles M./Mme "+id.nom,
+        "title": "liste des rendez vous disponibles M./Mme " + str(ut.nom),
         "buttons": donnee
       }
     
@@ -654,7 +736,12 @@ def addUser():
     nom=donnee['nom']
     prenom=donnee['prenom']
     email=donnee['email']
-    b = Utilisateur(id=id,nom=nom,prenom=prenom,email=email)
+    numero_telephone="hohooho"
+    siret = "hohooho"
+    telephone_actuel ="hohooho"
+    forfait_actuel= "hohooho"
+    
+    b = Utilisateur(id=id,nom=nom,prenom=prenom,email=email,numero_telephone=numero_telephone, siret=siret,telephone_actuel=telephone_actuel,forfait_actuel=forfait_actuel)
 
     db.session.add(b)
     db.session.commit()
