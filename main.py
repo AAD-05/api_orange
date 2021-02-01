@@ -233,7 +233,11 @@ def jambot():
 @app.route('/panier/<string:email>', methods=['GET'])
 def panier_page(email):
     
-    ut= Utilisateur.query.filter_by(email=email).first()
+    ut= Utilisateur.query.filter_by(email=email)
+    if ut is not None:
+        ut=ut.first()
+    else
+        ut=None
 
     return render_template('panier.html',ut=ut)
 
