@@ -236,7 +236,7 @@ def panier_page(email):
     ut= Utilisateur.query.filter_by(email=email)
     if ut is not None:
         ut=ut.first()
-    else
+    else:
         ut=None
 
     return render_template('panier.html',ut=ut)
