@@ -227,6 +227,15 @@ def jambot():
     email = request.args.get('email')
     return render_template('jambot.html',email=email)
 
+
+
+@app.route('/panier/<string:email>', methods=['GET'])
+def panier_page(email):
+    
+    ut= Utilisateur.query.filter_by(email=email).first()
+
+    return render_template('panier.html',ut=ut)
+
 @app.route('/Dashboard', methods=['GET'])
 def dashboard():
     total_interactions = db.session.query(func.public.total_interactions()).all()
