@@ -42,9 +42,10 @@ class Telephone(db.Model):
     note_connection=db.Column(db.Float)
     note_batterie=db.Column(db.Float)
     note_puissance=db.Column(db.Float)
-
+    point=db.Column(db.Integer)
     occasion=db.Column(db.Integer)
     stock= db.Column(db.Integer)
+    
     lien_photo=db.Column(db.Text)
 
 
@@ -56,19 +57,18 @@ class Forfait(db.Model):
     __tablename__ = 'forfait'
     id=db.Column(db.Integer, primary_key=True)
     type=db.Column(db.Integer)
-    
     description=db.Column(db.Text)
     is_engagement=db.Column(db.Integer)
     zone=db.Column(db.String(60))
     giga_4g=db.Column(db.Integer)
     giga_5g=db.Column(db.Integer)
     description_complete=db.Column(db.Text)
+    point=db.Column(db.Integer)
     prix= db.Column(db.Float)
     lien_photo=db.Column(db.Text)
 
     def __repr__(self):
         return '<forfait: {}>'.format(self.id)
-
 
 
 class Utilisateur(db.Model):
@@ -82,6 +82,7 @@ class Utilisateur(db.Model):
     nom =db.Column(db.String(60))
     prenom=db.Column(db.String(60))
     email=db.Column(db.String(60))
+    point=db.Column(db.Integer)
 
 
     def __repr__(self):
@@ -203,7 +204,7 @@ class Option(db.Model):
     __tablename__ = 'option'
     id=db.Column(db.Integer, primary_key=True)
     type=db.Column(db.Text)
-    
+    point=db.Column(db.Integer)
     description=db.Column(db.Text)
     description_complete=db.Column(db.Text)
     prix= db.Column(db.Float)
