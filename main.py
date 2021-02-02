@@ -370,7 +370,8 @@ def getTelephone():
 @app.route('/proposerTelephone', methods=['POST'])
 def proposerTelephone():
     donnee = request.get_json()
-    ut= Utilisateur.query.filter_by(email=donnee['conversation']['memory']['email']).first()
+    #ut= Utilisateur.query.filter_by(email=donnee['conversation']['memory']['email']).first()
+    ut= Utilisateur.query.first()
     #domaine = donnee['conversation']['memory']['domaine']['value']
     prix = donnee['conversation']['memory']['money_max']['amount']
     nombre = donnee['conversation']['memory']['nombre']['scalar']
