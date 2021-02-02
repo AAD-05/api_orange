@@ -576,7 +576,7 @@ def getAllForfaits():
 def telephones():
     donnee = request.get_json()
     ut= Utilisateur.query.first()
-    prix_max = donnee['conversation']['memory']['money_max']['amount']
+    #prix_max = donnee['conversation']['memory']['money_max']['amount']
 
     #print("\n prix_max is : \n", prix_max)
     liste = Telephone.query.filter(Telephone.prix <= prix_max)
