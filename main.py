@@ -927,8 +927,38 @@ def addAvis():
     return 'succes'
 
 
+@app.route('/Recommand_forfait', methods=['POST'])
+def Recommand_forfait():
 
-
+    donnee = request.get_json()
+    phone = donnee['conversation']['memory']['phone']['value']
+    forfait = Utilisateur.query.filter_by( telephone_actuel = phone ).forfait_actuel
+    for val in forfait:
+        val = val.replace('g',' g')
+        val = val.split()
+        val = int(val[0])
+    values = []
+    for x in forfait:
+        description = forfait.query.filter_by(giga_4g = x)
+        values.append({
+            "title": x.description,
+            "subtitle": x.giga_4g,
+            "imageUrl": "https://www.francemobiles.com/actualites/image-orange-320-000-ventes-nettes-de-forfaits-mobiles-au-3eme-trimestre-2017-2017-17648-francemobiles.jpg",
+            "buttons": [
+                {
+                    "value": "https://boutiquepro.orange.fr/telephone-mobile-xiaomi-mi-10t-noir-128go.html",
+                    "title": "lien",
+                    "type": "web_url"
+                }
+            ]
+        })
+    return jsonify(
+    status=200,
+    replies=[{
+      'type': 'carousel',
+      'content': values
+    }]    
+    
 
 @app.route('/listeRV', methods=['POST'])
 def showRV():
