@@ -222,6 +222,7 @@ def maj_dashboard():
     #     db.session.execute(sqlalchemy.text("CALL my_proc(:param)"), param='something')
 
     db.session.execute(text("CALL insertcalendrier()"))
+    return "succes AAD"
 
 
 """
