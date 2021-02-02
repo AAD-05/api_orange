@@ -29,7 +29,7 @@ migrate.init_app(app, db)
 
 # For the scheduler, automatisation pour la BDD
 sched = BackgroundScheduler(daemon=True)
-sched.add_job(lambda : sched.print_jobs(),'interval',second=24)
+sched.add_job(lambda : sched.print_jobs(),'cron',second=24)
 sched.start()
 
 class Telephone(db.Model):
