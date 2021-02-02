@@ -579,7 +579,7 @@ def telephones():
     #prix_max = donnee['conversation']['memory']['money_max']['amount']
 
     #print("\n prix_max is : \n", prix_max)
-    liste = Telephone.query.filter(Telephone.prix <= prix_max)
+    liste = Telephone.query.filter(Telephone.prix >= 0)
     #print("Lisssssssst",liste)
     #List=Telephone.query.all()
     table_telephones = []
