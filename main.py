@@ -217,8 +217,7 @@ class Option(db.Model):
 def maj_dashboard():
     # db.session.execute("CALL insertcalendrier();")
     #     db.session.execute(sqlalchemy.text("CALL my_proc(:param)"), param='something')
-
-    db.session.execute("CALL public.insertcalendrier()")
+    db.session.query("CALL public.insertcalendrier()")
     db.session.commit()
 
 # For the scheduler, automatisation pour la BDD
@@ -234,7 +233,6 @@ sched.start()
 """
 @app.route('/accueil', methods=['GET'])
 def bonjour():
-    # maj_dashboard()
     return render_template('accueil.html')
 
 @app.route('/jambot', methods=['GET'])
