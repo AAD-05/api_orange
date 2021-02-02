@@ -63,18 +63,18 @@
         <div class="col-lg-6">
             hohohoo
             {%if liste%}
-            {%for p in panier%}
+            {%for p in liste%}
             <div class="row">
 
                 <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
                       <div class="col-md-4">
-                        <img src="..." alt="...">
+                        <img src="{{p.lien_photo}}" alt="...">
                       </div>
                       <div class="col-md-8">
                         <div class="card-body">
-                          <h5 class="card-title">{{p.id_produit}}</h5>
-                          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                          <h5 class="card-title">{{p.marque}} -- {{p.modele}}</h5>
+                          <p class="card-text">{{p.description}}</p>
                           <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                         </div>
                       </div>
