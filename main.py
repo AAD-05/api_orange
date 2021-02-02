@@ -254,7 +254,7 @@ def panier_page(email):
         produits=Panier_produit.query.filter_by(id=panier.id).with_entities(Panier_produit.id, Panier_produit.id_produit, Panier_produit.id_interaction, Panier_produit.type_produit, Panier_produit.nombre, Panier_produit.via_bot).all()
     
 
-    liste=Panier_produit.query.join(Telephone, Panier_produit.id_produit == Telephone.id).all()
+    liste=Panier_produit.query.join(Panier_produit, Telephone.id == Panier_produit.id_produit).all()
 
     return render_template('panier.html',ut=ut,panier=produits, liste=liste)
 
