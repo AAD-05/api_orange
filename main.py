@@ -86,7 +86,6 @@ class Utilisateur(db.Model):
     nom =db.Column(db.String(60))
     prenom=db.Column(db.String(60))
     email=db.Column(db.String(60))
-    point=db.Column(db.Integer)
 
 
     def __repr__(self):
@@ -249,8 +248,20 @@ def panier_page(email):
         ut=ut.first()
     else:
         ut=None
+    produits=None
+    panier = Panier.query.filter_by(statut="En cours",id_utilisateur=ut.id).first()
+    if panier is not None:
+        produits=Panier_produit.query.filter_by(id=panier.id).with_entities(Panier_produit.id, Panier_produit.id_produit, Panier_produit.id_interaction, Panier_produit.type_produit, Panier_produit.nombre, Panier_produit.via_bot).all()
+    
 
-    return render_template('panier.html',ut=ut)
+    liste=Panier_produit.query.join(Telephone, Panier_produit.id_produit == Telephone.id).all()
+
+    return render_template('panier.html',ut=ut,panier=produits, liste=liste)
+
+
+
+
+
 
 @app.route('/Dashboard', methods=['GET'])
 def dashboard():
