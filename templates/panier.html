@@ -62,6 +62,19 @@
         <div class="col-lg-3"></div>
         <div class="col-lg-6">
             hohohoo
+            {%if panier%}
+            {%for p in panier}
+            <div class="row">
+                {{p.id}}
+            </div>
+
+            
+            {%endfor%}
+
+            {%endif%}
+
+
+
         </div>
         <div class="col-lg-3"></div>
     </div>

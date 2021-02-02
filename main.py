@@ -237,8 +237,17 @@ def panier_page(email):
         ut=ut.first()
     else:
         ut=None
+    
+    panier = Panier.query.filter_by(statut="En cours",id_utilisateur=ut.id).first()
 
-    return render_template('panier.html',ut=ut)
+    
+
+    return render_template('panier.html',ut=ut,panier=panier)
+
+
+
+
+
 
 @app.route('/Dashboard', methods=['GET'])
 def dashboard():
