@@ -214,16 +214,18 @@ class Option(db.Model):
         return '<option: {}>'.format(self.id)
 
 
-# For the scheduler, automatisation pour la BDD
-sched = BackgroundScheduler(daemon=True)
-sched.add_job(maj_dashboard,'cron',second=4)
-sched.start()
-
 def maj_dashboard():
     # db.session.execute("CALL insertcalendrier();")
     #     db.session.execute(sqlalchemy.text("CALL my_proc(:param)"), param='something')
 
     db.session.execute(text("CALL insertcalendrier()"))
+
+# For the scheduler, automatisation pour la BDD
+sched = BackgroundScheduler(daemon=True)
+sched.add_job(maj_dashboard,'cron',second=4)
+sched.start()
+
+
 
 
 """
