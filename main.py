@@ -27,7 +27,10 @@ migrate = Migrate()
 migrate.init_app(app, db)
 
 
-
+# For the scheduler, automatisation pour la BDD
+sched = BackgroundScheduler(daemon=True)
+sched.add_job(lambda : sched.print_jobs(),'interval',seconds=5)
+sched.start()
 
 class Telephone(db.Model):
 
@@ -217,15 +220,8 @@ class Option(db.Model):
 def maj_dashboard():
     # db.session.execute("CALL insertcalendrier();")
     #     db.session.execute(sqlalchemy.text("CALL my_proc(:param)"), param='something')
-    db.session.query(func.public.insertincalendrier())
-    # db.session.commit()
 
-# For the scheduler, automatisation pour la BDD
-sched = BackgroundScheduler(daemon=True)
-sched.add_job(maj_dashboard,'cron',second=4)
-sched.start()
-
-
+    db.session.execute(text("CALL insertcalendrier()"))
 
 
 """
@@ -233,6 +229,7 @@ sched.start()
 """
 @app.route('/accueil', methods=['GET'])
 def bonjour():
+    maj_dashboard()
     return render_template('accueil.html')
 
 @app.route('/jambot', methods=['GET'])
@@ -256,12 +253,8 @@ def panier_page(email):
     if panier is not None:
         produits=Panier_produit.query.filter_by(id=panier.id).with_entities(Panier_produit.id, Panier_produit.id_produit, Panier_produit.id_interaction, Panier_produit.type_produit, Panier_produit.nombre, Panier_produit.via_bot).all()
     
-    liste=[]
-    for p in produits:
-        temp=[p,Telephone.query.filter_by(id=p.id_produit).first()]
-        liste.append(temp)
 
-    # liste=Panier_produit.query.join(Telephone, Panier_produit.id_produit == Telephone.id).all()
+    liste=Panier_produit.query.join(Telephone, Panier_produit.id_produit == Telephone.id).all()
 
     return render_template('panier.html',ut=ut,panier=produits, liste=liste)
 
@@ -335,7 +328,7 @@ def check_id_conv():
 def getTelephone():
     donnee = request.get_json()
     telephoneDemande = donnee['conversation']['memory']['phone']['value']
-    ut= Utilisateur.query.first()
+    ut= Utilisateur.query.filter_by(email=donnee['conversation']['memory']['email']).first()
 
     liste = Telephone.query.filter(Telephone.stock > 0)
     #liste = Telephone.query.filter(Telephone.prix >= 0)
@@ -377,7 +370,7 @@ def getTelephone():
 @app.route('/proposerTelephone', methods=['POST'])
 def proposerTelephone():
     donnee = request.get_json()
-    ut= Utilisateur.query.first()
+    ut= Utilisateur.query.filter_by(email=donnee['conversation']['memory']['email']).first()
     #domaine = donnee['conversation']['memory']['domaine']['value']
     prix = donnee['conversation']['memory']['money_max']['amount']
     nombre = donnee['conversation']['memory']['nombre']['scalar']
@@ -575,11 +568,11 @@ def getAllForfaits():
 @app.route('/telephones', methods=['POST'])
 def telephones():
     donnee = request.get_json()
-    ut= Utilisateur.query.first()
-    #prix_max = donnee['conversation']['memory']['money_max']['amount']
+    ut= Utilisateur.query.filter_by(email=donnee['conversation']['memory']['email']).first()
+    prix_max = donnee['conversation']['memory']['money_max']['amount']
 
     #print("\n prix_max is : \n", prix_max)
-    liste = Telephone.query.filter(Telephone.prix >= 0)
+    liste = Telephone.query.filter(Telephone.prix <= prix_max)
     #print("Lisssssssst",liste)
     #List=Telephone.query.all()
     table_telephones = []
@@ -964,12 +957,11 @@ def Recommand_forfait():
     replies=[{
       'type': 'carousel',
       'content': values
-    }]    
+    }]) 
     
 
 @app.route('/listeRV', methods=['POST'])
 def showRV():
-   
    
    d = request.get_json()
    ALL_RV=Rdv.query.filter_by(disponibilite='disponible').all()
@@ -1063,6 +1055,7 @@ def addCommercial():
     db.session.commit()
 
     return 'success'
+
 @app.route('/addUser', methods=['POST'])
 def addUser():
 
