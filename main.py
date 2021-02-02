@@ -1,4 +1,5 @@
 from flask import Flask, request, Response, jsonify,render_template
+from apscheduler.schedulers.background import BackgroundScheduler
 
 import json
 from json import JSONEncoder
@@ -7,7 +8,7 @@ import urllib.request
 from flask import  redirect, request, url_for, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from sqlalchemy import desc, func
+from sqlalchemy import desc, func, text
 from datetime import datetime
 import os
 import requests
@@ -26,7 +27,10 @@ migrate = Migrate()
 migrate.init_app(app, db)
 
 
-
+# For the scheduler, automatisation pour la BDD
+sched = BackgroundScheduler(daemon=True)
+sched.add_job(lambda : sched.print_jobs(),'interval',seconds=5)
+sched.start()
 
 class Telephone(db.Model):
 
@@ -213,13 +217,20 @@ class Option(db.Model):
     def __repr__(self):
         return '<option: {}>'.format(self.id)
 
- 
+
+def maj_dashboard():
+    # db.session.execute("CALL insertcalendrier();")
+    #     db.session.execute(sqlalchemy.text("CALL my_proc(:param)"), param='something')
+
+    db.session.execute(text("CALL insertcalendrier()"))
+
+
 """
     Créons une requête pour modifier le statut d'une commande 
-"""    
-
+"""
 @app.route('/accueil', methods=['GET'])
 def bonjour():
+    maj_dashboard()
     return render_template('accueil.html')
 
 @app.route('/jambot', methods=['GET'])
