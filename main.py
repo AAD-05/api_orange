@@ -27,10 +27,7 @@ migrate = Migrate()
 migrate.init_app(app, db)
 
 
-# For the scheduler, automatisation pour la BDD
-sched = BackgroundScheduler(daemon=True)
-sched.add_job(lambda : sched.print_jobs(),'cron',second=24)
-sched.start()
+
 
 class Telephone(db.Model):
 
@@ -217,6 +214,11 @@ class Option(db.Model):
         return '<option: {}>'.format(self.id)
 
 
+# For the scheduler, automatisation pour la BDD
+sched = BackgroundScheduler(daemon=True)
+sched.add_job(maj_dashboard,'cron',second=4)
+sched.start()
+
 def maj_dashboard():
     # db.session.execute("CALL insertcalendrier();")
     #     db.session.execute(sqlalchemy.text("CALL my_proc(:param)"), param='something')
@@ -229,7 +231,7 @@ def maj_dashboard():
 """
 @app.route('/accueil', methods=['GET'])
 def bonjour():
-    maj_dashboard()
+    # maj_dashboard()
     return render_template('accueil.html')
 
 @app.route('/jambot', methods=['GET'])
