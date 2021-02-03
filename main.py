@@ -343,18 +343,19 @@ def getTelephoneOccasion():
     telephones = []
     for p in liste:
         if(telephoneDemande.lower() in p.modele.lower()):
-            telephones.append({
-                "title": p.modele,
-                "subtitle": p.prix,
-                "imageUrl": p.lien_photo,
-                "buttons": [
-                    {
-                        "value": "https://jambot-api.herokuapp.com/addToCart/"+str(p.id)+"/"+str(ut.email),
-                        "title": "ajouter au panier",
-                        "type": "web_url"
-                    }
-                ]
-            })
+            if(p.occasion is not None and p.occasion != 1):
+                telephones.append({
+                    "title": p.modele,
+                    "subtitle": p.prix,
+                    "imageUrl": p.lien_photo,
+                    "buttons": [
+                        {
+                            "value": "https://jambot-api.herokuapp.com/addToCart/"+str(p.id)+"/"+str(ut.email),
+                            "title": "ajouter au panier",
+                            "type": "web_url"
+                        }
+                    ]
+                })
         
     if(len(telephones)!=0):
         return jsonify(
@@ -375,8 +376,8 @@ def getTelephoneOccasion():
 
 
 #Requete de récupération d'un téléphone neuf par son modèle
-@app.route('/occasionTelephone', methods=['POST'])
-def getTelephoneOccasion():
+@app.route('/nouveauxTelephone', methods=['POST'])
+def getTelephoneNeuf():
     donnee = request.get_json()
     telephoneDemande = donnee['conversation']['memory']['phone_occasion']['value']
     prix_max = donnee['conversation']['memory']['max']['amount']
