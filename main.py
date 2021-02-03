@@ -988,7 +988,7 @@ def recommandTel():
         listeTel = Utilisateur.query.filter(Utilisateur.forfait_actuel == x)
         for l in listeTel:
             values.append({
-                "title": l.forfait_actuel,
+                "title": l.telephone_actuel,
                 
                 "imageUrl": "https://www.francemobiles.com/actualites/image-orange-320-000-ventes-nettes-de-forfaits-mobiles-au-3eme-trimestre-2017-2017-17648-francemobiles.jpg",
                 "buttons": [
