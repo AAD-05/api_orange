@@ -947,8 +947,8 @@ def recommandForfait():
             val.forfait_actuel = val.forfait_actuel.replace('g',' g')
             val.forfait_actuel = val.forfait_actuel.split(" ",1)
             lettre = val.forfait_actuel[0]
-            # nombre = int(val)
-            forfaitsEntiers.append(lettre)
+            nombre = int(lettre)
+            forfaitsEntiers.append(nombre)
     # values = []
     # for x in forfaitsEntiers:
     #     listeForfaits = Forfait.query.filter(Forfait.giga_4g in x)
