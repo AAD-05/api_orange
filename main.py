@@ -715,8 +715,8 @@ def addToCart(id,email):
     test=Panier_produit.query.filter_by(id=panier.id, id_produit=id).first()
     
     if(test is None):
-        tel=Telephone.query.filter_by(id=id)
-        forfait=Forfait.query.filter_by(id=id)
+        tel=Telephone.query.filter_by(id=id).first()
+        forfait=Forfait.query.filter_by(id=id).first()
         if tel is None:
             print(panier.id)
             panier_produit=Panier_produit(id=panier.id,id_produit=id,type_produit="telephone",nombre=1,id_interaction=0,via_bot=1)    
