@@ -623,10 +623,16 @@ def addToCart(id,email):
     test=Panier_produit.query.filter_by(id=panier.id, id_produit=id).first()
     
     if(test is None):
-        panier_produit=Panier_produit(id=panier.id,id_produit=id,type_produit="telephone",nombre=1,id_interaction=0,via_bot=1)    
-        db.session.add(panier_produit)
-        db.session.commit()
-    
+        tel=Telephone.query.filter_by(id=id)
+        forfait=Forfait.query.filter_by(id=id)
+        if tel is not None:
+            panier_produit=Panier_produit(id=panier.id,id_produit=id,type_produit="telephone",nombre=1,id_interaction=0,via_bot=1)    
+            db.session.add(panier_produit)
+            db.session.commit()
+        if forfait is not None:
+            panier_produit=Panier_produit(id=panier.id,id_produit=id,type_produit="forfait",nombre=1,id_interaction=0,via_bot=1)    
+            db.session.add(panier_produit)
+            db.session.commit()
     else:
         Panier_produit.query.filter_by(id=panier.id,id_produit=id).update({Panier_produit.nombre: Panier_produit.nombre+1 })
         db.session.commit()
@@ -666,7 +672,6 @@ def getPanier(email):
     if panier is not None:
         produits=Panier_produit.query.filter_by(id=panier.id).with_entities(Panier_produit.id, Panier_produit.id_produit, Panier_produit.id_interaction, Panier_produit.type_produit, Panier_produit.nombre, Panier_produit.via_bot).all()
         for p in produits:
-            print(p)
             liste.append(Telephone.query.filter_by(id=p[1]).first())
         for p in liste:
                 produit.append({
