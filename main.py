@@ -976,6 +976,7 @@ def recommandForfait():
 def recommandTel():
 
     donnee = request.get_json()
+    ut= Utilisateur.query.first()
     forfait = donnee['conversation']['memory']['forfait-variable']['value']
     listeforfaits = Forfait.query.all()
     forfaitsvalues = []
@@ -987,14 +988,16 @@ def recommandTel():
         x = str(x) + 'go'
         listeTel = Utilisateur.query.filter(Utilisateur.forfait_actuel == x)
         for l in listeTel:
-            values.append({
-                "title": l.telephone_actuel,
-                
-                "imageUrl": "https://www.francemobiles.com/actualites/image-orange-320-000-ventes-nettes-de-forfaits-mobiles-au-3eme-trimestre-2017-2017-17648-francemobiles.jpg",
+            telephones = Telephone.query.filter(l.lower() in Telephone.modele.lower())
+            for t in telephones:
+                values.append({
+                "title": t.modele,
+                "subtitle": t.prix,
+                "imageUrl": t.lien_photo,
                 "buttons": [
                     {
-                        "value": "https://boutiquepro.orange.fr/telephone-mobile-xiaomi-mi-10t-noir-128go.html",
-                        "title": "lien",
+                        "value": "https://jambot-api.herokuapp.com/addToCart/"+str(t.id)+"/"+str(ut.email),
+                        "title": "ajouter au panier",
                         "type": "web_url"
                     }
                 ]
