@@ -988,20 +988,21 @@ def recommandTel():
         x = str(x) + 'go'
         listeTel = Utilisateur.query.filter(Utilisateur.forfait_actuel == x)
         for l in listeTel:
-            telephones = Telephone.query.filter(l.telephone_actuel.lower() in Telephone.modele.lower())
+            telephones = Telephone.query.filter(Telephone.stock>0)
             for t in telephones:
-                values.append({
-                "title": t.modele,
-                "subtitle": t.prix,
-                "imageUrl": t.lien_photo,
-                "buttons": [
-                    {
-                        "value": "https://jambot-api.herokuapp.com/addToCart/"+str(t.id)+"/"+str(ut.email),
-                        "title": "ajouter au panier",
-                        "type": "web_url"
-                    }
-                ]
-            })
+                if (l.telephone_actuel.lower() in t.modele.lower()):
+                    values.append({
+                    "title": t.modele,
+                    "subtitle": t.prix,
+                    "imageUrl": t.lien_photo,
+                    "buttons": [
+                        {
+                            "value": "https://jambot-api.herokuapp.com/addToCart/"+str(t.id)+"/"+str(ut.email),
+                            "title": "ajouter au panier",
+                            "type": "web_url"
+                        }
+                    ]
+                })
     return jsonify(
     status=200,
     replies=[{
