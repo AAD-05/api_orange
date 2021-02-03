@@ -951,7 +951,7 @@ def recommandForfait():
             forfaitsEntiers.append(nombre)
     values = []
     for x in forfaitsEntiers:
-        listeForfaits = Forfait.query.filter(Forfait.giga_4g in x)
+        listeForfaits = Forfait.query.filter(Forfait.giga_4g == x)
         for l in listeForfaits:
             values.append({
                 "title": l.description,
