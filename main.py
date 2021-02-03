@@ -984,7 +984,7 @@ def recommandTel():
             forfaitsvalues.append(val.giga_4g)
     values = []
     for x in forfaitsvalues:
-        x = str(x+'go')
+        x = str(x) + 'go'
         listeTel = Utilisateur.query.filter(Utilisateur.forfait_actuel == x)
         for l in listeTel:
             values.append({
