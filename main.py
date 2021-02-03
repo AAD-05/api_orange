@@ -641,7 +641,7 @@ def validerPanier(email):
     Panier.query.filter_by(statut="En cours",id_utilisateur=util.id).update({Panier.statut: "Valider" })
     db.session.commit()
 
-    return 'Panier valider avec succes'
+    return render_template('validation.html')
 
 
 @app.route('/validerPanierVP/<string:email>', methods=['GET'])
@@ -651,7 +651,7 @@ def validerPanierPV(email):
     Panier.query.filter_by(statut="En cours",id_utilisateur=util.id).update({Panier.statut: "Valider" })
     db.session.commit()
 
-    return 'Panier valider avec succes'
+    return render_template('validation.html')
     
 
 #Requete de récupération d'un forfait par son nom
@@ -925,9 +925,9 @@ def addTelephone():
 
     donnee = request.get_json()
     print("donnees",donnee)
-    Telephone= Telephone( marque=donnee['marque'],  description=donnee['description'], prix=donnee['prix'], note_design=donnee['note_design'] , note_ap= donnee['note_ap'], note_connection=donnee['note_connection'] ,note_batterie=donnee['note_batterie'], note_puissance=donnee['note_puissance'], occasion=donnee['occasion'], stock=donnee['stock'], lien_photo=donnee['lien_photo'])
+    telephone= Telephone( marque=donnee['marque'],  description=donnee['description'], prix=donnee['prix'], note_design=donnee['note_design'] , note_ap= donnee['note_ap'], note_connection=donnee['note_connection'] ,note_batterie=donnee['note_batterie'], note_puissance=donnee['note_puissance'], occasion=donnee['occasion'], stock=donnee['stock'], lien_photo=donnee['lien_photo'])
 
-    db.session.add(Telephone)
+    db.session.add(telephone)
     db.session.commit()
 
     return 'succes'
@@ -937,8 +937,6 @@ def addTelephone():
 
 @app.route('/ajouterAvis', methods=['POST'])
 def addAvis():
-
-
     donnee = request.get_json()
     print("donnees",donnee)
     avis=donnee['conversation']['memory']['rating']['scalar']
