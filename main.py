@@ -940,7 +940,7 @@ def recommandForfait():
 
     donnee = request.get_json()
     phone = donnee['conversation']['memory']['phone']['value']
-    forfait = Utilisateur.query.filter( Utilisateur.telephone_actuel in phone )
+    forfait = Utilisateur.query.filter( Utilisateur.telephone_actuel == phone )
     forfaitsEntiers = []
     for val in forfait:
         val.forfait_actuel = val.forfait_actuel.replace('g',' g')
