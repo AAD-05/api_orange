@@ -947,34 +947,34 @@ def recommandForfait():
             val.forfait_actuel = val.forfait_actuel.replace('g',' g')
             val.forfait_actuel = val.forfait_actuel.split(" ",1)
             lettre = val.forfait_actuel[0]
-            # nombre = int(val)
-            forfaitsEntiers.append(lettre)
-    # values = []
-    # for x in forfaitsEntiers:
-    #     listeForfaits = Forfait.query.filter(Forfait.giga_4g in x)
-    #     for l in listeForfaits:
-    #         values.append({
-    #             "title": l.description,
-    #             "subtitle": l.giga_4g,
-    #             "imageUrl": "https://www.francemobiles.com/actualites/image-orange-320-000-ventes-nettes-de-forfaits-mobiles-au-3eme-trimestre-2017-2017-17648-francemobiles.jpg",
-    #             "buttons": [
-    #                 {
-    #                     "value": "https://boutiquepro.orange.fr/telephone-mobile-xiaomi-mi-10t-noir-128go.html",
-    #                     "title": "lien",
-    #                     "type": "web_url"
-    #                 }
-    #             ]
-    #         })
+            nombre = int(lettre)
+            forfaitsEntiers.append(nombre)
+    values = []
+    for x in forfaitsEntiers:
+        listeForfaits = Forfait.query.filter(Forfait.giga_4g == x)
+        for l in listeForfaits:
+            values.append({
+                "title": l.description,
+                "subtitle": l.giga_4g,
+                "imageUrl": "https://www.francemobiles.com/actualites/image-orange-320-000-ventes-nettes-de-forfaits-mobiles-au-3eme-trimestre-2017-2017-17648-francemobiles.jpg",
+                "buttons": [
+                    {
+                        "value": "https://boutiquepro.orange.fr/telephone-mobile-xiaomi-mi-10t-noir-128go.html",
+                        "title": "lien",
+                        "type": "web_url"
+                    }
+                ]
+            })
     return jsonify(
     status=200,
-    # replies=[{
-    #   'type': 'carousel',
-    #   'content': values
-    # }]) 
     replies=[{
-      'type': 'text',
-      'content': forfaitsEntiers
+      'type': 'carousel',
+      'content': values
     }]) 
+    # replies=[{
+    #   'type': 'text',
+    #   'content': forfaitsEntiers
+    # }]) 
     
 
 @app.route('/listeRV', methods=['POST'])
