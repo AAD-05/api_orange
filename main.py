@@ -683,7 +683,7 @@ def getPanier(email):
                             "value": "https://jambot-api.herokuapp.com/validerPanier/damendiaye@gmail.com",
                             "title": "Valider mon panier avec carte bancaire",
                             "type": "web_url"
-                        }
+                        },
                         {
                             "value": "https://jambot-api.herokuapp.com/validerPanierVP/damendiaye@gmail.com",
                             "title": "Valider mon panier avec des points",
