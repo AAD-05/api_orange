@@ -932,8 +932,8 @@ def addAvis():
     return 'succes'
 
 
-@app.route('/recommandforfait', methods=['POST'])
-def Recommand_forfait():
+@app.route('/recommandForfait', methods=['POST'])
+def recommandForfait():
 
     donnee = request.get_json()
     phone = donnee['conversation']['memory']['phone']['value']
@@ -944,19 +944,20 @@ def Recommand_forfait():
         val = int(val[0])
     values = []
     for x in forfait:
-        description = forfait.query.filter_by(giga_4g = x)
-        values.append({
-            "title": x.description,
-            "subtitle": x.giga_4g,
-            "imageUrl": "https://www.francemobiles.com/actualites/image-orange-320-000-ventes-nettes-de-forfaits-mobiles-au-3eme-trimestre-2017-2017-17648-francemobiles.jpg",
-            "buttons": [
-                {
-                    "value": "https://boutiquepro.orange.fr/telephone-mobile-xiaomi-mi-10t-noir-128go.html",
-                    "title": "lien",
-                    "type": "web_url"
-                }
-            ]
-        })
+        listeForfaits = forfait.query.filter_by(giga_4g = x)
+        for l in listeForfaits:
+            values.append({
+                "title": l.description,
+                "subtitle": l.giga_4g,
+                "imageUrl": "https://www.francemobiles.com/actualites/image-orange-320-000-ventes-nettes-de-forfaits-mobiles-au-3eme-trimestre-2017-2017-17648-francemobiles.jpg",
+                "buttons": [
+                    {
+                        "value": "https://boutiquepro.orange.fr/telephone-mobile-xiaomi-mi-10t-noir-128go.html",
+                        "title": "lien",
+                        "type": "web_url"
+                    }
+                ]
+            })
     return jsonify(
     status=200,
     replies=[{
