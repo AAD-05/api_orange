@@ -1138,6 +1138,8 @@ def get_localisation_effectif():
     #print(crypto_name)
     # FETCH BTC/USD/EUR PRICES
     r = requests.get("https://entreprise.data.gouv.fr/api/sirene/v3/etablissements/"+str(siret))
+    print("R \n:", r)
+    print("R.json() \n:", r.json())
 
     memory['localisation'] = r.json()['etablissement']['libelle_commune']
     memory['effectif'] = r.json()['etablissement']['tranche_effectifs']
