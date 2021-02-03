@@ -937,7 +937,7 @@ def recommandForfait():
 
     donnee = request.get_json()
     phone = donnee['conversation']['memory']['phone']['value']
-    forfait = Utilisateur.query.filter_by( telephone_actuel = phone ).forfait_actuel
+    forfait = Utilisateur.query.filter_by( telephone_actuel = phone ).first().forfait_actuel
     for val in forfait:
         val = val.replace('g',' g')
         val = val.split()
