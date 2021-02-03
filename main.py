@@ -261,8 +261,6 @@ def panier_page(email):
         liste.append(temp)
 
 
-    liste=Panier_produit.query.join(Telephone, Panier_produit.id_produit == Telephone.id).all()
-
     return render_template('panier.html',ut=ut,panier=produits, liste=liste)
 
 
