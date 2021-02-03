@@ -1031,7 +1031,10 @@ def showRV():
    
    d = request.get_json()
    ALL_RV=Rdv.query.filter_by(disponibilite='disponible').all()
-   donnee=[] 
+   donnee=[]
+   donnee.append({"value": "https://pro.orange.fr/contacts/",
+                        "title": "Cliquez ici pour discuter directement avec un conseiller",
+                        "type": "web_url"})
    for rv in ALL_RV:
        do={"value" :str(rv.id), "title": str(rv.date)}
        donnee.append(do)
@@ -1043,8 +1046,6 @@ def showRV():
       "type": "quickReplies",
       "content": {
         "title": "liste des rendez vous disponibles M./Mme " + str(ut.nom),
-        "type": "web_url",
-        "value": "https://jambot-api.herokuapp.com/validerPanier/damendiaye@gmail.com",
         "buttons": donnee
       }
     
