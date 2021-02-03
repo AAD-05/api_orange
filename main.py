@@ -27,10 +27,7 @@ migrate = Migrate()
 migrate.init_app(app, db)
 
 
-# For the scheduler, automatisation pour la BDD
-sched = BackgroundScheduler(daemon=True)
-sched.add_job(lambda : sched.print_jobs(),'interval',seconds=5)
-sched.start()
+
 
 class Telephone(db.Model):
 
@@ -222,6 +219,11 @@ def maj_dashboard():
     #     db.session.execute(sqlalchemy.text("CALL my_proc(:param)"), param='something')
 
     db.session.execute(text("CALL insertcalendrier()"))
+
+# For the scheduler, automatisation pour la BDD
+sched = BackgroundScheduler(daemon=True)
+sched.add_job(lambda : sched.print_jobs(),'interval',seconds=5)
+sched.start()
 
 
 """
@@ -1135,7 +1137,7 @@ def get_localisation_effectif():
 
     #print(crypto_name)
     # FETCH BTC/USD/EUR PRICES
-    r = requests.get("https://entreprise.data.gouv.fr/api/sirene/v3/etablissements/"+siret)
+    r = requests.get("https://entreprise.data.gouv.fr/api/sirene/v3/etablissements/"+str(siret))
 
     memory['localisation'] = r.json()['etablissement']['libelle_commune']
     memory['effectif'] = r.json()['etablissement']['tranche_effectifs']
