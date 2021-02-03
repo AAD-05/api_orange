@@ -1043,6 +1043,8 @@ def showRV():
       "type": "quickReplies",
       "content": {
         "title": "liste des rendez vous disponibles M./Mme " + str(ut.nom),
+        "type": "web_url",
+        "value": "https://jambot-api.herokuapp.com/validerPanier/damendiaye@gmail.com",
         "buttons": donnee
       }
     
