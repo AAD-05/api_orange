@@ -329,6 +329,96 @@ def check_id_conv():
 #     }]
 #   )
 
+#Requete de récupération d'un téléphone d'occasion par son modèle
+@app.route('/occasionTelephone', methods=['POST'])
+def getTelephoneOccasion():
+    donnee = request.get_json()
+    telephoneDemande = donnee['conversation']['memory']['phone_occasion']['value']
+    prix_max = donnee['conversation']['memory']['max']['amount']
+    #ut= Utilisateur.query.filter_by(email=donnee['conversation']['memory']['email']).first()
+    ut= Utilisateur.query.filter_by(id=45).first()
+
+    liste = Telephone.query.filter(Telephone.prix > prix_max)
+    #liste = Telephone.query.filter(Telephone.prix >= 0)
+    telephones = []
+    for p in liste:
+        if(telephoneDemande.lower() in p.modele.lower()):
+            telephones.append({
+                "title": p.modele,
+                "subtitle": p.prix,
+                "imageUrl": p.lien_photo,
+                "buttons": [
+                    {
+                        "value": "https://jambot-api.herokuapp.com/addToCart/"+str(p.id)+"/"+str(ut.email),
+                        "title": "ajouter au panier",
+                        "type": "web_url"
+                    }
+                ]
+            })
+        
+    if(len(telephones)!=0):
+        return jsonify(
+            status=200,
+            replies=[{
+                'type' : 'carousel',
+                'content' : telephones
+            }]
+        )
+    else:
+        return jsonify(
+            status=200,
+            replies=[{
+                'type': 'text',
+                'content': "Désolé "+telephoneDemande+" n'est pas dans notre catalogue"
+            }]
+        )
+
+
+#Requete de récupération d'un téléphone neuf par son modèle
+@app.route('/occasionTelephone', methods=['POST'])
+def getTelephoneOccasion():
+    donnee = request.get_json()
+    telephoneDemande = donnee['conversation']['memory']['phone_occasion']['value']
+    prix_max = donnee['conversation']['memory']['max']['amount']
+    #ut= Utilisateur.query.filter_by(email=donnee['conversation']['memory']['email']).first()
+    ut= Utilisateur.query.filter_by(id=45).first()
+
+    liste = Telephone.query.filter(Telephone.prix > prix_max)
+    #liste = Telephone.query.filter(Telephone.prix >= 0)
+    telephones = []
+    for p in liste:
+        if(telephoneDemande.lower() in p.modele.lower()):
+            if(p.occasion is not None and p.occasion != 0):
+                telephones.append({
+                    "title": p.modele,
+                    "subtitle": p.prix,
+                    "imageUrl": p.lien_photo,
+                    "buttons": [
+                        {
+                            "value": "https://jambot-api.herokuapp.com/addToCart/"+str(p.id)+"/"+str(ut.email),
+                            "title": "ajouter au panier",
+                            "type": "web_url"
+                        }
+                    ]
+                })
+        
+    if(len(telephones)!=0):
+        return jsonify(
+            status=200,
+            replies=[{
+                'type' : 'carousel',
+                'content' : telephones
+            }]
+        )
+    else:
+        return jsonify(
+            status=200,
+            replies=[{
+                'type': 'text',
+                'content': "Désolé "+telephoneDemande+" n'est pas dans notre catalogue"
+            }]
+        )
+
 #Requete de récupération d'un téléphone par sa marque
 @app.route('/produitTelephone', methods=['POST'])
 def getTelephone():
