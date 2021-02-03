@@ -960,9 +960,13 @@ def recommandForfait():
             })
     return jsonify(
     status=200,
+    # replies=[{
+    #   'type': 'carousel',
+    #   'content': values
+    # }]) 
     replies=[{
-      'type': 'carousel',
-      'content': values
+      'type': 'text',
+      'content': forfait
     }]) 
     
 
