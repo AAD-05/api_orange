@@ -625,11 +625,11 @@ def addToCart(id,email):
     if(test is None):
         tel=Telephone.query.filter_by(id=id)
         forfait=Forfait.query.filter_by(id=id)
-        if tel is not None:
+        if tel is None:
             panier_produit=Panier_produit(id=panier.id,id_produit=id,type_produit="telephone",nombre=1,id_interaction=0,via_bot=1)    
             db.session.add(panier_produit)
             db.session.commit()
-        if forfait is not None:
+        if forfait is None:
             panier_produit=Panier_produit(id=panier.id,id_produit=id,type_produit="forfait",nombre=1,id_interaction=0,via_bot=1)    
             db.session.add(panier_produit)
             db.session.commit()
