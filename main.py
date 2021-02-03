@@ -338,7 +338,7 @@ def getTelephoneOccasion():
     #ut= Utilisateur.query.filter_by(email=donnee['conversation']['memory']['email']).first()
     ut= Utilisateur.query.filter_by(id=45).first()
 
-    liste = Telephone.query.filter(Telephone.prix > prix_max)
+    liste = Telephone.query.filter(Telephone.prix <= prix_max)
     #liste = Telephone.query.filter(Telephone.prix >= 0)
     telephones = []
     for p in liste:
@@ -376,7 +376,7 @@ def getTelephoneOccasion():
 
 
 #Requete de récupération d'un téléphone neuf par son modèle
-@app.route('/nouveauxTelephone', methods=['POST'])
+@app.route('/nouveauTelephone', methods=['POST'])
 def getTelephoneNeuf():
     donnee = request.get_json()
     telephoneDemande = donnee['conversation']['memory']['phone_occasion']['value']
@@ -384,7 +384,7 @@ def getTelephoneNeuf():
     #ut= Utilisateur.query.filter_by(email=donnee['conversation']['memory']['email']).first()
     ut= Utilisateur.query.filter_by(id=45).first()
 
-    liste = Telephone.query.filter(Telephone.prix > prix_max)
+    liste = Telephone.query.filter(Telephone.prix <= prix_max)
     #liste = Telephone.query.filter(Telephone.prix >= 0)
     telephones = []
     for p in liste:
