@@ -932,7 +932,7 @@ def addAvis():
     return 'succes'
 
 
-@app.route('/Recommand_forfait', methods=['POST'])
+@app.route('/recommandforfait', methods=['POST'])
 def Recommand_forfait():
 
     donnee = request.get_json()
