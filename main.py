@@ -722,7 +722,7 @@ def addToCart(id,email):
             panier_produit=Panier_produit(id=panier.id,id_produit=id,type_produit="telephone",nombre=1,id_interaction=0,via_bot=1)    
             db.session.add(panier_produit)
             db.session.commit()
-        if forfait is None:
+        elif forfait is None:
             
             print("wouyayoy")
             panier_produit=Panier_produit(id=panier.id,id_produit=id,type_produit="forfait",nombre=1,id_interaction=0,via_bot=1)    
