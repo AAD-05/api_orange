@@ -1131,8 +1131,8 @@ def get_localisation_effectif():
     #print("data : \n" + jsonify(data))
     # FETCH THE CRYPTO NAME
 
-    siret = data["conversation"]["memory"]["numero_telephone"]["scalar"]
-    num_tel = data["conversation"]["memory"]["siret"]["number"]
+    num_tel = data["conversation"]["memory"]["numero_telephone"]["number"]
+    siret = data["conversation"]["memory"]["siret"]["scalar"]
     memory = dict(data["conversation"]["memory"])
 
     #print(crypto_name)
@@ -1148,7 +1148,7 @@ def get_localisation_effectif():
 
     return jsonify(
     status=200,
-    conversation=dict(memory)
+    conversation={"memory": dict(memory)}
     )
 
 
