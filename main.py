@@ -939,28 +939,28 @@ def recommandForfait():
     phone = donnee['conversation']['memory']['phone']['value']
     forfait = Utilisateur.query.filter_by( telephone_actuel = phone ).first().forfait_actuel
     forfaitsEntiers = []
-    for val in forfait:
-        #val = val.replace('g',' g')
-        val = val.split("g",1)
-        val = val[0]
-        nombre = int(val)
-        forfaitsEntiers.append(nombre)
-    values = []
-    for x in forfaitsEntiers:
-        listeForfaits = Forfait.query.filter(Forfait.giga_4g in x)
-        for l in listeForfaits:
-            values.append({
-                "title": l.description,
-                "subtitle": l.giga_4g,
-                "imageUrl": "https://www.francemobiles.com/actualites/image-orange-320-000-ventes-nettes-de-forfaits-mobiles-au-3eme-trimestre-2017-2017-17648-francemobiles.jpg",
-                "buttons": [
-                    {
-                        "value": "https://boutiquepro.orange.fr/telephone-mobile-xiaomi-mi-10t-noir-128go.html",
-                        "title": "lien",
-                        "type": "web_url"
-                    }
-                ]
-            })
+    # for val in forfait:
+    #     #val = val.replace('g',' g')
+    #     val = val.split("g",1)
+    #     val = val[0]
+    #     nombre = int(val)
+    #     forfaitsEntiers.append(nombre)
+    # values = []
+    # for x in forfaitsEntiers:
+    #     listeForfaits = Forfait.query.filter(Forfait.giga_4g in x)
+    #     for l in listeForfaits:
+    #         values.append({
+    #             "title": l.description,
+    #             "subtitle": l.giga_4g,
+    #             "imageUrl": "https://www.francemobiles.com/actualites/image-orange-320-000-ventes-nettes-de-forfaits-mobiles-au-3eme-trimestre-2017-2017-17648-francemobiles.jpg",
+    #             "buttons": [
+    #                 {
+    #                     "value": "https://boutiquepro.orange.fr/telephone-mobile-xiaomi-mi-10t-noir-128go.html",
+    #                     "title": "lien",
+    #                     "type": "web_url"
+    #                 }
+    #             ]
+    #         })
     return jsonify(
     status=200,
     # replies=[{
