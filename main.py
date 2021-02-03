@@ -938,14 +938,14 @@ def recommandForfait():
     donnee = request.get_json()
     phone = donnee['conversation']['memory']['phone']['value']
     forfait = Utilisateur.query.filter_by( telephone_actuel = phone ).first().forfait_actuel
-    for val in forfait:
-        val = val.replace('g','#g')
-        val = val.split("#",1)
-        nombre = val[0]
-        val = int(nombre)
+    # for val in forfait:
+    #     val = val.replace('g','#g')
+    #     val = val.split("#",1)
+    #     nombre = val[0]
+    #     val = int(nombre)
     values = []
     for x in forfait:
-        listeForfaits = forfait.query.filter_by(giga_4g = x)
+        listeForfaits = Forfait.query.filter(Forfait.giga_4g in x)
         for l in listeForfaits:
             values.append({
                 "title": l.description,
