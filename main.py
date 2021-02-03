@@ -334,7 +334,7 @@ def getTelephone():
     donnee = request.get_json()
     telephoneDemande = donnee['conversation']['memory']['phone']['value']
     #ut= Utilisateur.query.filter_by(email=donnee['conversation']['memory']['email']).first()
-    ut= Utilisateur.query.first()
+    ut= Utilisateur.query.filter_by(id=45).first()
 
     liste = Telephone.query.filter(Telephone.stock > 0)
     #liste = Telephone.query.filter(Telephone.prix >= 0)
@@ -377,7 +377,7 @@ def getTelephone():
 def proposerTelephone():
     donnee = request.get_json()
     #ut= Utilisateur.query.filter_by(email=donnee['conversation']['memory']['email']).first()
-    ut= Utilisateur.query.first()
+    ut= Utilisateur.query.filter_by(id=45).first()
     #domaine = donnee['conversation']['memory']['domaine']['value']
     prix = donnee['conversation']['memory']['money_max']['amount']
     nombre = donnee['conversation']['memory']['nombre']['scalar']
@@ -576,7 +576,8 @@ def getAllForfaits():
 def telephones():
     donnee = request.get_json()
     #ut= Utilisateur.query.filter_by(email=donnee['conversation']['memory']['email']).first()
-    ut= Utilisateur.query.first()
+   
+    ut= Utilisateur.query.filter_by(id=45).first()
     prix_max = donnee['conversation']['memory']['money_max']['amount']
 
     #print("\n prix_max is : \n", prix_max)
