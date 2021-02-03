@@ -942,7 +942,7 @@ def recommandForfait():
     for val in forfait:
         val = val[0:-2]
         # nombre = int(val)
-        # forfaitsEntiers.append(nombre)
+        forfaitsEntiers.append(val)
     # values = []
     # for x in forfaitsEntiers:
     #     listeForfaits = Forfait.query.filter(Forfait.giga_4g in x)
@@ -967,7 +967,7 @@ def recommandForfait():
     # }]) 
     replies=[{
       'type': 'text',
-      'content': forfait
+      'content': forfaitsEntiers
     }]) 
     
 
