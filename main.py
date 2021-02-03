@@ -217,6 +217,7 @@ class Option(db.Model):
 def maj_dashboard():
     # db.session.execute("CALL insertcalendrier();")
     #     db.session.execute(sqlalchemy.text("CALL my_proc(:param)"), param='something')
+
     db.session.execute(text("CALL insertimplantation()"))
 
 # For the scheduler, automatisation pour la BDD
@@ -333,7 +334,7 @@ def getTelephone():
     donnee = request.get_json()
     telephoneDemande = donnee['conversation']['memory']['phone']['value']
     #ut= Utilisateur.query.filter_by(email=donnee['conversation']['memory']['email']).first()
-    ut= Utilisateur.query.filter_by(id=45).first()
+    ut= Utilisateur.query.first()
 
     liste = Telephone.query.filter(Telephone.stock > 0)
     #liste = Telephone.query.filter(Telephone.prix >= 0)
@@ -376,7 +377,7 @@ def getTelephone():
 def proposerTelephone():
     donnee = request.get_json()
     #ut= Utilisateur.query.filter_by(email=donnee['conversation']['memory']['email']).first()
-    ut= Utilisateur.query.filter_by(id=45).first()
+    ut= Utilisateur.query.first()
     #domaine = donnee['conversation']['memory']['domaine']['value']
     prix = donnee['conversation']['memory']['money_max']['amount']
     nombre = donnee['conversation']['memory']['nombre']['scalar']
@@ -575,8 +576,7 @@ def getAllForfaits():
 def telephones():
     donnee = request.get_json()
     #ut= Utilisateur.query.filter_by(email=donnee['conversation']['memory']['email']).first()
-   
-    ut= Utilisateur.query.filter_by(id=45).first()
+    ut= Utilisateur.query.first()
     prix_max = donnee['conversation']['memory']['money_max']['amount']
 
     #print("\n prix_max is : \n", prix_max)
@@ -988,21 +988,20 @@ def recommandTel():
         x = str(x) + 'go'
         listeTel = Utilisateur.query.filter(Utilisateur.forfait_actuel == x)
         for l in listeTel:
-            telephones = Telephone.query.filter(Telephone.stock>0)
+            telephones = Telephone.query.filter(l.telephone_actuel.lower() in Telephone.modele.lower())
             for t in telephones:
-                if (l.telephone_actuel.lower() in t.modele.lower()):
-                    values.append({
-                    "title": t.modele,
-                    "subtitle": t.prix,
-                    "imageUrl": t.lien_photo,
-                    "buttons": [
-                        {
-                            "value": "https://jambot-api.herokuapp.com/addToCart/"+str(t.id)+"/"+str(ut.email),
-                            "title": "ajouter au panier",
-                            "type": "web_url"
-                        }
-                    ]
-                })
+                values.append({
+                "title": t.modele,
+                "subtitle": t.prix,
+                "imageUrl": t.lien_photo,
+                "buttons": [
+                    {
+                        "value": "https://jambot-api.herokuapp.com/addToCart/"+str(t.id)+"/"+str(ut.email),
+                        "title": "ajouter au panier",
+                        "type": "web_url"
+                    }
+                ]
+            })
     return jsonify(
     status=200,
     replies=[{
