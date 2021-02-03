@@ -222,7 +222,7 @@ def maj_dashboard():
 
 # For the scheduler, automatisation pour la BDD
 sched = BackgroundScheduler(daemon=True)
-sched.add_job(lambda : sched.print_jobs(),'interval',seconds=5)
+sched.add_job(maj_dashboard,'cron',second=5)
 sched.start()
 
 
