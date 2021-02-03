@@ -718,21 +718,17 @@ def addToCart(id,email):
         tel=Telephone.query.filter_by(id=id).first()
         forfait=Forfait.query.filter_by(id=id).first()
         if tel is not None:
-            print("wouyayoy")
             panier_produit=Panier_produit(id=panier.id,id_produit=id,type_produit="telephone",nombre=1,id_interaction=0,via_bot=1)    
             db.session.add(panier_produit)
             db.session.commit()
         elif forfait is not None:
             
-            print("wouyayoy  lknkj")
             panier_produit=Panier_produit(id=panier.id,id_produit=id,type_produit="forfait",nombre=1,id_interaction=0,via_bot=1)    
             db.session.add(panier_produit)
             db.session.commit()
     else:
         Panier_produit.query.filter_by(id=panier.id,id_produit=id).update({Panier_produit.nombre: Panier_produit.nombre+1 })
         db.session.commit()
-        
-        print("wouyayoy hoho")
     
     return ""
 
