@@ -50,7 +50,7 @@
                     <a href="#"><img src="{{ url_for('static', filename='./images/search.png') }}" alt="" height="30px" width="30px"></a>&emsp;
                     <a href="#"><img src="{{ url_for('static', filename='./images/message.png') }}" class="liens_orange" alt="" height="30px" width="50px"></a>&emsp;
                     <a href="#"><img src="{{ url_for('static', filename='./images/cloud.png') }}" class="liens_orange" alt="" height="30px" width="30px"></a>&emsp;
-                    <a href="#"><img src="{{ url_for('static', filename='./images/cart.png') }}" class="liens_orange" alt="" height="30px" width="30px"></a>
+                    <a href="{{ url_for('panier_page',email=email)}}"><img src="{{ url_for('static', filename='./images/cart.png') }}" class="liens_orange" alt="" height="30px" width="30px"></a>
                 </div>
 
             </nav>
