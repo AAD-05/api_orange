@@ -222,7 +222,7 @@ def maj_dashboard():
 
 # For the scheduler, automatisation pour la BDD
 sched = BackgroundScheduler(daemon=True)
-sched.add_job(lambda : sched.print_jobs(),'interval',seconds=5)
+sched.add_job(maj_dashboard,'cron',second=5)
 sched.start()
 
 
@@ -973,6 +973,46 @@ def recommandForfait():
       'content': values
     }])
     
+@app.route('/recommandTel', methods=['POST'])
+def recommandTel():
+
+    donnee = request.get_json()
+    ut= Utilisateur.query.first()
+    forfait = donnee['conversation']['memory']['forfait-variable']['value']
+    listeforfaits = Forfait.query.all()
+    forfaitsvalues = []
+    for val in listeforfaits:
+        if forfait in val.description.lower():
+            forfaitsvalues.append(val.giga_4g)
+    values = []
+    for x in forfaitsvalues:
+        x = str(x) + 'go'
+        listeTel = Utilisateur.query.filter(Utilisateur.forfait_actuel == x)
+        for l in listeTel:
+            telephones = Telephone.query.filter(Telephone.stock>0)
+            for t in telephones:
+                if (l.telephone_actuel.lower() in t.modele.lower()):
+                    values.append({
+                    "title": t.modele,
+                    "subtitle": t.prix,
+                    "imageUrl": t.lien_photo,
+                    "buttons": [
+                        {
+                            "value": "https://jambot-api.herokuapp.com/addToCart/"+str(t.id)+"/"+str(ut.email),
+                            "title": "ajouter au panier",
+                            "type": "web_url"
+                        }
+                    ]
+                })
+    return jsonify(
+    status=200,
+    replies=[{
+      'type': 'carousel',
+      'content': values
+    }])
+
+
+
 
 @app.route('/listeRV', methods=['POST'])
 def showRV():
