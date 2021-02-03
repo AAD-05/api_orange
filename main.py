@@ -642,6 +642,16 @@ def validerPanier(email):
     db.session.commit()
 
     return 'Panier valider avec succes'
+
+
+@app.route('/validerPanierVP/<string:email>', methods=['GET'])
+def validerPanierPV(email):
+
+    util = Utilisateur.query.filter_by( email= email).first()
+    Panier.query.filter_by(statut="En cours",id_utilisateur=util.id).update({Panier.statut: "Valider" })
+    db.session.commit()
+
+    return 'Panier valider avec succes'
     
 
 #Requete de récupération d'un forfait par son nom
@@ -671,7 +681,12 @@ def getPanier(email):
                         },
                         {
                             "value": "https://jambot-api.herokuapp.com/validerPanier/damendiaye@gmail.com",
-                            "title": "Valider mon panier",
+                            "title": "Valider mon panier avec carte bancaire",
+                            "type": "web_url"
+                        }
+                        {
+                            "value": "https://jambot-api.herokuapp.com/validerPanierVP/damendiaye@gmail.com",
+                            "title": "Valider mon panier avec des points",
                             "type": "web_url"
                         }
                     ]
