@@ -1085,7 +1085,7 @@ def recommandForfait():
 def recommandTel():
 
     donnee = request.get_json()
-    ut= Utilisateur.query.first()
+    ut= Utilisateur.query.filter_by(id=45).first()
     forfait = donnee['conversation']['memory']['forfait-variable']['value']
     listeforfaits = Forfait.query.all()
     forfaitsvalues = []
