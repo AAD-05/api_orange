@@ -939,9 +939,8 @@ def recommandForfait():
     phone = donnee['conversation']['memory']['phone']['value']
     forfait = Utilisateur.query.filter_by( telephone_actuel = phone ).first().forfait_actuel
     for val in forfait:
-        val = val.replace('g',' g')
-        val = val.split()
-        val = int(val[0])
+        val = val.replace('g','')
+        val = int(val)
     values = []
     for x in forfait:
         listeForfaits = forfait.query.filter_by(giga_4g = x)
