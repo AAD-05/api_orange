@@ -1099,6 +1099,31 @@ def index():
   )
 
 
+@app.route('/loc-effectif', methods=['POST'])
+def get_localisation_effectif():
+    data = request.get_json()
+    #print("data : \n" + jsonify(data))
+    # FETCH THE CRYPTO NAME
+
+    siret = data["conversation"]["memory"]["numero_telephone"]["scalar"]
+    num_tel = data["conversation"]["memory"]["siret"]["number"]
+    memory = dict(data["conversation"]["memory"])
+
+    #print(crypto_name)
+    # FETCH BTC/USD/EUR PRICES
+    r = requests.get("https://entreprise.data.gouv.fr/api/sirene/v3/etablissements/"+siret)
+
+    memory['localisation'] = r.json()['etablissement']['libelle_commune']
+    memory['effectif'] = r.json()['etablissement']['tranche_effectifs']
+
+
+
+    return jsonify(
+    status=200,
+    conversation=dict(memory)
+    )
+
+
 
 #db.create_all()
 
