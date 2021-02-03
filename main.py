@@ -983,27 +983,27 @@ def recommandTel():
         if forfait in val.description.lower():
             forfaitsvalues.append(val.giga_4g)
     values = []
-    # for x in forfaitsvalues:
-    #     x = str(x+'go')
-    #     listeTel = Utilisateur.query.filter(Utilisateur.forfait_actuel == x)
-    #     for l in listeTel:
-    #         values.append({
-    #             "title": l.description,
-    #             "subtitle": l.giga_4g,
-    #             "imageUrl": "https://www.francemobiles.com/actualites/image-orange-320-000-ventes-nettes-de-forfaits-mobiles-au-3eme-trimestre-2017-2017-17648-francemobiles.jpg",
-    #             "buttons": [
-    #                 {
-    #                     "value": "https://boutiquepro.orange.fr/telephone-mobile-xiaomi-mi-10t-noir-128go.html",
-    #                     "title": "lien",
-    #                     "type": "web_url"
-    #                 }
-    #             ]
-    #         })
+    for x in forfaitsvalues:
+        x = str(x+'go')
+        listeTel = Utilisateur.query.filter(Utilisateur.forfait_actuel == x)
+        for l in listeTel:
+            values.append({
+                "title": l.forfait_actuel,
+                
+                "imageUrl": "https://www.francemobiles.com/actualites/image-orange-320-000-ventes-nettes-de-forfaits-mobiles-au-3eme-trimestre-2017-2017-17648-francemobiles.jpg",
+                "buttons": [
+                    {
+                        "value": "https://boutiquepro.orange.fr/telephone-mobile-xiaomi-mi-10t-noir-128go.html",
+                        "title": "lien",
+                        "type": "web_url"
+                    }
+                ]
+            })
     return jsonify(
     status=200,
     replies=[{
-      'type': 'quickReplies',
-      'content': forfaitsvalues
+      'type': 'carousel',
+      'content': values
     }])
 
 
