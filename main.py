@@ -940,7 +940,7 @@ def recommandForfait():
     forfait = Utilisateur.query.filter_by( telephone_actuel = phone ).first().forfait_actuel
     forfaitsEntiers = []
     for val in forfait:
-        lettre = val[:-1]
+        lettre = val
         # nombre = int(val)
         forfaitsEntiers.append(lettre)
     # values = []
