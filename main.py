@@ -251,12 +251,15 @@ def panier_page(email):
     else:
         ut=None
     produits=None
+    liste=[]
     panier = Panier.query.filter_by(statut="En cours",id_utilisateur=ut.id).first()
     if panier is not None:
         produits=Panier_produit.query.filter_by(id=panier.id).with_entities(Panier_produit.id, Panier_produit.id_produit, Panier_produit.id_interaction, Panier_produit.type_produit, Panier_produit.nombre, Panier_produit.via_bot).all()
     
+    for p in produits:
+        temp=[p,Telephone.query.filter_by(id=p.id_produit).first()]
+        liste.append(temp)
 
-    liste=Panier_produit.query.join(Telephone, Panier_produit.id_produit == Telephone.id).all()
 
     return render_template('panier.html',ut=ut,panier=produits, liste=liste)
 
@@ -330,7 +333,8 @@ def check_id_conv():
 def getTelephone():
     donnee = request.get_json()
     telephoneDemande = donnee['conversation']['memory']['phone']['value']
-    ut= Utilisateur.query.filter_by(email=donnee['conversation']['memory']['email']).first()
+    #ut= Utilisateur.query.filter_by(email=donnee['conversation']['memory']['email']).first()
+    ut= Utilisateur.query.first()
 
     liste = Telephone.query.filter(Telephone.stock > 0)
     #liste = Telephone.query.filter(Telephone.prix >= 0)
@@ -571,7 +575,8 @@ def getAllForfaits():
 @app.route('/telephones', methods=['POST'])
 def telephones():
     donnee = request.get_json()
-    ut= Utilisateur.query.filter_by(email=donnee['conversation']['memory']['email']).first()
+    #ut= Utilisateur.query.filter_by(email=donnee['conversation']['memory']['email']).first()
+    ut= Utilisateur.query.first()
     prix_max = donnee['conversation']['memory']['money_max']['amount']
 
     #print("\n prix_max is : \n", prix_max)
@@ -930,38 +935,82 @@ def addAvis():
     return 'succes'
 
 
-@app.route('/Recommand_forfait', methods=['POST'])
-def Recommand_forfait():
+@app.route('/recommandForfait', methods=['POST'])
+def recommandForfait():
 
     donnee = request.get_json()
     phone = donnee['conversation']['memory']['phone']['value']
-    forfait = Utilisateur.query.filter_by( telephone_actuel = phone ).forfait_actuel
-    for val in forfait:
-        val = val.replace('g',' g')
-        val = val.split()
-        val = int(val[0])
+    listeUtilisateurs = Utilisateur.query.all()
+    forfaitsEntiers = []
+    for val in listeUtilisateurs:
+        if phone in val.telephone_actuel.lower():
+            val.forfait_actuel = val.forfait_actuel.replace('g',' g')
+            val.forfait_actuel = val.forfait_actuel.split(" ",1)
+            lettre = val.forfait_actuel[0]
+            nombre = int(lettre)
+            forfaitsEntiers.append(nombre)
     values = []
-    for x in forfait:
-        description = forfait.query.filter_by(giga_4g = x)
-        values.append({
-            "title": x.description,
-            "subtitle": x.giga_4g,
-            "imageUrl": "https://www.francemobiles.com/actualites/image-orange-320-000-ventes-nettes-de-forfaits-mobiles-au-3eme-trimestre-2017-2017-17648-francemobiles.jpg",
-            "buttons": [
-                {
-                    "value": "https://boutiquepro.orange.fr/telephone-mobile-xiaomi-mi-10t-noir-128go.html",
-                    "title": "lien",
-                    "type": "web_url"
-                }
-            ]
-        })
+    for x in forfaitsEntiers:
+        listeForfaits = Forfait.query.filter(Forfait.giga_4g == x)
+        for l in listeForfaits:
+            values.append({
+                "title": l.description,
+                "subtitle": l.giga_4g,
+                "imageUrl": "https://www.francemobiles.com/actualites/image-orange-320-000-ventes-nettes-de-forfaits-mobiles-au-3eme-trimestre-2017-2017-17648-francemobiles.jpg",
+                "buttons": [
+                    {
+                        "value": "https://boutiquepro.orange.fr/telephone-mobile-xiaomi-mi-10t-noir-128go.html",
+                        "title": "lien",
+                        "type": "web_url"
+                    }
+                ]
+            })
     return jsonify(
     status=200,
     replies=[{
       'type': 'carousel',
       'content': values
-    }]) 
+    }])
     
+@app.route('/recommandTel', methods=['POST'])
+def recommandTel():
+
+    donnee = request.get_json()
+    ut= Utilisateur.query.first()
+    forfait = donnee['conversation']['memory']['forfait-variable']['value']
+    listeforfaits = Forfait.query.all()
+    forfaitsvalues = []
+    for val in listeforfaits:
+        if forfait in val.description.lower():
+            forfaitsvalues.append(val.giga_4g)
+    values = []
+    for x in forfaitsvalues:
+        x = str(x) + 'go'
+        listeTel = Utilisateur.query.filter(Utilisateur.forfait_actuel == x)
+        for l in listeTel:
+            telephones = Telephone.query.filter(l.telephone_actuel.lower() in Telephone.modele.lower())
+            for t in telephones:
+                values.append({
+                "title": t.modele,
+                "subtitle": t.prix,
+                "imageUrl": t.lien_photo,
+                "buttons": [
+                    {
+                        "value": "https://jambot-api.herokuapp.com/addToCart/"+str(t.id)+"/"+str(ut.email),
+                        "title": "ajouter au panier",
+                        "type": "web_url"
+                    }
+                ]
+            })
+    return jsonify(
+    status=200,
+    replies=[{
+      'type': 'carousel',
+      'content': values
+    }])
+
+
+
 
 @app.route('/listeRV', methods=['POST'])
 def showRV():
