@@ -943,7 +943,7 @@ def recommandForfait():
     forfait = Utilisateur.query.all()
     forfaitsEntiers = []
     for val in forfait:
-        if val.telephone_actuel.lower() in phone:
+        if phone in val.telephone_actuel.lower():
             val.forfait_actuel = val.forfait_actuel.replace('g',' g')
             val.forfait_actuel = val.forfait_actuel.split(" ",1)
             lettre = val.forfait_actuel[0]
