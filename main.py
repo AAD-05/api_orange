@@ -1036,7 +1036,7 @@ def showRV():
        do={"value" :str(rv.id), "title": str(rv.date)}
        donnee.append(do)
     
-   ut = Utilisateur.query.filter_by( email= d['conversation']['memory']['email']).first()
+   ut = Utilisateur.query.filter_by( id=45).first()
    return jsonify(
    status=200,
    replies=[{
