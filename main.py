@@ -911,9 +911,9 @@ def addForfait():
 
     donnee = request.get_json()
     print("donnees",donnee)
-    Forfait=  Forfait( description=donnee['description'],  is_engagement=donnee['is_engagement'], giga_4g=donnee['giga_4g'], giga_5g=donnee['giga_5g'] , description_complete= donnee['description_complete'], prix=donnee['prix'] )
+    forfait=  Forfait( description=donnee['description'],  is_engagement=donnee['is_engagement'], giga_4g=donnee['giga_4g'], giga_5g=donnee['giga_5g'] , description_complete= donnee['description_complete'], prix=donnee['prix'] )
 
-    db.session.add(Forfait)
+    db.session.add(forfait)
     db.session.commit()
 
     return 'succes'
