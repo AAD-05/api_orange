@@ -940,9 +940,9 @@ def recommandForfait():
 
     donnee = request.get_json()
     phone = donnee['conversation']['memory']['phone']['value']
-    forfait = Utilisateur.query.all()
+    listeUtilisateurs = Utilisateur.query.all()
     forfaitsEntiers = []
-    for val in forfait:
+    for val in listeUtilisateurs:
         if phone in val.telephone_actuel.lower():
             val.forfait_actuel = val.forfait_actuel.replace('g',' g')
             val.forfait_actuel = val.forfait_actuel.split(" ",1)
@@ -970,11 +970,7 @@ def recommandForfait():
     replies=[{
       'type': 'carousel',
       'content': values
-    }]) 
-    # replies=[{
-    #   'type': 'text',
-    #   'content': forfaitsEntiers
-    # }]) 
+    }])
     
 
 @app.route('/listeRV', methods=['POST'])
