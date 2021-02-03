@@ -218,7 +218,7 @@ def maj_dashboard():
     # db.session.execute("CALL insertcalendrier();")
     #     db.session.execute(sqlalchemy.text("CALL my_proc(:param)"), param='something')
 
-    db.session.execute(text("CALL insertcalendrier()"))
+    db.session.execute("CALL insertcalendrier()")
 
 # For the scheduler, automatisation pour la BDD
 sched = BackgroundScheduler(daemon=True)
