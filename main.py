@@ -330,7 +330,8 @@ def check_id_conv():
 def getTelephone():
     donnee = request.get_json()
     telephoneDemande = donnee['conversation']['memory']['phone']['value']
-    ut= Utilisateur.query.filter_by(email=donnee['conversation']['memory']['email']).first()
+    #ut= Utilisateur.query.filter_by(email=donnee['conversation']['memory']['email']).first()
+    ut= Utilisateur.query.first()
 
     liste = Telephone.query.filter(Telephone.stock > 0)
     #liste = Telephone.query.filter(Telephone.prix >= 0)
@@ -571,7 +572,8 @@ def getAllForfaits():
 @app.route('/telephones', methods=['POST'])
 def telephones():
     donnee = request.get_json()
-    ut= Utilisateur.query.filter_by(email=donnee['conversation']['memory']['email']).first()
+    #ut= Utilisateur.query.filter_by(email=donnee['conversation']['memory']['email']).first()
+    ut= Utilisateur.query.first()
     prix_max = donnee['conversation']['memory']['money_max']['amount']
 
     #print("\n prix_max is : \n", prix_max)
