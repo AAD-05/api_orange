@@ -707,9 +707,10 @@ def addToCart(id,email):
     ut=Utilisateur.query.filter_by(email=email).first()
     panier = Panier.query.filter_by(statut="En cours",id_utilisateur=ut.id).first()
     if panier is None:
-        panier=Panier( statut= "En cours", id_utilisateur=ut.id)  
+        panier=Panier(statut= "En cours", id_utilisateur=ut.id)
         db.session.add(panier)
         db.session.commit()
+        panier=Panier.query.filter_by(statut="En cours",id_utilisateur=ut.id).first()
 
     test=Panier_produit.query.filter_by(id=panier.id, id_produit=id).first()
     
