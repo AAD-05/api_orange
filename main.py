@@ -329,13 +329,104 @@ def check_id_conv():
 #     }]
 #   )
 
+#Requete de récupération d'un téléphone d'occasion par son modèle
+@app.route('/occasionTelephone', methods=['POST'])
+def getTelephoneOccasion():
+    donnee = request.get_json()
+    telephoneDemande = donnee['conversation']['memory']['phone_occasion']['value']
+    prix_max = donnee['conversation']['memory']['max']['amount']
+    #ut= Utilisateur.query.filter_by(email=donnee['conversation']['memory']['email']).first()
+    ut= Utilisateur.query.filter_by(id=45).first()
+
+    liste = Telephone.query.filter(Telephone.prix <= prix_max)
+    #liste = Telephone.query.filter(Telephone.prix >= 0)
+    telephones = []
+    for p in liste:
+        if(telephoneDemande.lower() in p.modele.lower()):
+            if(p.occasion is not None and p.occasion != 1):
+                telephones.append({
+                    "title": p.modele,
+                    "subtitle": p.prix,
+                    "imageUrl": p.lien_photo,
+                    "buttons": [
+                        {
+                            "value": "https://jambot-api.herokuapp.com/addToCart/"+str(p.id)+"/"+str(ut.email),
+                            "title": "ajouter au panier",
+                            "type": "web_url"
+                        }
+                    ]
+                })
+        
+    if(len(telephones)!=0):
+        return jsonify(
+            status=200,
+            replies=[{
+                'type' : 'carousel',
+                'content' : telephones
+            }]
+        )
+    else:
+        return jsonify(
+            status=200,
+            replies=[{
+                'type': 'text',
+                'content': "Désolé "+telephoneDemande+" n'est pas dans notre catalogue"
+            }]
+        )
+
+
+#Requete de récupération d'un téléphone neuf par son modèle
+@app.route('/nouveauTelephone', methods=['POST'])
+def getTelephoneNeuf():
+    donnee = request.get_json()
+    telephoneDemande = donnee['conversation']['memory']['phone_occasion']['value']
+    prix_max = donnee['conversation']['memory']['max']['amount']
+    #ut= Utilisateur.query.filter_by(email=donnee['conversation']['memory']['email']).first()
+    ut= Utilisateur.query.filter_by(id=45).first()
+
+    liste = Telephone.query.filter(Telephone.prix <= prix_max)
+    #liste = Telephone.query.filter(Telephone.prix >= 0)
+    telephones = []
+    for p in liste:
+        if(telephoneDemande.lower() in p.modele.lower()):
+            if(p.occasion is not None and p.occasion != 0):
+                telephones.append({
+                    "title": p.modele,
+                    "subtitle": p.prix,
+                    "imageUrl": p.lien_photo,
+                    "buttons": [
+                        {
+                            "value": "https://jambot-api.herokuapp.com/addToCart/"+str(p.id)+"/"+str(ut.email),
+                            "title": "ajouter au panier",
+                            "type": "web_url"
+                        }
+                    ]
+                })
+        
+    if(len(telephones)!=0):
+        return jsonify(
+            status=200,
+            replies=[{
+                'type' : 'carousel',
+                'content' : telephones
+            }]
+        )
+    else:
+        return jsonify(
+            status=200,
+            replies=[{
+                'type': 'text',
+                'content': "Désolé "+telephoneDemande+" n'est pas dans notre catalogue"
+            }]
+        )
+
 #Requete de récupération d'un téléphone par sa marque
 @app.route('/produitTelephone', methods=['POST'])
 def getTelephone():
     donnee = request.get_json()
     telephoneDemande = donnee['conversation']['memory']['phone']['value']
     #ut= Utilisateur.query.filter_by(email=donnee['conversation']['memory']['email']).first()
-    ut= Utilisateur.query.first()
+    ut= Utilisateur.query.filter_by(id=45).first()
 
     liste = Telephone.query.filter(Telephone.stock > 0)
     #liste = Telephone.query.filter(Telephone.prix >= 0)
@@ -378,7 +469,7 @@ def getTelephone():
 def proposerTelephone():
     donnee = request.get_json()
     #ut= Utilisateur.query.filter_by(email=donnee['conversation']['memory']['email']).first()
-    ut= Utilisateur.query.first()
+    ut= Utilisateur.query.filter_by(id=45).first()
     #domaine = donnee['conversation']['memory']['domaine']['value']
     prix = donnee['conversation']['memory']['money_max']['amount']
     nombre = donnee['conversation']['memory']['nombre']['scalar']
@@ -577,7 +668,7 @@ def getAllForfaits():
 def telephones():
     donnee = request.get_json()
     #ut= Utilisateur.query.filter_by(email=donnee['conversation']['memory']['email']).first()
-    ut= Utilisateur.query.first()
+    ut= Utilisateur.query.filter_by(id=45).first()
     prix_max = donnee['conversation']['memory']['money_max']['amount']
 
     #print("\n prix_max is : \n", prix_max)
@@ -616,17 +707,25 @@ def addToCart(id,email):
     ut=Utilisateur.query.filter_by(email=email).first()
     panier = Panier.query.filter_by(statut="En cours",id_utilisateur=ut.id).first()
     if panier is None:
-        panier=Panier( statut= "En cours", id_utilisateur=ut.id)  
+        panier=Panier(statut= "En cours", id_utilisateur=ut.id)
         db.session.add(panier)
         db.session.commit()
+        panier=Panier.query.filter_by(statut="En cours",id_utilisateur=ut.id).first()
 
     test=Panier_produit.query.filter_by(id=panier.id, id_produit=id).first()
     
     if(test is None):
-        panier_produit=Panier_produit(id=panier.id,id_produit=id,type_produit="telephone",nombre=1,id_interaction=0,via_bot=1)    
-        db.session.add(panier_produit)
-        db.session.commit()
-    
+        tel=Telephone.query.filter_by(id=id).first()
+        forfait=Forfait.query.filter_by(id=id).first()
+        if tel is not None:
+            panier_produit=Panier_produit(id=panier.id,id_produit=id,type_produit="telephone",nombre=1,id_interaction=0,via_bot=1)    
+            db.session.add(panier_produit)
+            db.session.commit()
+        elif forfait is not None:
+            
+            panier_produit=Panier_produit(id=panier.id,id_produit=id,type_produit="forfait",nombre=1,id_interaction=0,via_bot=1)    
+            db.session.add(panier_produit)
+            db.session.commit()
     else:
         Panier_produit.query.filter_by(id=panier.id,id_produit=id).update({Panier_produit.nombre: Panier_produit.nombre+1 })
         db.session.commit()
@@ -641,7 +740,17 @@ def validerPanier(email):
     Panier.query.filter_by(statut="En cours",id_utilisateur=util.id).update({Panier.statut: "Valider" })
     db.session.commit()
 
-    return 'Panier valider avec succes'
+    return render_template('validation.html')
+
+
+@app.route('/validerPanierVP/<string:email>', methods=['GET'])
+def validerPanierPV(email):
+
+    util = Utilisateur.query.filter_by( email= email).first()
+    Panier.query.filter_by(statut="En cours",id_utilisateur=util.id).update({Panier.statut: "Valider" })
+    db.session.commit()
+
+    return render_template('validation.html')
     
 
 #Requete de récupération d'un forfait par son nom
@@ -656,7 +765,6 @@ def getPanier(email):
     if panier is not None:
         produits=Panier_produit.query.filter_by(id=panier.id).with_entities(Panier_produit.id, Panier_produit.id_produit, Panier_produit.id_interaction, Panier_produit.type_produit, Panier_produit.nombre, Panier_produit.via_bot).all()
         for p in produits:
-            print(p)
             liste.append(Telephone.query.filter_by(id=p[1]).first())
         for p in liste:
                 produit.append({
@@ -671,7 +779,12 @@ def getPanier(email):
                         },
                         {
                             "value": "https://jambot-api.herokuapp.com/validerPanier/damendiaye@gmail.com",
-                            "title": "Valider mon panier",
+                            "title": "Valider mon panier avec carte bancaire",
+                            "type": "web_url"
+                        },
+                        {
+                            "value": "https://jambot-api.herokuapp.com/validerPanierVP/damendiaye@gmail.com",
+                            "title": "Valider mon panier avec des points",
                             "type": "web_url"
                         }
                     ]
@@ -896,9 +1009,9 @@ def addForfait():
 
     donnee = request.get_json()
     print("donnees",donnee)
-    Forfait=  Forfait( description=donnee['description'],  is_engagement=donnee['is_engagement'], giga_4g=donnee['giga_4g'], giga_5g=donnee['giga_5g'] , description_complete= donnee['description_complete'], prix=donnee['prix'] )
+    forfait=  Forfait( description=donnee['description'],  is_engagement=donnee['is_engagement'], giga_4g=donnee['giga_4g'], giga_5g=donnee['giga_5g'] , description_complete= donnee['description_complete'], prix=donnee['prix'] )
 
-    db.session.add(Forfait)
+    db.session.add(forfait)
     db.session.commit()
 
     return 'succes'
@@ -910,9 +1023,9 @@ def addTelephone():
 
     donnee = request.get_json()
     print("donnees",donnee)
-    Telephone= Telephone( marque=donnee['marque'],  description=donnee['description'], prix=donnee['prix'], note_design=donnee['note_design'] , note_ap= donnee['note_ap'], note_connection=donnee['note_connection'] ,note_batterie=donnee['note_batterie'], note_puissance=donnee['note_puissance'], occasion=donnee['occasion'], stock=donnee['stock'], lien_photo=donnee['lien_photo'])
+    telephone= Telephone( marque=donnee['marque'],  description=donnee['description'], prix=donnee['prix'], note_design=donnee['note_design'] , note_ap= donnee['note_ap'], note_connection=donnee['note_connection'] ,note_batterie=donnee['note_batterie'], note_puissance=donnee['note_puissance'], occasion=donnee['occasion'], stock=donnee['stock'], lien_photo=donnee['lien_photo'])
 
-    db.session.add(Telephone)
+    db.session.add(telephone)
     db.session.commit()
 
     return 'succes'
@@ -922,8 +1035,6 @@ def addTelephone():
 
 @app.route('/ajouterAvis', methods=['POST'])
 def addAvis():
-
-
     donnee = request.get_json()
     print("donnees",donnee)
     avis=donnee['conversation']['memory']['rating']['scalar']
@@ -977,7 +1088,7 @@ def recommandForfait():
 def recommandTel():
 
     donnee = request.get_json()
-    ut= Utilisateur.query.first()
+    ut= Utilisateur.query.filter_by(id=45).first()
     forfait = donnee['conversation']['memory']['forfait-variable']['value']
     listeforfaits = Forfait.query.all()
     forfaitsvalues = []
@@ -1018,12 +1129,15 @@ def showRV():
    
    d = request.get_json()
    ALL_RV=Rdv.query.filter_by(disponibilite='disponible').all()
-   donnee=[] 
+   donnee=[]
+   donnee.append({"value": "https://pro.orange.fr/contacts/",
+                        "title": "Chat spontanté",
+                        "type": "web_url"})
    for rv in ALL_RV:
        do={"value" :str(rv.id), "title": str(rv.date)}
        donnee.append(do)
     
-   ut = Utilisateur.query.filter_by( email= d['conversation']['memory']['email']).first()
+   ut = Utilisateur.query.filter_by( id=45).first()
    return jsonify(
    status=200,
    replies=[{
