@@ -599,6 +599,8 @@ def proposerForfait():
 @app.route('/getForfait', methods=['POST'])
 def getForfait():
     donnee = request.get_json()
+    
+    ut= Utilisateur.query.filter_by(id=45).first()
     forfaitDemande = donnee['conversation']['memory']['forfait-variable']['value']
 
     listeForfaits = Forfait.query.filter(Forfait.prix > 0)
@@ -611,8 +613,8 @@ def getForfait():
                 "imageUrl": "https://www.francemobiles.com/actualites/image-orange-320-000-ventes-nettes-de-forfaits-mobiles-au-3eme-trimestre-2017-2017-17648-francemobiles.jpg",
                 "buttons": [
                     {
-                        "value": "https://boutiquepro.orange.fr/telephone-mobile-xiaomi-mi-10t-noir-128go.html",
-                        "title": "lien",
+                        "value": "https://jambot-api.herokuapp.com/addToCart/"+str(f.id)+"/"+str(ut.email),
+                        "title": "ajouter au panier",
                         "type": "web_url"
                     }
                 ]
@@ -642,7 +644,7 @@ def getForfait():
 #Requete de récupération de tous les forfaits
 @app.route('/forfaits', methods=['POST'])
 def getAllForfaits():
-
+    ut= Utilisateur.query.filter_by(id=45).first()
     listeForfaits=Forfait.query.filter(Forfait.prix > 0)
     forfaits=[]
     for f in listeForfaits:
@@ -652,9 +654,9 @@ def getAllForfaits():
             "imageUrl": "https://www.francemobiles.com/actualites/image-orange-320-000-ventes-nettes-de-forfaits-mobiles-au-3eme-trimestre-2017-2017-17648-francemobiles.jpg",
             "buttons": [
                 {
-                    "value": "https://boutiquepro.orange.fr/telephone-mobile-xiaomi-mi-10t-noir-128go.html",
-                    "title": "lien",
-                    "type": "web_url"
+                        "value": "https://jambot-api.herokuapp.com/addToCart/"+str(f.id)+"/"+str(ut.email),
+                        "title": "ajouter au panier",
+                        "type": "web_url"
                 }
             ]
         })
@@ -1080,6 +1082,8 @@ def addAvis():
 def recommandForfait():
 
     donnee = request.get_json()
+    
+    ut= Utilisateur.query.filter_by(id=45).first()
     phone = donnee['conversation']['memory']['phone']['value']
     listeUtilisateurs = Utilisateur.query.all()
     forfaitsEntiers = []
@@ -1100,8 +1104,8 @@ def recommandForfait():
                 "imageUrl": "https://www.francemobiles.com/actualites/image-orange-320-000-ventes-nettes-de-forfaits-mobiles-au-3eme-trimestre-2017-2017-17648-francemobiles.jpg",
                 "buttons": [
                     {
-                        "value": "https://boutiquepro.orange.fr/telephone-mobile-xiaomi-mi-10t-noir-128go.html",
-                        "title": "lien",
+                        "value": "https://jambot-api.herokuapp.com/addToCart/"+str(l.id)+"/"+str(ut.email),
+                        "title": "ajouter au panier",
                         "type": "web_url"
                     }
                 ]
