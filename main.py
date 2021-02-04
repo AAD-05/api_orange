@@ -721,8 +721,7 @@ def addToCart(id,email):
             panier_produit=Panier_produit(id=panier.id,id_produit=id,type_produit="telephone",nombre=1,id_interaction=0,via_bot=1)    
             db.session.add(panier_produit)
             db.session.commit()
-        elif forfait is not None:
-            
+        elif forfait is not None:        
             panier_produit=Panier_produit(id=panier.id,id_produit=id,type_produit="forfait",nombre=1,id_interaction=0,via_bot=1)    
             db.session.add(panier_produit)
             db.session.commit()
@@ -761,14 +760,44 @@ def getPanier(email):
     util = Utilisateur.query.filter_by( email= email).first()
     panier = Panier.query.filter_by(statut="En cours",id_utilisateur=util.id).first()
     liste=[]
+    listef=[]
     produit=[]
     if panier is not None:
         produits=Panier_produit.query.filter_by(id=panier.id).with_entities(Panier_produit.id, Panier_produit.id_produit, Panier_produit.id_interaction, Panier_produit.type_produit, Panier_produit.nombre, Panier_produit.via_bot).all()
         for p in produits:
-            liste.append(Telephone.query.filter_by(id=p[1]).first())
+            tel=Telephone.query.filter_by(id=id).first()
+            forfait=Forfait.query.filter_by(id=id).first()
+            if tel is not None:
+                liste.append(Telephone.query.filter_by(id=p[1]).first())
+            elif forfait is not None:
+                listef.append(forfait.query.filter_by(id=p[1]).first())
+            
         for p in liste:
                 produit.append({
                     "title": p.modele,
+                    "subtitle": str(p.prix)+" X "+str(Panier_produit.query.filter_by(id=panier.id,id_produit=p.id).first().nombre) ,
+                    "imageUrl": p.lien_photo,
+                    "buttons": [
+                        {
+                            "value": " ",
+                            "title": "Supprimer du panier",
+                            "type": "web_url"
+                        },
+                        {
+                            "value": "https://jambot-api.herokuapp.com/validerPanier/damendiaye@gmail.com",
+                            "title": "Valider mon panier avec carte bancaire",
+                            "type": "web_url"
+                        },
+                        {
+                            "value": "https://jambot-api.herokuapp.com/validerPanierVP/damendiaye@gmail.com",
+                            "title": "Valider mon panier avec des points",
+                            "type": "web_url"
+                        }
+                    ]
+                })
+        for p in listef:
+                produit.append({
+                    "title": p.description,
                     "subtitle": str(p.prix)+" X "+str(Panier_produit.query.filter_by(id=panier.id,id_produit=p.id).first().nombre) ,
                     "imageUrl": p.lien_photo,
                     "buttons": [
