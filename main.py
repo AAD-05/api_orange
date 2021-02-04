@@ -1172,7 +1172,7 @@ def showRV():
    replies=[{
       "type": "quickReplies",
       "content": {
-        "title": "liste des rendez vous disponibles M./Mme " + str(ut.nom),
+        "title": "pour un entretient immédiat \n Rendez vous sur :\n https://pro.orange.fr/contacts/ \n.Liste des rendez vous disponibles M./Mme " + str(ut.nom),
         "buttons": donnee
       }
     
