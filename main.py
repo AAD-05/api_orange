@@ -277,7 +277,7 @@ def panier_page(email):
 def dashboard():
     total_interactions = db.session.query(func.public.total_interactions()).all()
     total_interactions_abouties = db.session.query(func.public.total_interactions_abouties()).all()
-   # ratio = round(total_interactions_abouties[0][0]/total_interactions[0][0], 3)
+    ratio = round(total_interactions_abouties[0][0]/total_interactions[0][0], 3)
     CA = db.session.query(func.public.total_ca()).all()
     doughnut_abouties = (total_interactions_abouties[0][0]/total_interactions[0][0])*100
     doughnut_non_abouties = ((total_interactions[0][0] - total_interactions_abouties[0][0])/total_interactions[0][0])*100
