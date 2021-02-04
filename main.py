@@ -1176,7 +1176,7 @@ def showRV():
         "buttons": donnee
       },{"value": "https://pro.orange.fr/contacts/",
                         "title": "Chat spontanté",
-                        "type": "web_url"}
+                        "type": "web_url"
     
     }]
   )
