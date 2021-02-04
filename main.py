@@ -784,11 +784,6 @@ def getPanier(email):
                     "imageUrl": p.lien_photo,
                     "buttons": [
                         {
-                            "value": " ",
-                            "title": "Supprimer du panier",
-                            "type": "web_url"
-                        },
-                        {
                             "value": "https://jambot-api.herokuapp.com/validerPanier/damendiaye@gmail.com",
                             "title": "Valider mon panier avec carte bancaire",
                             "type": "web_url"
@@ -806,11 +801,6 @@ def getPanier(email):
                     "subtitle": str(f.giga_4g) + "Go à "+str(f.prix) + " €",
                     "imageUrl":  "https://www.francemobiles.com/actualites/image-orange-320-000-ventes-nettes-de-forfaits-mobiles-au-3eme-trimestre-2017-2017-17648-francemobiles.jpg",
                     "buttons": [
-                        {
-                            "value": " ",
-                            "title": "Supprimer du panier",
-                            "type": "web_url"
-                        },
                         {
                             "value": "https://jambot-api.herokuapp.com/validerPanier/damendiaye@gmail.com",
                             "title": "Valider mon panier avec carte bancaire",
