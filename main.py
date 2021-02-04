@@ -800,7 +800,7 @@ def getPanier(email):
                 produit.append({
                     "title": f.description +" disponible en "+ f.zone,
                     "subtitle": str(f.giga_4g) + "Go à "+str(f.prix) + " €",
-                    "imageUrl": f.lien_photo,
+                    "imageUrl":  "https://www.francemobiles.com/actualites/image-orange-320-000-ventes-nettes-de-forfaits-mobiles-au-3eme-trimestre-2017-2017-17648-francemobiles.jpg",
                     "buttons": [
                         {
                             "value": " ",
