@@ -1174,11 +1174,11 @@ def showRV():
       "content": {
         "title": "liste des rendez vous disponibles M./Mme " + str(ut.nom),
         "buttons": donnee
-      },{"value": "https://pro.orange.fr/contacts/",
-                        "title": "Chat spontanté",
-                        "type": "web_url"
+      }
     
-    }]
+    },{"value": "https://pro.orange.fr/contacts/",
+                        "title": "Chat spontanté",
+                        "type": "web_url"}]
   )
 
 
