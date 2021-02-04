@@ -1077,8 +1077,13 @@ def addAvis():
 
     db.session.add(b)
     db.session.commit()
-
-    return 'succes'
+    return jsonify(
+        status=200,
+        replies=[{
+        'type': 'list',
+        'content': 'Merci ! A bientôt!'
+        }]
+    )
 
 
 @app.route('/recommandForfait', methods=['POST'])
