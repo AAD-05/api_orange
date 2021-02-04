@@ -529,6 +529,7 @@ def proposerForfait():
     donnee = request.get_json()
 
     #domaine = donnee['conversation']['memory']['domaine']['value']
+     ut= Utilisateur.query.filter_by(id=45).first()
     prix = donnee['conversation']['memory']['money_max']['amount']
     nombre = donnee['conversation']['memory']['nombre']['scalar']
     #localisation = donnee['conversation']['memory']['localisation']['value']
@@ -548,8 +549,8 @@ def proposerForfait():
                         "imageUrl": "https://www.francemobiles.com/actualites/image-orange-320-000-ventes-nettes-de-forfaits-mobiles-au-3eme-trimestre-2017-2017-17648-francemobiles.jpg",
                         "buttons": [
                             {
-                                "value": "https://boutiquepro.orange.fr/telephone-mobile-xiaomi-mi-10t-noir-128go.html",
-                                "title": "lien",
+                                "value": "https://jambot-api.herokuapp.com/addToCart/"+str(f.id)+"/"+str(ut.email),
+                                "title": "ajouter au panier",
                                 "type": "web_url"
                             }
                         ]
