@@ -1182,12 +1182,12 @@ def get_localisation_effectif():
     # FETCH THE CRYPTO NAME
 
     num_tel = data["conversation"]["memory"]["numero_telephone"]["number"]
-    siret = data["conversation"]["memory"]["siret"]["scalar"]
+    siret = data["conversation"]["memory"]["siret"]["raw"]
     memory = dict(data["conversation"]["memory"])
 
     #print(crypto_name)
     # FETCH BTC/USD/EUR PRICES
-    r = requests.get("https://entreprise.data.gouv.fr/api/sirene/v3/etablissements/"+str(siret))
+    r = requests.get("https://entreprise.data.gouv.fr/api/sirene/v3/etablissements/"+siret)
     print("R \n:", r)
     print("R.json() \n:", r.json())
 
