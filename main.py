@@ -253,16 +253,20 @@ def panier_page(email):
         ut=None
     produits=None
     liste=[]
+    listef=[]
     panier = Panier.query.filter_by(statut="En cours",id_utilisateur=ut.id).first()
     if panier is not None:
         produits=Panier_produit.query.filter_by(id=panier.id).with_entities(Panier_produit.id, Panier_produit.id_produit, Panier_produit.id_interaction, Panier_produit.type_produit, Panier_produit.nombre, Panier_produit.via_bot).all()
-    
-    for p in produits:
-        temp=[p,Telephone.query.filter_by(id=p.id_produit).first()]
-        liste.append(temp)
-
-
-    return render_template('panier.html',ut=ut,panier=produits, liste=liste)
+        for p in produits:
+            tel=Telephone.query.filter_by(id=p[1]).first()
+            forfait=Forfait.query.filter_by(id=p[1]).first()
+            if tel is not None:
+                temp=[p,Telephone.query.filter_by(id=p[1]).first()]
+                liste.append(temp)
+            elif forfait is not None:
+                temp=[p,Forfait.query.filter_by(id=p[1]).first()]
+                listef.append(temp)
+    return render_template('panier.html',ut=ut,panier=produits, liste=liste , listef=listef)
 
 
 
@@ -714,7 +718,6 @@ def addToCart(id,email):
         panier=Panier.query.filter_by(statut="En cours",id_utilisateur=ut.id).first()
 
     test=Panier_produit.query.filter_by(id=panier.id, id_produit=id).first()
-    
     if(test is None):
         tel=Telephone.query.filter_by(id=id).first()
         forfait=Forfait.query.filter_by(id=id).first()
