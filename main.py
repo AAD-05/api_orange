@@ -796,11 +796,11 @@ def getPanier(email):
                         }
                     ]
                 })
-        for p in listef:
+        for f in listef:
                 produit.append({
-                    "title": p.description,
-                    "subtitle": str(p.prix)+" X "+str(Panier_produit.query.filter_by(id=panier.id,id_produit=p.id).first().nombre) ,
-                    "imageUrl": p.lien_photo,
+                    "title": f.description +" disponible en "+ f.zone,
+                    "subtitle": str(f.giga_4g) + "Go à "+str(f.prix) + " €",
+                    "imageUrl": f.lien_photo,
                     "buttons": [
                         {
                             "value": " ",
