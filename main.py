@@ -1159,9 +1159,9 @@ def showRV():
    d = request.get_json()
    ALL_RV=Rdv.query.filter_by(disponibilite='disponible').all()
    donnee=[]
-   donnee.append({"value": "https://pro.orange.fr/contacts/",
-                        "title": "Chat spontanté",
-                        "type": "web_url"})
+#    donnee.append({"value": "https://pro.orange.fr/contacts/",
+#                         "title": "Chat spontanté",
+#                         "type": "web_url"})
    for rv in ALL_RV:
        do={"value" :str(rv.id), "title": str(rv.date)}
        donnee.append(do)
