@@ -250,6 +250,22 @@ def info_telephone(tel):
 
 
 
+@app.route('/getTelephonegiga/<int:giga>', methods=['GET'])
+def info_telephone_giga(giga):
+    ut = Telephone.query.filter(Telephone.modele.like("%"+giga+"%")).first()
+    return ut.description
+
+
+
+@app.route('/getForfait/<string:forf>', methods=['GET'])
+def info_forfait(forf):
+    ut = Forfait.query.filter(Forfait.description.like("%"+forf+"%")).first()
+    return ut.description_complete
+
+
+
+
+
 @app.route('/jambot', methods=['GET'])
 def jambot():
 
