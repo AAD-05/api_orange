@@ -245,19 +245,10 @@ def testeur():
 
 @app.route('/getInfoTelephone/<string:tel>', methods=['GET'])
 def info_telephone(tel):
+    ut = Telephone.query.filter(Telephone.modele.like("%"+tel+"%")).first()
+    return ut.description
 
-    ut = Telephone.query.filter(Telephone.modele.like("%"+tel+"%")).all()
-    table = []
-    for c in ut:
-        json_com={
-            'id': c.id,
-            'description': c.description,
-            }
-        table.append(json_com)
-    response = jsonify({"telephone" : table})
 
-    
-    return response
 
 @app.route('/jambot', methods=['GET'])
 def jambot():
