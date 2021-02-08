@@ -248,7 +248,7 @@ def info_telephone(tel):
 
     ut = Telephone.query.filter(Telephone.modele.like("%"+tel+"%")).all()
     table = []
-    for c in List:
+    for c in ut:
         json_com={
             'id': c.id,
             'description': c.description,
