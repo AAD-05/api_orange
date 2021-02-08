@@ -267,7 +267,7 @@ def jambot():
 
 
 
- @app.route('/panier/<string:email>', methods=['GET'])
+@app.route('/panier/<string:email>', methods=['GET'])
 def panier_page(email):
     
     ut= Utilisateur.query.filter_by(email=email)
