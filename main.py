@@ -235,6 +235,11 @@ def bonjour():
     maj_dashboard()
     return render_template('accueil.html')
 
+
+@app.route('/test', methods=['GET'])
+def testeur():
+    return "hohoho"
+
 @app.route('/jambot', methods=['GET'])
 def jambot():
 
