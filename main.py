@@ -246,7 +246,7 @@ def testeur():
 @app.route('/getInfoTelephone/<string:tel>', methods=['GET'])
 def info_telephone(tel):
     ut = Telephone.query.filter(Telephone.modele.like("%"+tel+"%")).first()
-    return ut.description_complete
+    return ut.description
 
 
 
