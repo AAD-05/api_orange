@@ -260,7 +260,7 @@ def info_telephone_giga(giga):
 @app.route('/getForfait/<string:forf>', methods=['GET'])
 def info_forfait(forf):
     ut = Forfait.query.filter(Forfait.description.like("%"+forf+"%")).first()
-    return ut.giga_4g
+    return str(ut.giga_4g)
 
 
 
