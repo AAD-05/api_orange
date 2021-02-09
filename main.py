@@ -263,6 +263,15 @@ def info_forfait(forf):
     return "Le forfait "+forf+" dispose de "+str(ut.giga_4g)+"giga en 4G."
 
 
+@app.route('/getForfaitGiga/<int:taille>', methods=['GET'])
+def liste_forfait_giga(taille):
+    liste=""
+    ut = Forfait.query.filter(Forfait.giga_4g >= taille).all()
+    for u in ut:
+        liste=liste+str(u.giga_4g)+","
+    return "les forfaits disposant de plus de "+taille+" giga de connexion en 4G sont : "+liste
+
+
 
 @app.route('/getForfaitPosition/<string:forf>', methods=['GET'])
 def info_forfait_position(forf):
