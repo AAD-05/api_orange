@@ -522,7 +522,7 @@ def proposerTelephone():
     #domaine = donnee['conversation']['memory']['domaine']['value']
     if(donnee['conversation']['memory']['money_max']['scalar'] is not None):
         prix = donnee['conversation']['memory']['money_max']['scalar']
-    elif(donnee['conversation']['memory']['money_max']['amount'] is not None)
+    elif(donnee['conversation']['memory']['money_max']['amount'] is not None):
         prix = donnee['conversation']['memory']['money_max']['amount']
 
 
