@@ -520,7 +520,12 @@ def proposerTelephone():
     #ut= Utilisateur.query.filter_by(email=donnee['conversation']['memory']['email']).first()
     ut= Utilisateur.query.filter_by(id=45).first()
     #domaine = donnee['conversation']['memory']['domaine']['value']
-    prix = donnee['conversation']['memory']['money_max']['scalar']
+    if(donnee['conversation']['memory']['money_max']['scalar'] is not None):
+        prix = donnee['conversation']['memory']['money_max']['scalar']
+    elif(donnee['conversation']['memory']['money_max']['amount'] is not None)
+        prix = donnee['conversation']['memory']['money_max']['amount']
+
+
     nombre = donnee['conversation']['memory']['nombre']['scalar']
     #localisation = donnee['conversation']['memory']['localisation']['value']
     n_design = donnee['conversation']['memory']['note_design']['scalar']
