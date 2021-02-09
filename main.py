@@ -268,7 +268,7 @@ def info_forfait(forf):
 def info_forfait_position(forf):
 
     ut = Forfait.query.filter(Forfait.description.like("%"+forf+"%")).first()
-    zone=str(ut).replace(" ",",")
+    zone=str(ut.zone).replace(" ",",")
     return "Le forfait "+forf+" est disponible sur la zone : "+zone+"."
 
 
