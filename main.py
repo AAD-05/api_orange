@@ -1199,7 +1199,7 @@ def recommandTel():
         x = str(x) + 'go'
         listeTel = Utilisateur.query.filter(Utilisateur.forfait_actuel == x)
         for l in listeTel:
-            telephones = Telephone.query.filter(l.telephone_actuel.lower() in Telephone.modele.lower())
+            telephones = Telephone.query.filter(str(l.telephone_actuel).lower() in Telephone.modele.lower())
             for t in telephones:
                 values.append({
                 "title": t.modele,
