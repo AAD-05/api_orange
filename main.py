@@ -272,7 +272,7 @@ def liste_forfait_giga(taille):
     liste=""
     ut = Forfait.query.filter(Forfait.giga_4g >= taille).all()
     for u in ut:
-        liste=liste+str(u.giga_4g)+","
+        liste=liste+str(u.description)+","
     return "les forfaits disposant de plus de "+str(taille)+" giga de connexion en 4G sont : "+liste
 
 
