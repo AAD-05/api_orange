@@ -264,6 +264,13 @@ def info_forfait(forf):
 
 
 
+@app.route('/getForfaitPosition/<string:forf>', methods=['GET'])
+def info_forfait_position(forf):
+    ut = Forfait.query.filter(Forfait.description.like("%"+forf+"%")).first()
+    return "Le forfait "+forf+" est disponible sur la zone : "+str(ut.zone)+"."
+
+
+
 
 
 @app.route('/jambot', methods=['GET'])
