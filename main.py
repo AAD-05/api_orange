@@ -410,8 +410,11 @@ def getTelephoneOccasion():
     donnee = request.get_json()
     telephoneDemande = donnee['conversation']['memory']['phone_occasion']['value']
     prix_max = donnee['conversation']['memory']['max']['amount']
-    #ut= Utilisateur.query.filter_by(email=donnee['conversation']['memory']['email']).first()
-    ut= Utilisateur.query.filter_by(id=45).first()
+    ut=None
+    try:
+        ut = Utilisateur.query.filter_by( email= donnee['conversation']['memory']['email']).first()
+    except:
+        ut= Utilisateur.query.filter_by(email="test@test.com").first()
 
     liste = Telephone.query.filter(Telephone.prix <= prix_max)
     #liste = Telephone.query.filter(Telephone.prix >= 0)
@@ -457,7 +460,11 @@ def getTelephoneNeuf():
     telephoneDemande = donnee['conversation']['memory']['phone_occasion']['value']
     prix_max = donnee['conversation']['memory']['max']['amount']
     #ut= Utilisateur.query.filter_by(email=donnee['conversation']['memory']['email']).first()
-    ut= Utilisateur.query.filter_by(id=45).first()
+    ut=None
+    try:
+        ut = Utilisateur.query.filter_by( email= donnee['conversation']['memory']['email']).first()
+    except:
+        ut= Utilisateur.query.filter_by(email="test@test.com").first()
 
     liste = Telephone.query.filter(Telephone.prix <= prix_max)
     #liste = Telephone.query.filter(Telephone.prix >= 0)
@@ -501,7 +508,11 @@ def getTelephone():
     donnee = request.get_json()
     telephoneDemande = donnee['conversation']['memory']['phone']['value']
     #ut= Utilisateur.query.filter_by(email=donnee['conversation']['memory']['email']).first()
-    ut= Utilisateur.query.filter_by(id=45).first()
+    ut=None
+    try:
+        ut = Utilisateur.query.filter_by( email= donnee['conversation']['memory']['email']).first()
+    except:
+        ut= Utilisateur.query.filter_by(email="test@test.com").first()
 
     liste = Telephone.query.filter(Telephone.stock > 0)
     #liste = Telephone.query.filter(Telephone.prix >= 0)
@@ -544,7 +555,11 @@ def getTelephone():
 def proposerTelephone():
     donnee = request.get_json()
     #ut= Utilisateur.query.filter_by(email=donnee['conversation']['memory']['email']).first()
-    ut= Utilisateur.query.filter_by(id=45).first()
+    ut=None
+    try:
+        ut = Utilisateur.query.filter_by( email= donnee['conversation']['memory']['email']).first()
+    except:
+        ut= Utilisateur.query.filter_by(email="test@test.com").first()
     #domaine = donnee['conversation']['memory']['domaine']['value']
     try:
         prix = donnee['conversation']['memory']['money_max']['scalar']
@@ -626,7 +641,11 @@ def proposerForfait():
     donnee = request.get_json()
 
     #domaine = donnee['conversation']['memory']['domaine']['value']
-    ut= Utilisateur.query.filter_by(id=45).first()
+    ut=None
+    try:
+        ut = Utilisateur.query.filter_by( email= donnee['conversation']['memory']['email']).first()
+    except:
+        ut= Utilisateur.query.filter_by(email="test@test.com").first()
     try:
         prix = donnee['conversation']['memory']['money_max']['scalar']
     except:
@@ -698,7 +717,11 @@ def proposerForfait():
 def getForfait():
     donnee = request.get_json()
     
-    ut= Utilisateur.query.filter_by(id=45).first()
+    ut=None
+    try:
+        ut = Utilisateur.query.filter_by( email= donnee['conversation']['memory']['email']).first()
+    except:
+        ut= Utilisateur.query.filter_by(email="test@test.com").first()
     forfaitDemande = donnee['conversation']['memory']['forfait-variable']['value']
 
     listeForfaits = Forfait.query.filter(Forfait.prix > 0)
@@ -742,7 +765,11 @@ def getForfait():
 #Requete de récupération de tous les forfaits
 @app.route('/forfaits', methods=['POST'])
 def getAllForfaits():
-    ut= Utilisateur.query.filter_by(id=45).first()
+    ut=None
+    try:
+        ut = Utilisateur.query.filter_by( email= donnee['conversation']['memory']['email']).first()
+    except:
+        ut= Utilisateur.query.filter_by(email="test@test.com").first()
     listeForfaits=Forfait.query.filter(Forfait.prix > 0)
     forfaits=[]
     for f in listeForfaits:
@@ -774,7 +801,11 @@ def getAllForfaits():
 def telephones():
     donnee = request.get_json()
     #ut= Utilisateur.query.filter_by(email=donnee['conversation']['memory']['email']).first()
-    ut= Utilisateur.query.filter_by(id=45).first()
+    ut=None
+    try:
+        ut = Utilisateur.query.filter_by( email= donnee['conversation']['memory']['email']).first()
+    except:
+        ut= Utilisateur.query.filter_by(email="test@test.com").first()
     prix_max = donnee['conversation']['memory']['money_max']['amount']
 
     #print("\n prix_max is : \n", prix_max)
@@ -879,6 +910,7 @@ def getPanier(email):
                 listef.append(forfait.query.filter_by(id=p[1]).first())
             
         for p in liste:
+            if util.email!="test@test.com":
                 produit.append({
                     "title": p.modele,
                     "subtitle": str(p.prix)+" X "+str(Panier_produit.query.filter_by(id=panier.id,id_produit=p.id).first().nombre) ,
@@ -896,6 +928,20 @@ def getPanier(email):
                         }
                     ]
                 })
+            else:
+                produit.append({
+                    "title": p.modele,
+                    "subtitle": str(p.prix)+" X "+str(Panier_produit.query.filter_by(id=panier.id,id_produit=p.id).first().nombre) ,
+                    "imageUrl": p.lien_photo,
+                    "buttons": [
+                        {
+                            "value": "https://jambot-api.herokuapp.com/validerPanier/damendiaye@gmail.com",
+                            "title": "Valider mon panier avec carte bancaire",
+                            "type": "web_url"
+                        }
+                    ]
+                })
+
         for f in listef:
                 produit.append({
                     "title": f.description +" disponible en "+ f.zone,
@@ -1182,7 +1228,11 @@ def recommandForfait():
 
     donnee = request.get_json()
     
-    ut= Utilisateur.query.filter_by(id=45).first()
+    ut=None
+    try:
+        ut = Utilisateur.query.filter_by( email= donnee['conversation']['memory']['email']).first()
+    except:
+        ut= Utilisateur.query.filter_by(email="test@test.com").first()
     phone = donnee['conversation']['memory']['phone']['value']
     listeUtilisateurs = Utilisateur.query.all()
     forfaitsEntiers = []
@@ -1220,7 +1270,11 @@ def recommandForfait():
 def recommandTel():
 
     donnee = request.get_json()
-    ut= Utilisateur.query.filter_by(id=45).first()
+    ut=None
+    try:
+        ut = Utilisateur.query.filter_by( email= donnee['conversation']['memory']['email']).first()
+    except:
+        ut= Utilisateur.query.filter_by(email="test@test.com").first()
     forfait = donnee['conversation']['memory']['forfait-variable']['value']
     listeforfaits = Forfait.query.all()
     forfaitsvalues = []
@@ -1308,7 +1362,12 @@ def takeRV():
 
     donnee = request.get_json()
     rdv=int(donnee['nlp']['source'])
-    id = Utilisateur.query.filter_by( email= donnee['conversation']['memory']['email']).first().id
+    ut=None
+    try:
+        ut = Utilisateur.query.filter_by( email= donnee['conversation']['memory']['email']).first()
+    except:
+        ut= Utilisateur.query.filter_by(email="test@test.com").first()
+    id = ut.id
     Rdv.query.filter_by(id=rdv).update({Rdv.disponibilite: 'indisponible', Rdv.id_interaction: id})
     db.session.commit()
     return "succes"
@@ -1452,6 +1511,12 @@ def get_localisation_effectif():
 #Requete de récupération de tous les forfaits
 @app.route('/interaction', methods=['POST'])
 def addInteraction():
+    donnee = request.get_json()
+    ut=None
+    try:
+        ut = Utilisateur.query.filter_by( email= donnee['conversation']['memory']['email']).first()
+    except:
+        ut= Utilisateur.query.filter_by(email="test@test.com").first()
 
     inter=Interaction(localisation="Rouen",date=datetime.now(),id_utilisateur=45)
     db.session.add(inter)
@@ -1461,7 +1526,7 @@ def addInteraction():
     status=200,
     replies=[{
     'type': 'text',
-    'content': 'je vais bien et vous! Comment puis-je vous aidez ?'
+    'content': 'je vais bien et vous! Comment puis-je vous aidez M./Mme '+ut.nom+' ?'
     }]
     
     
