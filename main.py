@@ -84,6 +84,7 @@ class Utilisateur(db.Model):
     prenom=db.Column(db.String(60))
     email=db.Column(db.String(60))
     metier=db.Column(db.String(100))
+    point=db.Column(db.Integer(100))
 
 
     def __repr__(self):
@@ -672,7 +673,7 @@ def proposerForfait():
                             }
                         ]
                     })
-        
+    
     if(len(forfaits)!=0):
         return jsonify(
             status=200,
@@ -851,6 +852,7 @@ def validerPanierPV(email):
 
     util = Utilisateur.query.filter_by( email= email).first()
     Panier.query.filter_by(statut="En cours",id_utilisateur=util.id).update({Panier.statut: "Valider" })
+    Utilisateur.query.filter_by(id=util.id).update({Utilisateur: "Valider" })
     db.session.commit()
 
     return render_template('validation.html')
