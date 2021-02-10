@@ -1506,6 +1506,12 @@ def get_localisation_effectif():
 #Requete de récupération de tous les forfaits
 @app.route('/interaction', methods=['POST'])
 def addInteraction():
+    donnee = request.get_json()
+    ut=None
+    try:
+        ut = Utilisateur.query.filter_by( email= donnee['conversation']['memory']['email']).first()
+    except:
+        ut= Utilisateur.query.filter_by(email="test@test.com").first()
 
     inter=Interaction(localisation="Rouen",date=datetime.now(),id_utilisateur=45)
     db.session.add(inter)
@@ -1515,7 +1521,7 @@ def addInteraction():
     status=200,
     replies=[{
     'type': 'text',
-    'content': 'je vais bien et vous! Comment puis-je vous aidez ?'
+    'content': 'je vais bien et vous! Comment puis-je vous aidez '+ut.nom+' ?'
     }]
     
     
