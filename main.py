@@ -619,7 +619,10 @@ def proposerForfait():
 
     #domaine = donnee['conversation']['memory']['domaine']['value']
     ut= Utilisateur.query.filter_by(id=45).first()
-    prix = donnee['conversation']['memory']['money_max']['amount']
+    try:
+        prix = donnee['conversation']['memory']['money_max']['scalar']
+    except:
+        prix = donnee['conversation']['memory']['money_max']['amount']
     nombre = donnee['conversation']['memory']['nombre']['scalar']
     #localisation = donnee['conversation']['memory']['localisation']['value']
     t_giga = donnee['conversation']['memory']['type_giga']['value']
