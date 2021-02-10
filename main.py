@@ -1521,7 +1521,7 @@ def addInteraction():
     status=200,
     replies=[{
     'type': 'text',
-    'content': 'je vais bien et vous! Comment puis-je vous aidez '+ut.nom+' ?'
+    'content': 'je vais bien et vous! Comment puis-je vous aidez M./Mme '+ut.nom+' ?'
     }]
     
     
