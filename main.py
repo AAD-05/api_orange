@@ -83,6 +83,7 @@ class Utilisateur(db.Model):
     nom =db.Column(db.String(60))
     prenom=db.Column(db.String(60))
     email=db.Column(db.String(60))
+    metier=db.Column(db.String(100))
 
 
     def __repr__(self):
