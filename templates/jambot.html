@@ -79,12 +79,12 @@
     <!--Scripts-->
 
 
-    {%if email%}
+    {%if ut%}
     <script>
       window.webchatMethods = {
         // called at each user message
         getMemory: (conversationId) => {
-          const memory = { email: '{{email}}'} 
+          const memory = { email: '{{ut.email}}'} 
           return { memory, merge: true }
         }
       }

@@ -309,7 +309,16 @@ def info_forfait_metier(metier):
 def jambot():
 
     email = request.args.get('email')
-    return render_template('jambot.html',email=email)
+    tel = request.args.get('mdp')
+    ut=None
+    try:
+        ut= Utilisateur.query.filter_by(email=email).first()
+        if ut.numero_telephone != tel:
+            ut=None
+    except:
+        ut=None
+
+    return render_template('jambot.html',email=email,ut =ut)
 
 
 
