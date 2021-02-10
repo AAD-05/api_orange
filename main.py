@@ -1443,7 +1443,7 @@ def get_localisation_effectif():
 #Requete de récupération de tous les forfaits
 @app.route('/interaction', methods=['POST'])
 def addInteraction():
-    
+
     inter=Interaction(localisation="Rouen",date=datetime.now(),id_utilisateur=45)
     db.session.add(inter)
     db.session.commit()
@@ -1453,7 +1453,7 @@ def addInteraction():
     
   )
 
-
+ 
 
 #db.create_all()
 
