@@ -1452,7 +1452,7 @@ def addInteraction():
     status=200,
     replies=[{
     'type': 'text',
-    'content': 'hohoho'
+    'content': 'je vais bien et vous! Comment puis-je vous aidez ?'
     }]
     
     
