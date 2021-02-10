@@ -1449,7 +1449,13 @@ def addInteraction():
     db.session.commit()
         
     return jsonify(
-    status=200
+    status=200,
+    replies=[{
+    'type': 'text',
+    'content': 'hohoho'
+    }]
+    
+    
     
   )
 
