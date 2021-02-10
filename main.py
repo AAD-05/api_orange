@@ -285,6 +285,14 @@ def info_forfait_position(forf):
     zone=str(ut.zone).replace(" ",",")
     return "Le forfait "+forf+" est disponible sur la zone : "+zone+"."
 
+@app.route('/getForfaitMetier/<string:metier>', methods=['GET'])
+def info_forfait_position(metier):
+    liste=""
+    ut = Utilisateur.query.filter_by(metier=metier).all()
+    for u in ut:
+        liste=liste+str(u.description)+","
+    return "Les "+metier+" utilisent le plus souvent les téléphones suivant :"+liste
+
 
 
 
