@@ -324,6 +324,8 @@ def jambot():
             ut=None
     except:
         ut=None
+    if email is None:
+        email = "test@test.com"
 
     return render_template('jambot.html',email=email,ut =ut)
 
