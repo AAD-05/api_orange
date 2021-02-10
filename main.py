@@ -290,7 +290,7 @@ def info_forfait_metier(metier):
     liste=""
     ut = Utilisateur.query.filter_by(metier=metier).all()
     for u in ut:
-        liste=liste+str(u.description)+","
+        liste=liste+str(u.telephone_actuel)+","
     return "Les "+metier+" utilisent le plus souvent les téléphones suivant :"+liste
 
 
