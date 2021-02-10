@@ -83,6 +83,7 @@ class Utilisateur(db.Model):
     nom =db.Column(db.String(60))
     prenom=db.Column(db.String(60))
     email=db.Column(db.String(60))
+    metier=db.Column(db.String(100))
 
 
     def __repr__(self):
@@ -254,6 +255,13 @@ def info_telephone(tel):
 
 
 
+@app.route('/getInfoforfait/<string:forf>', methods=['GET'])
+def info_forfait_i(forf):
+    ut = Forfait.query.filter(Forfait.description.like("%"+forf+"%")).first()
+    return ut.description_complete
+
+
+
 @app.route('/getTelephonegiga/<int:giga>', methods=['GET'])
 def info_telephone_giga(giga):
     ut = Telephone.query.filter(Telephone.modele.like("%"+giga+"%")).first()
@@ -267,6 +275,15 @@ def info_forfait(forf):
     return "Le forfait "+forf+" dispose de "+str(ut.giga_4g)+"giga en 4G."
 
 
+@app.route('/getForfaitGiga/<int:taille>', methods=['GET'])
+def liste_forfait_giga(taille):
+    liste=""
+    ut = Forfait.query.filter(Forfait.giga_4g >= taille).all()
+    for u in ut:
+        liste=liste+str(u.description)+","
+    return "les forfaits disposant de plus de "+str(taille)+" giga de connexion en 4G sont : "+liste
+
+
 
 @app.route('/getForfaitPosition/<string:forf>', methods=['GET'])
 def info_forfait_position(forf):
@@ -274,6 +291,14 @@ def info_forfait_position(forf):
     ut = Forfait.query.filter(Forfait.description.like("%"+forf+"%")).first()
     zone=str(ut.zone).replace(" ",",")
     return "Le forfait "+forf+" est disponible sur la zone : "+zone+"."
+
+@app.route('/getForfaitMetier/<string:metier>', methods=['GET'])
+def info_forfait_metier(metier):
+    liste=""
+    ut = Utilisateur.query.filter_by(metier=metier).all()
+    for u in ut:
+        liste=str(u.telephone_actuel)
+    return "Nous vous recommandons le téléphone "+liste+" car à l'heure actuel , la plupart des "+metier+" chez Orange l'utilise."
 
 
 
@@ -603,12 +628,18 @@ def proposerForfait():
 
     #domaine = donnee['conversation']['memory']['domaine']['value']
     ut= Utilisateur.query.filter_by(id=45).first()
-    prix = donnee['conversation']['memory']['money_max']['amount']
+    try:
+        prix = donnee['conversation']['memory']['money_max']['scalar']
+    except:
+        prix = donnee['conversation']['memory']['money_max']['amount']
     nombre = donnee['conversation']['memory']['nombre']['scalar']
     #localisation = donnee['conversation']['memory']['localisation']['value']
     t_giga = donnee['conversation']['memory']['type_giga']['value']
     n_giga = donnee['conversation']['memory']['nombre_giga']['scalar']
-    zone = donnee['conversation']['memory']['zone']['value']
+    try:
+        zone = donnee['conversation']['memory']['zone']['value']
+    except:
+        zone = donnee['conversation']['memory']['localisation']['value']
 
     f_prix = Forfait.query.filter(Forfait.prix <= prix)
     forfaits = []
@@ -1201,20 +1232,22 @@ def recommandTel():
         x = str(x) + 'go'
         listeTel = Utilisateur.query.filter(Utilisateur.forfait_actuel == x)
         for l in listeTel:
-            telephones = Telephone.query.filter(l.telephone_actuel.lower() in Telephone.modele.lower())
+            #telephones = Telephone.query.filter(l.telephone_actuel.lower() in Telephone.modele.lower())
+            telephones = Telephone.query.all()
             for t in telephones:
-                values.append({
-                "title": t.modele,
-                "subtitle": t.prix,
-                "imageUrl": t.lien_photo,
-                "buttons": [
-                    {
-                        "value": "https://jambot-api.herokuapp.com/addToCart/"+str(t.id)+"/"+str(ut.email),
-                        "title": "ajouter au panier",
-                        "type": "web_url"
-                    }
-                ]
-            })
+                if(l.telephone_actuel.lower() in t.modele.lower()):
+                    values.append({
+                    "title": t.modele,
+                    "subtitle": t.prix,
+                    "imageUrl": t.lien_photo,
+                    "buttons": [
+                        {
+                            "value": "https://jambot-api.herokuapp.com/addToCart/"+str(t.id)+"/"+str(ut.email),
+                            "title": "ajouter au panier",
+                            "type": "web_url"
+                        }
+                    ]
+                })
     return jsonify(
     status=200,
     replies=[{
@@ -1416,7 +1449,26 @@ def get_localisation_effectif():
     conversation={"memory": dict(memory)}
     )
 
+#Requete de récupération de tous les forfaits
+@app.route('/interaction', methods=['POST'])
+def addInteraction():
 
+    inter=Interaction(localisation="Rouen",date=datetime.now(),id_utilisateur=45)
+    db.session.add(inter)
+    db.session.commit()
+        
+    return jsonify(
+    status=200,
+    replies=[{
+    'type': 'text',
+    'content': 'je vais bien et vous! Comment puis-je vous aidez ?'
+    }]
+    
+    
+    
+  )
+
+ 
 
 #db.create_all()
 
