@@ -314,7 +314,7 @@ def jambot():
         email = request.args.get('email')
         tel = request.args.get('mdp')
     except:
-        email = None
+        email = "test@test.com"
         tel = None
         
     ut=None
