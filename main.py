@@ -307,9 +307,16 @@ def info_forfait_metier(metier):
 
 @app.route('/jambot', methods=['GET'])
 def jambot():
-
-    email = request.args.get('email')
-    tel = request.args.get('mdp')
+    
+    email = None
+    tel = None
+    try:
+        email = request.args.get('email')
+        tel = request.args.get('mdp')
+    except:
+        email = None
+        tel = None
+        
     ut=None
     try:
         ut= Utilisateur.query.filter_by(email=email).first()
