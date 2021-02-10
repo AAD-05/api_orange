@@ -347,8 +347,10 @@ def panier_page(email):
 def dashboard():
     total_interactions = db.session.query(func.public.total_interactions()).all()
     total_interactions_abouties = db.session.query(func.public.total_interactions_abouties()).all()
-    print(total_interactions)
-    ratio = round(total_interactions_abouties[0][0]/total_interactions[0][0], 3)
+    # print(total_interactions)
+    # total_interactions = 10
+    # total_interactions_abouties = 
+    ratio = round(total_interactions_abouties[0][0]/total_interactions[0][0], 3)*100
     CA = db.session.query(func.public.total_ca()).all()
     doughnut_abouties = (total_interactions_abouties[0][0]/total_interactions[0][0])*100
     doughnut_non_abouties = ((total_interactions[0][0] - total_interactions_abouties[0][0])/total_interactions[0][0])*100
@@ -560,7 +562,7 @@ def proposerTelephone():
     n_batterie = donnee['conversation']['memory']['note_batterie']['scalar']
     n_puissance = donnee['conversation']['memory']['note_puissance']['scalar']
     occasion = donnee['conversation']['memory']['occasion']['slug']
-    print(type(occasion))
+    # print(type(occasion))
 
     #liste = Telephone.query.filter(Telephone.stock > nombre and Telephone.prix <= prix and Telephone.note_design >= n_design and Telephone.note_ap >= n_appareil and Telephone.note_connection >= n_connection and Telephone.note_batterie >= n_batterie and Telephone.note_puissance >= n_puissance)
     f_stock = Telephone.query.filter(Telephone.stock > nombre)
