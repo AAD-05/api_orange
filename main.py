@@ -255,6 +255,13 @@ def info_telephone(tel):
 
 
 
+@app.route('/getInfoforfait/<string:forf>', methods=['GET'])
+def info_forfait_i(forf):
+    ut = Forfait.query.filter(Forfait.description.like("%"+forf+"%")).first()
+    return ut.description_complete
+
+
+
 @app.route('/getTelephonegiga/<int:giga>', methods=['GET'])
 def info_telephone_giga(giga):
     ut = Telephone.query.filter(Telephone.modele.like("%"+giga+"%")).first()
