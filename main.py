@@ -286,7 +286,7 @@ def info_forfait_position(forf):
     return "Le forfait "+forf+" est disponible sur la zone : "+zone+"."
 
 @app.route('/getForfaitMetier/<string:metier>', methods=['GET'])
-def info_forfait_position(metier):
+def info_forfait_metier(metier):
     liste=""
     ut = Utilisateur.query.filter_by(metier=metier).all()
     for u in ut:
