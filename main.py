@@ -624,7 +624,10 @@ def proposerForfait():
     #localisation = donnee['conversation']['memory']['localisation']['value']
     t_giga = donnee['conversation']['memory']['type_giga']['value']
     n_giga = donnee['conversation']['memory']['nombre_giga']['scalar']
-    zone = donnee['conversation']['memory']['zone']['value']
+    try:
+        zone = donnee['conversation']['memory']['zone']['value']
+    except:
+        zone = donnee['conversation']['memory']['localisation']['value']
 
     f_prix = Forfait.query.filter(Forfait.prix <= prix)
     forfaits = []
