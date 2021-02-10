@@ -1362,7 +1362,12 @@ def takeRV():
 
     donnee = request.get_json()
     rdv=int(donnee['nlp']['source'])
-    id = Utilisateur.query.filter_by( email= donnee['conversation']['memory']['email']).first().id
+    ut=None
+    try:
+        ut = Utilisateur.query.filter_by( email= donnee['conversation']['memory']['email']).first()
+    except:
+        ut= Utilisateur.query.filter_by(email="test@test.com").first()
+    id = ut.id
     Rdv.query.filter_by(id=rdv).update({Rdv.disponibilite: 'indisponible', Rdv.id_interaction: id})
     db.session.commit()
     return "succes"
