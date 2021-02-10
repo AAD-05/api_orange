@@ -852,6 +852,7 @@ def validerPanierPV(email):
 
     util = Utilisateur.query.filter_by( email= email).first()
     Panier.query.filter_by(statut="En cours",id_utilisateur=util.id).update({Panier.statut: "Valider" })
+    Utilisateur.query.filter_by(id=util.id).update({Utilisateur.point: 0 })
     db.session.commit()
 
     return render_template('validation.html')
