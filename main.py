@@ -316,7 +316,6 @@ def jambot():
     except:
         email = "test@test.com"
         tel = None
-        
     ut=None
     try:
         ut= Utilisateur.query.filter_by(email=email).first()
