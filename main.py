@@ -581,9 +581,9 @@ def proposerTelephone():
     
     n_design = donnee['conversation']['memory']['note_design']['scalar']
     try:
-        prix = donnee['conversation']['memory']['money_max']['amount']
+        prix = 800
     except:
-        prix = donnee['conversation']['memory']['money_max']['scalar']
+        prix = 800
 
     nombre = donnee['conversation']['memory']['nombre']['scalar']
     #localisation = donnee['conversation']['memory']['localisation']['value']
