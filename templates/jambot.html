@@ -24,8 +24,9 @@
                     <img src="{{ url_for('static', filename='./images/tap.png') }}" alt="" height="30px" width="75px">&emsp;&emsp;
                     <img src="{{ url_for('static', filename='./images/contact.png') }}" alt="" height="30px" width="160px">&emsp;&emsp;
                     <img src="{{ url_for('static', filename='./images/rdv.png') }}" alt="" height="30px" width="160px">&emsp;&emsp;
-                   
+                    {%if ut%}
                     <a href=""><img src="{{ url_for('static', filename='./images/ident.png') }}" alt="" height="30px" width="160px"></a>
+                    {%endif%}
                 </div>
             </nav>
         </div>
@@ -51,9 +52,8 @@
                     <a href="#"><img src="{{ url_for('static', filename='./images/search.png') }}" alt="" height="30px" width="30px"></a>&emsp;
                     <a href="#"><img src="{{ url_for('static', filename='./images/message.png') }}" class="liens_orange" alt="" height="30px" width="50px"></a>&emsp;
                     <a href="#"><img src="{{ url_for('static', filename='./images/cloud.png') }}" class="liens_orange" alt="" height="30px" width="30px"></a>&emsp;
-                    {%if ut%}
                     <a href="{{ url_for('panier_page',email=email)}}"><img src="{{ url_for('static', filename='./images/cart.png') }}" class="liens_orange" alt="" height="30px" width="30px"></a>
-                    {%endif%}
+                   
                 </div>
 
             </nav>
