@@ -579,9 +579,9 @@ def proposerTelephone():
         ut= Utilisateur.query.filter_by(email="test@test.com").first()
     #domaine = donnee['conversation']['memory']['domaine']['value']
     try:
-        prix = donnee['conversation']['memory']['money_max']['scalar']
-    except:
         prix = donnee['conversation']['memory']['money_max']['amount']
+    except:
+        prix = donnee['conversation']['memory']['money_max']['scalar']
 
     nombre = donnee['conversation']['memory']['nombre']['scalar']
     #localisation = donnee['conversation']['memory']['localisation']['value']
