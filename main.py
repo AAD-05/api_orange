@@ -583,7 +583,6 @@ def proposerTelephone():
     except:
         prix = donnee['conversation']['memory']['money_max']['amount']
 
-
     nombre = donnee['conversation']['memory']['nombre']['scalar']
     #localisation = donnee['conversation']['memory']['localisation']['value']
     n_design = donnee['conversation']['memory']['note_design']['scalar']
@@ -632,7 +631,6 @@ def proposerTelephone():
                                             }
                                         ]
                                     })
-        
     if(len(telephones)!=0):
         return jsonify(
             status=200,
@@ -667,6 +665,7 @@ def proposerForfait():
         prix = donnee['conversation']['memory']['money_max']['scalar']
     except:
         prix = donnee['conversation']['memory']['money_max']['amount']
+    
     nombre = donnee['conversation']['memory']['nombre']['scalar']
     #localisation = donnee['conversation']['memory']['localisation']['value']
     t_giga = donnee['conversation']['memory']['type_giga']['value']
@@ -674,7 +673,7 @@ def proposerForfait():
     try:
         zone = donnee['conversation']['memory']['zone']['value']
     except:
-        zone = donnee['conversation']['memory']['localisation']['value']
+        zone = "europe"
 
     f_prix = Forfait.query.filter(Forfait.prix <= prix)
     forfaits = []
