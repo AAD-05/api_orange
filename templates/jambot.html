@@ -25,7 +25,7 @@
                     <img src="{{ url_for('static', filename='./images/contact.png') }}" alt="" height="30px" width="160px">&emsp;&emsp;
                     <img src="{{ url_for('static', filename='./images/rdv.png') }}" alt="" height="30px" width="160px">&emsp;&emsp;
                     {%if not ut%}
-                    <a href=""><img src="{{ url_for('static', filename='./images/ident.png') }}" alt="" height="30px" width="160px"></a>
+                    <a href="{{ url_for('accueil')}}"><img src="{{ url_for('static', filename='./images/ident.png') }}" alt="" height="30px" width="160px"></a>
                     {%endif%}
                 </div>
             </nav>

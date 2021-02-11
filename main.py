@@ -237,7 +237,7 @@ sched.start()
     Créons une requête pour modifier le statut d'une commande 
 """
 @app.route('/accueil', methods=['GET'])
-def bonjour():
+def accueil():
     maj_dashboard()
     return render_template('accueil.html')
 
