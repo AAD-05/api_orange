@@ -578,6 +578,8 @@ def proposerTelephone():
     except:
         ut= Utilisateur.query.filter_by(email="test@test.com").first()
     #domaine = donnee['conversation']['memory']['domaine']['value']
+    
+    n_design = donnee['conversation']['memory']['note_design']['scalar']
     try:
         prix = donnee['conversation']['memory']['money_max']['amount']
     except:
@@ -585,7 +587,6 @@ def proposerTelephone():
 
     nombre = donnee['conversation']['memory']['nombre']['scalar']
     #localisation = donnee['conversation']['memory']['localisation']['value']
-    n_design = donnee['conversation']['memory']['note_design']['scalar']
     n_appareil = donnee['conversation']['memory']['note_appareil']['scalar']
     n_connection = donnee['conversation']['memory']['note_connection']['scalar']
     n_batterie = donnee['conversation']['memory']['note_batterie']['scalar']
